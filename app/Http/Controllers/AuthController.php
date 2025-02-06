@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\Events\Registered;
 
 /**
  * @group Authentication
@@ -188,28 +190,68 @@ class AuthController extends Controller
      *   }
      * }
      */
-    public function register(Request $request): JsonResponse
+    public function register(Request $request)
     {
-        $validated = $request->validate([
+        $passwordPolicyService = app(PasswordPolicyService::class);
+        
+        $rules = [
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => array_merge(
-                ['required', 'confirmed'],
-                [$this->passwordPolicy->getValidationRules()]
-            ),
+                ['required', 'string', 'confirmed'],
+                [$passwordPolicyService->getValidationRules()]
+            )
+        ];
+
+        \Log::debug('Password validation rules:', [
+            'rules' => $rules,
+            'password_length' => strlen($request->password),
+            'has_uppercase' => preg_match('/[A-Z]/', $request->password) > 0,
+            'has_lowercase' => preg_match('/[a-z]/', $request->password) > 0,
+            'has_number' => preg_match('/[0-9]/', $request->password) > 0,
+            'has_special' => preg_match('/[^A-Za-z0-9]/', $request->password) > 0
         ]);
 
-        $user = User::create([
-            'email' => $validated['email'],
-            'password_hash' => Hash::make($validated['password']),
-            'password_changed_at' => now(),
-        ]);
+        try {
+            $validated = $request->validate($rules);
 
-        // Record password in history
-        $this->passwordPolicy->recordPassword($user, $user->password_hash);
+            $user = User::create([
+                'email' => $validated['email'],
+                'password_hash' => Hash::make($validated['password']),
+                'password_changed_at' => now(),
+            ]);
 
-        return response()->json([
-            'message' => 'User registered successfully'
-        ], 201);
+            $passwordPolicyService->recordPassword($user, $user->password_hash);
+
+            event(new Registered($user));
+
+            // Create session for the new user
+            $session = Session::create([
+                'id' => Str::random(40),
+                'user_id' => $user->id,
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'payload' => json_encode([
+                    'user_id' => $user->id,
+                    'created_at' => now(),
+                    'remember_me' => false,
+                    'device_fingerprint' => hash('sha256', $request->ip() . $request->userAgent())
+                ]),
+                'last_activity' => time()
+            ]);
+
+            return response()->json([
+                'message' => 'User registered successfully',
+                'session_id' => $session->id
+            ], 201)->withCookie(
+                cookie('session_id', $session->id, 24 * 60) // 24 saat
+            );
+
+        } catch (ValidationException $e) {
+            \Log::debug('Password validation failed:', [
+                'errors' => $e->errors()
+            ]);
+            throw $e;
+        }
     }
 
     /**
