@@ -9,10 +9,16 @@ use Illuminate\Support\Facades\Route;
 
 // Public routes
 Route::prefix('auth')->group(function () {
-    Route::post('login', [AuthController::class, 'login']);
-    Route::post('register', [AuthController::class, 'register']);
-    Route::post('password/forgot', [PasswordController::class, 'forgot']);
-    Route::post('password/reset', [PasswordController::class, 'reset']);
+    Route::post('login', [AuthController::class, 'login'])
+        ->middleware('throttle:login');
+    
+    Route::post('register', [AuthController::class, 'register'])
+        ->middleware('throttle:login');
+
+    Route::middleware('throttle:password-reset')->group(function () {
+        Route::post('password/forgot', [PasswordController::class, 'forgot']);
+        Route::post('password/reset', [PasswordController::class, 'reset']);
+    });
 
     // Protected routes
     Route::middleware('auth.session')->group(function () {
@@ -22,8 +28,10 @@ Route::prefix('auth')->group(function () {
 
 // OAuth routes
 Route::prefix('oauth')->group(function () {
-    Route::post('token', [OAuthController::class, 'issueToken']);
-    Route::post('token/revoke', [OAuthController::class, 'revokeToken']);
+    Route::middleware('throttle:oauth-token')->group(function () {
+        Route::post('token', [OAuthController::class, 'issueToken']);
+        Route::post('token/revoke', [OAuthController::class, 'revokeToken']);
+    });
     
     Route::middleware('auth.session')->group(function () {
         Route::get('authorize', [OAuthController::class, 'authorize']);
@@ -32,7 +40,7 @@ Route::prefix('oauth')->group(function () {
 });
 
 // Protected routes
-Route::middleware('auth.session')->group(function () {
+Route::middleware(['auth.session', 'throttle:api'])->group(function () {
     Route::prefix('users/me')->group(function () {
         Route::get('/', [UserController::class, 'me']);
         Route::put('/', [UserController::class, 'update']);

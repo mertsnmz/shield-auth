@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'auth.session' => \App\Http\Middleware\AuthenticateSession::class,
+            'throttle' => \App\Http\Middleware\RateLimiter::class,
         ]);
 
         $middleware->group('api', [
@@ -21,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
             \App\Http\Middleware\ForceJsonResponse::class,
+            \App\Http\Middleware\RateLimiter::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
