@@ -1,0 +1,122 @@
+name: 'Session Management'
+description: |-
+
+  APIs for managing user sessions
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/users/me/sessions
+    metadata:
+      groupName: 'Session Management'
+      groupDescription: |-
+
+        APIs for managing user sessions
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'List Sessions'
+      description: 'Get all active sessions for the authenticated user.'
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          [
+            {
+              "id": "abc123",
+              "ip_address": "192.168.1.1",
+              "user_agent": "Mozilla/5.0...",
+              "last_activity": "2024-03-20 10:00:00",
+              "is_current_device": true
+            }
+          ]
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/users/me/sessions/{id}'
+    metadata:
+      groupName: 'Session Management'
+      groupDescription: |-
+
+        APIs for managing user sessions
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Delete Session'
+      description: 'Terminate a specific session.'
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the session.'
+        required: true
+        example: abc123
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanUrlParameters:
+      id: abc123
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "message": "Session terminated successfully"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+            "message": "Cannot delete current session"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+            "message": "Session not found"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

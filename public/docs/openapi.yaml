@@ -105,31 +105,15 @@ paths:
                   description: 'The password of the user.'
                   example: password123
                   nullable: false
+                remember_me:
+                  type: boolean
+                  description: 'optional Remember me option.'
+                  example: true
+                  nullable: false
               required:
                 - email
                 - password
       security: []
-  /api/auth/logout:
-    post:
-      summary: Logout
-      operationId: logout
-      description: 'Invalidate the current session.'
-      parameters: []
-      responses:
-        200:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Logged out successfully'
-                properties:
-                  message:
-                    type: string
-                    example: 'Logged out successfully'
-      tags:
-        - Authentication
   /api/auth/register:
     post:
       summary: Register
@@ -209,6 +193,499 @@ paths:
                 - email
                 - password
                 - password_confirmation
+      security: []
+  /api/auth/logout:
+    post:
+      summary: Logout
+      operationId: logout
+      description: 'Invalidate the current session.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Logged out successfully'
+                properties:
+                  message:
+                    type: string
+                    example: 'Logged out successfully'
+      tags:
+        - Authentication
+  /api/oauth/token:
+    post:
+      summary: 'Issue Token'
+      operationId: issueToken
+      description: "Issue an access token using one of the supported grant types:\n- authorization_code\n- client_credentials\n- refresh_token"
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  token_type: Bearer
+                  expires_in: 3600
+                  access_token: eyJ0eXAiOiJKV1QiLCJhbG...
+                  refresh_token: def50200841d3e9ad...
+                  scope: 'profile email'
+                properties:
+                  token_type:
+                    type: string
+                    example: Bearer
+                  expires_in:
+                    type: integer
+                    example: 3600
+                  access_token:
+                    type: string
+                    example: eyJ0eXAiOiJKV1QiLCJhbG...
+                  refresh_token:
+                    type: string
+                    example: def50200841d3e9ad...
+                  scope:
+                    type: string
+                    example: 'profile email'
+        400:
+          description: ''
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  -
+                    description: ''
+                    type: object
+                    example:
+                      error: invalid_request
+                      error_description: 'The request is missing a required parameter'
+                    properties:
+                      error:
+                        type: string
+                        example: invalid_request
+                      error_description:
+                        type: string
+                        example: 'The request is missing a required parameter'
+                  -
+                    description: ''
+                    type: object
+                    example:
+                      error: invalid_grant
+                      error_description: 'The authorization code is invalid'
+                    properties:
+                      error:
+                        type: string
+                        example: invalid_grant
+                      error_description:
+                        type: string
+                        example: 'The authorization code is invalid'
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error: invalid_client
+                  error_description: 'Client authentication failed'
+                properties:
+                  error:
+                    type: string
+                    example: invalid_client
+                  error_description:
+                    type: string
+                    example: 'Client authentication failed'
+      tags:
+        - 'OAuth2 Authentication'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  description: 'The grant type.'
+                  example: authorization_code
+                  nullable: false
+                client_id:
+                  type: string
+                  description: 'The client ID.'
+                  example: test-client
+                  nullable: false
+                client_secret:
+                  type: string
+                  description: 'The client secret.'
+                  example: test-secret
+                  nullable: false
+                code:
+                  type: string
+                  description: 'for authorization_code The authorization code.'
+                  example: def50200...
+                  nullable: false
+                refresh_token:
+                  type: string
+                  description: 'for refresh_token The refresh token.'
+                  example: def50200...
+                  nullable: false
+                redirect_uri:
+                  type: string
+                  description: 'for authorization_code The redirect URI.'
+                  example: 'https://client.example.com/callback'
+                  nullable: false
+                scope:
+                  type: string
+                  description: 'The requested scope.'
+                  example: 'profile email'
+                  nullable: false
+              required:
+                - grant_type
+                - client_id
+                - client_secret
+                - code
+                - refresh_token
+                - redirect_uri
+      security: []
+  /api/oauth/token/revoke:
+    post:
+      summary: 'Revoke Token'
+      operationId: revokeToken
+      description: 'Revoke an access token and its associated refresh token.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Token revoked successfully'
+                properties:
+                  message:
+                    type: string
+                    example: 'Token revoked successfully'
+        400:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error: invalid_request
+                  error_description: 'The request is missing a required parameter'
+                properties:
+                  error:
+                    type: string
+                    example: invalid_request
+                  error_description:
+                    type: string
+                    example: 'The request is missing a required parameter'
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error: invalid_client
+                  error_description: 'Client authentication failed'
+                properties:
+                  error:
+                    type: string
+                    example: invalid_client
+                  error_description:
+                    type: string
+                    example: 'Client authentication failed'
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error: invalid_token
+                  error_description: 'Token not found'
+                properties:
+                  error:
+                    type: string
+                    example: invalid_token
+                  error_description:
+                    type: string
+                    example: 'Token not found'
+      tags:
+        - 'OAuth2 Authentication'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: 'The access token to revoke.'
+                  example: eyJ0eXAiOiJKV1QiLCJhbG...
+                  nullable: false
+                client_id:
+                  type: string
+                  description: 'The client ID.'
+                  example: test-client
+                  nullable: false
+                client_secret:
+                  type: string
+                  description: 'The client secret.'
+                  example: test-secret
+                  nullable: false
+              required:
+                - token
+                - client_id
+                - client_secret
+      security: []
+  /api/oauth/authorize:
+    get:
+      summary: Authorize
+      operationId: authorize
+      description: 'First step of Authorization Code flow. Shows authorization form to the user.'
+      parameters:
+        -
+          in: query
+          name: client_id
+          description: 'The client ID.'
+          example: test-client
+          required: true
+          schema:
+            type: string
+            description: 'The client ID.'
+            example: test-client
+            nullable: false
+        -
+          in: query
+          name: redirect_uri
+          description: 'The redirect URI.'
+          example: 'https://client.example.com/callback'
+          required: true
+          schema:
+            type: string
+            description: 'The redirect URI.'
+            example: 'https://client.example.com/callback'
+            nullable: false
+        -
+          in: query
+          name: response_type
+          description: 'Must be "code".'
+          example: code
+          required: true
+          schema:
+            type: string
+            description: 'Must be "code".'
+            example: code
+            nullable: false
+        -
+          in: query
+          name: scope
+          description: 'The requested scope.'
+          example: 'profile email'
+          required: false
+          schema:
+            type: string
+            description: 'The requested scope.'
+            example: 'profile email'
+            nullable: false
+        -
+          in: query
+          name: state
+          description: 'A random string to prevent CSRF.'
+          example: xyz123
+          required: false
+          schema:
+            type: string
+            description: 'A random string to prevent CSRF.'
+            example: xyz123
+            nullable: false
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  client:
+                    name: 'Test Client'
+                    redirect_uri: 'https://client.example.com/callback'
+                  scopes:
+                    -
+                      name: profile
+                      description: 'Access user profile information'
+                properties:
+                  client:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: 'Test Client'
+                      redirect_uri:
+                        type: string
+                        example: 'https://client.example.com/callback'
+                  scopes:
+                    type: array
+                    example:
+                      -
+                        name: profile
+                        description: 'Access user profile information'
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: profile
+                        description:
+                          type: string
+                          example: 'Access user profile information'
+        400:
+          description: ''
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  -
+                    description: ''
+                    type: object
+                    example:
+                      error: invalid_request
+                      error_description: 'The request is missing a required parameter'
+                    properties:
+                      error:
+                        type: string
+                        example: invalid_request
+                      error_description:
+                        type: string
+                        example: 'The request is missing a required parameter'
+                  -
+                    description: ''
+                    type: object
+                    example:
+                      error: invalid_client
+                      error_description: 'Client not found or redirect URI mismatch'
+                    properties:
+                      error:
+                        type: string
+                        example: invalid_client
+                      error_description:
+                        type: string
+                        example: 'Client not found or redirect URI mismatch'
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated
+      tags:
+        - 'OAuth2 Authentication'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  type: string
+                  description: ''
+                  example: ut
+                  nullable: false
+                redirect_uri:
+                  type: string
+                  description: 'Must be a valid URL.'
+                  example: 'https://rutherford.net/dolore-consequatur-quia-dolor-doloremque-architecto-exercitationem-omnis.html'
+                  nullable: false
+                response_type:
+                  type: string
+                  description: ''
+                  example: code
+                  nullable: false
+                  enum:
+                    - code
+                scope:
+                  type: string
+                  description: ''
+                  example: perspiciatis
+                  nullable: false
+                state:
+                  type: string
+                  description: ''
+                  example: veritatis
+                  nullable: false
+              required:
+                - client_id
+                - redirect_uri
+                - response_type
+      security: []
+    post:
+      summary: 'Approve Authorization'
+      operationId: approveAuthorization
+      description: 'Second step of Authorization Code flow. Creates authorization code after user approval.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  code: def50200...
+                  state: xyz123
+                properties:
+                  code:
+                    type: string
+                    example: def50200...
+                  state:
+                    type: string
+                    example: xyz123
+      tags:
+        - 'OAuth2 Authentication'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  type: string
+                  description: 'The client ID.'
+                  example: test-client
+                  nullable: false
+                redirect_uri:
+                  type: string
+                  description: 'The redirect URI.'
+                  example: 'https://client.example.com/callback'
+                  nullable: false
+                scope:
+                  type: string
+                  description: 'The approved scope.'
+                  example: 'profile email'
+                  nullable: false
+                state:
+                  type: string
+                  description: 'The state from the authorization request.'
+                  example: xyz123
+                  nullable: false
+              required:
+                - client_id
+                - redirect_uri
       security: []
   /api/auth/password/forgot:
     post:
@@ -622,6 +1099,9 @@ tags:
   -
     name: Authentication
     description: "\nAPIs for managing authentication"
+  -
+    name: 'OAuth2 Authentication'
+    description: "\nAPIs for OAuth2 authentication flows"
   -
     name: 'Password Management'
     description: "\nAPIs for managing passwords"

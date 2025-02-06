@@ -46,9 +46,20 @@ endpoints:
         exampleWasSpecified: true
         nullable: false
         custom: []
+      remember_me:
+        name: remember_me
+        description: 'optional Remember me option.'
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
     cleanBodyParameters:
       email: user@example.com
       password: password123
+      remember_me: true
     fileParameters: []
     responses:
       -
@@ -90,47 +101,6 @@ endpoints:
           {
             "message": "Password change required",
             "password_expired": true
-          }
-        headers: []
-        description: ''
-        custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - POST
-    uri: api/auth/logout
-    metadata:
-      groupName: Authentication
-      groupDescription: |-
-
-        APIs for managing authentication
-      subgroup: ''
-      subgroupDescription: ''
-      title: Logout
-      description: 'Invalidate the current session.'
-      authenticated: true
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-            "message": "Logged out successfully"
           }
         headers: []
         description: ''
@@ -218,6 +188,47 @@ endpoints:
               "email": ["The email has already been taken."],
               "password": ["The password must be at least 8 characters."]
             }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/auth/logout
+    metadata:
+      groupName: Authentication
+      groupDescription: |-
+
+        APIs for managing authentication
+      subgroup: ''
+      subgroupDescription: ''
+      title: Logout
+      description: 'Invalidate the current session.'
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "message": "Logged out successfully"
           }
         headers: []
         description: ''

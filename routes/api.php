@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OAuth\OAuthController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
@@ -16,6 +17,17 @@ Route::prefix('auth')->group(function () {
     // Protected routes
     Route::middleware('auth.session')->group(function () {
         Route::post('logout', [AuthController::class, 'logout']);
+    });
+});
+
+// OAuth routes
+Route::prefix('oauth')->group(function () {
+    Route::post('token', [OAuthController::class, 'issueToken']);
+    Route::post('token/revoke', [OAuthController::class, 'revokeToken']);
+    
+    Route::middleware('auth.session')->group(function () {
+        Route::get('authorize', [OAuthController::class, 'authorize']);
+        Route::post('authorize', [OAuthController::class, 'approveAuthorization']);
     });
 });
 
