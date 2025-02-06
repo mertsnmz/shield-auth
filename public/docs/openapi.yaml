@@ -1,0 +1,633 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/auth/login:
+    post:
+      summary: Login
+      operationId: login
+      description: 'Authenticate a user and create a new session.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Logged in successfully'
+                  session_id: abc123
+                  password_status:
+                    expired: false
+                    days_left: 45
+                    status: valid
+                properties:
+                  message:
+                    type: string
+                    example: 'Logged in successfully'
+                  session_id:
+                    type: string
+                    example: abc123
+                  password_status:
+                    type: object
+                    properties:
+                      expired:
+                        type: boolean
+                        example: false
+                      days_left:
+                        type: integer
+                        example: 45
+                      status:
+                        type: string
+                        example: valid
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  -
+                    description: ''
+                    type: object
+                    example:
+                      message: 'Invalid credentials'
+                    properties:
+                      message:
+                        type: string
+                        example: 'Invalid credentials'
+                  -
+                    description: ''
+                    type: object
+                    example:
+                      message: 'Account is locked due to too many failed attempts'
+                    properties:
+                      message:
+                        type: string
+                        example: 'Account is locked due to too many failed attempts'
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Password change required'
+                  password_expired: true
+                properties:
+                  message:
+                    type: string
+                    example: 'Password change required'
+                  password_expired:
+                    type: boolean
+                    example: true
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'The email of the user.'
+                  example: user@example.com
+                  nullable: false
+                password:
+                  type: string
+                  description: 'The password of the user.'
+                  example: password123
+                  nullable: false
+              required:
+                - email
+                - password
+      security: []
+  /api/auth/logout:
+    post:
+      summary: Logout
+      operationId: logout
+      description: 'Invalidate the current session.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Logged out successfully'
+                properties:
+                  message:
+                    type: string
+                    example: 'Logged out successfully'
+      tags:
+        - Authentication
+  /api/auth/register:
+    post:
+      summary: Register
+      operationId: register
+      description: 'Register a new user account.'
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'User registered successfully'
+                properties:
+                  message:
+                    type: string
+                    example: 'User registered successfully'
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The given data was invalid.'
+                  errors:
+                    email:
+                      - 'The email has already been taken.'
+                    password:
+                      - 'The password must be at least 8 characters.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The given data was invalid.'
+                  errors:
+                    type: object
+                    properties:
+                      email:
+                        type: array
+                        example:
+                          - 'The email has already been taken.'
+                        items:
+                          type: string
+                      password:
+                        type: array
+                        example:
+                          - 'The password must be at least 8 characters.'
+                        items:
+                          type: string
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'The email address.'
+                  example: user@example.com
+                  nullable: false
+                password:
+                  type: string
+                  description: 'The password (must meet password policy requirements).'
+                  example: StrongPass123!
+                  nullable: false
+                password_confirmation:
+                  type: string
+                  description: 'The password confirmation.'
+                  example: StrongPass123!
+                  nullable: false
+              required:
+                - email
+                - password
+                - password_confirmation
+      security: []
+  /api/auth/password/forgot:
+    post:
+      summary: 'Forgot Password'
+      operationId: forgotPassword
+      description: 'Send a password reset link to the given email.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Password reset link sent'
+                properties:
+                  message:
+                    type: string
+                    example: 'Password reset link sent'
+        400:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Unable to send reset link'
+                properties:
+                  message:
+                    type: string
+                    example: 'Unable to send reset link'
+      tags:
+        - 'Password Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'The email address.'
+                  example: user@example.com
+                  nullable: false
+              required:
+                - email
+      security: []
+  /api/auth/password/reset:
+    post:
+      summary: 'Reset Password'
+      operationId: resetPassword
+      description: 'Reset the password using the reset token.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Password has been reset'
+                properties:
+                  message:
+                    type: string
+                    example: 'Password has been reset'
+        400:
+          description: ''
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  -
+                    description: ''
+                    type: object
+                    example:
+                      message: 'Password was used before'
+                    properties:
+                      message:
+                        type: string
+                        example: 'Password was used before'
+                  -
+                    description: ''
+                    type: object
+                    example:
+                      message: 'Unable to reset password'
+                    properties:
+                      message:
+                        type: string
+                        example: 'Unable to reset password'
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'User not found'
+                properties:
+                  message:
+                    type: string
+                    example: 'User not found'
+      tags:
+        - 'Password Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: 'The reset token.'
+                  example: '1234567890'
+                  nullable: false
+                email:
+                  type: string
+                  description: 'The email address.'
+                  example: user@example.com
+                  nullable: false
+                password:
+                  type: string
+                  description: 'The new password.'
+                  example: NewStrongPass123!
+                  nullable: false
+                password_confirmation:
+                  type: string
+                  description: 'The password confirmation.'
+                  example: NewStrongPass123!
+                  nullable: false
+              required:
+                - token
+                - email
+                - password
+                - password_confirmation
+      security: []
+  /api/users/me/sessions:
+    get:
+      summary: 'List Sessions'
+      operationId: listSessions
+      description: 'Get all active sessions for the authenticated user.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  -
+                    id: abc123
+                    ip_address: 192.168.1.1
+                    user_agent: Mozilla/5.0...
+                    last_activity: '2024-03-20 10:00:00'
+                    is_current_device: true
+      tags:
+        - 'Session Management'
+  '/api/users/me/sessions/{id}':
+    delete:
+      summary: 'Delete Session'
+      operationId: deleteSession
+      description: 'Terminate a specific session.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Session terminated successfully'
+                properties:
+                  message:
+                    type: string
+                    example: 'Session terminated successfully'
+        400:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Cannot delete current session'
+                properties:
+                  message:
+                    type: string
+                    example: 'Cannot delete current session'
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Session not found'
+                properties:
+                  message:
+                    type: string
+                    example: 'Session not found'
+      tags:
+        - 'Session Management'
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the session.'
+        example: abc123
+        required: true
+        schema:
+          type: string
+  /api/users/me:
+    get:
+      summary: 'Get Current User'
+      operationId: getCurrentUser
+      description: "Get the authenticated user's profile information."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  user:
+                    id: 1
+                    email: user@example.com
+                    last_login_at: '2024-03-20T10:00:00Z'
+                    two_factor_enabled: false
+                    password_status:
+                      expired: false
+                      days_left: 45
+                      status: valid
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      email:
+                        type: string
+                        example: user@example.com
+                      last_login_at:
+                        type: string
+                        example: '2024-03-20T10:00:00Z'
+                      two_factor_enabled:
+                        type: boolean
+                        example: false
+                      password_status:
+                        type: object
+                        properties:
+                          expired:
+                            type: boolean
+                            example: false
+                          days_left:
+                            type: integer
+                            example: 45
+                          status:
+                            type: string
+                            example: valid
+      tags:
+        - 'User Management'
+    put:
+      summary: 'Update Profile'
+      operationId: updateProfile
+      description: "Update the authenticated user's profile information."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Profile updated successfully'
+                  user:
+                    id: 1
+                    email: newuser@example.com
+                properties:
+                  message:
+                    type: string
+                    example: 'Profile updated successfully'
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      email:
+                        type: string
+                        example: newuser@example.com
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The given data was invalid.'
+                  errors:
+                    email:
+                      - 'The email has already been taken.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The given data was invalid.'
+                  errors:
+                    type: object
+                    properties:
+                      email:
+                        type: array
+                        example:
+                          - 'The email has already been taken.'
+                        items:
+                          type: string
+      tags:
+        - 'User Management'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'The new email address.'
+                  example: newuser@example.com
+                  nullable: false
+  /api/users/me/password:
+    put:
+      summary: 'Update Password'
+      operationId: updatePassword
+      description: "Update the authenticated user's password."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Password updated successfully'
+                properties:
+                  message:
+                    type: string
+                    example: 'Password updated successfully'
+        400:
+          description: ''
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  -
+                    description: ''
+                    type: object
+                    example:
+                      message: 'Current password is incorrect'
+                    properties:
+                      message:
+                        type: string
+                        example: 'Current password is incorrect'
+                  -
+                    description: ''
+                    type: object
+                    example:
+                      message: 'Password was used before'
+                    properties:
+                      message:
+                        type: string
+                        example: 'Password was used before'
+      tags:
+        - 'User Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                current_password:
+                  type: string
+                  description: 'The current password.'
+                  example: CurrentPass123!
+                  nullable: false
+                password:
+                  type: string
+                  description: 'The new password.'
+                  example: NewStrongPass123!
+                  nullable: false
+                password_confirmation:
+                  type: string
+                  description: 'The new password confirmation.'
+                  example: NewStrongPass123!
+                  nullable: false
+              required:
+                - current_password
+                - password
+                - password_confirmation
+tags:
+  -
+    name: Authentication
+    description: "\nAPIs for managing authentication"
+  -
+    name: 'Password Management'
+    description: "\nAPIs for managing passwords"
+  -
+    name: 'Session Management'
+    description: "\nAPIs for managing user sessions"
+  -
+    name: 'User Management'
+    description: "\nAPIs for managing user profile"
