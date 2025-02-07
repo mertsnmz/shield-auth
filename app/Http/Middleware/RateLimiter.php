@@ -83,30 +83,30 @@ class RateLimiter
     protected function getRateLimits(string $limiterName): array
     {
         return match($limiterName) {
-            // Login ve Register için sıkı limit (Brute force önlemi)
+            // Strict limit for Login and Register (Brute force prevention)
             'login' => [
-                'maxAttempts' => 5,      // 5 deneme hakkı
-                'decayMinutes' => 1      // 1 dakika bekleme
+                'maxAttempts' => 5,      // 5 attempts allowed
+                'decayMinutes' => 1      // 1 minute wait
             ],
-            // 2FA için sıkı limit
+            // Strict limit for 2FA
             '2fa' => [
-                'maxAttempts' => 3,      // 3 deneme hakkı
-                'decayMinutes' => 5      // 5 dakika bekleme
+                'maxAttempts' => 3,      // 3 attempts allowed
+                'decayMinutes' => 5      // 5 minutes wait
             ],
-            // Şifre sıfırlama için daha geniş limit
+            // Extended limit for password reset
             'password-reset' => [
-                'maxAttempts' => 3,      // 3 deneme hakkı
-                'decayMinutes' => 60     // 1 saat bekleme
+                'maxAttempts' => 3,      // 3 attempts allowed
+                'decayMinutes' => 60     // 1 hour wait
             ],
-            // OAuth token işlemleri için orta seviye limit
+            // Medium level limit for OAuth token operations
             'oauth-token' => [
-                'maxAttempts' => 10,     // 10 istek hakkı
-                'decayMinutes' => 1      // 1 dakika bekleme
+                'maxAttempts' => 10,     // 10 requests allowed
+                'decayMinutes' => 1      // 1 minute wait
             ],
-            // Genel API istekleri için standart limit
+            // Standard limit for general API requests
             default => [
-                'maxAttempts' => 60,     // Dakikada 60 istek
-                'decayMinutes' => 1      // 1 dakika bekleme
+                'maxAttempts' => 60,     // 60 requests per minute
+                'decayMinutes' => 1      // 1 minute wait
             ]
         };
     }

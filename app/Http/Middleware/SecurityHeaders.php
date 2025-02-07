@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SecurityHeaders
 {
-    private $headers = [
+    private array $headers = [
         'X-Content-Type-Options' => 'nosniff',
         'X-Frame-Options' => 'SAMEORIGIN',
         'X-XSS-Protection' => '1; mode=block',
@@ -30,4 +30,4 @@ class SecurityHeaders
 
         return $response;
     }
-} 
+}

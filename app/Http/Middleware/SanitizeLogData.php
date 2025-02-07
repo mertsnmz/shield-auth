@@ -27,10 +27,10 @@ class SanitizeLogData
 
     public function handle(Request $request, Closure $next): Response
     {
-        // Log'lar için temizlenmiş veriyi hazırla
+        // Prepare sanitized data for logs
         $sanitizedData = $this->sanitize($request->all());
         
-        // Orijinal request verilerini değiştirmeden, log context'i için temizlenmiş veriyi ayarla
+        // Set sanitized data for log context without modifying original request data
         Log::shareContext([
             'request' => $sanitizedData,
             'headers' => collect($request->headers->all())

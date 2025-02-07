@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ForceJsonResponse
 {
     /**
-     * Tüm yanıtları JSON formatına dönüştürür
+     * Convert all responses to JSON format
      */
     public function handle(Request $request, Closure $next): Response
     {
