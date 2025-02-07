@@ -31,15 +31,15 @@ class TwoFactorAuthService
     {
         $company = config('app.name', 'Laravel');
         $qrCodeUrl = $this->google2fa->getQRCodeUrl($company, $email, $secret);
-        
+
         $renderer = new ImageRenderer(
             new RendererStyle(self::QR_SIZE),
             new SvgImageBackEnd()
         );
-        
+
         $writer = new Writer($renderer);
         $qrCode = $writer->writeString($qrCodeUrl);
-        
+
         return 'data:image/svg+xml;base64,' . base64_encode($qrCode);
     }
 
@@ -92,12 +92,12 @@ class TwoFactorAuthService
         return [
             'secret' => $secret,
             'qr_code' => $qrCode,
-            'recovery_codes' => $recoveryCodes
+            'recovery_codes' => $recoveryCodes,
         ];
     }
 
     /**
-     * Disable 2FA for the user
+     * Disable 2FA for the user.
      */
     public function disable2FA(User $user): void
     {
@@ -109,7 +109,7 @@ class TwoFactorAuthService
     }
 
     /**
-     * Check if 2FA is enabled for the user
+     * Check if 2FA is enabled for the user.
      */
     public function isEnabled(User $user): bool
     {

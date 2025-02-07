@@ -17,7 +17,7 @@ class SecurityHeaders
         'Referrer-Policy' => 'no-referrer-when-downgrade',
         'Permissions-Policy' => 'camera=(), microphone=(), geolocation=(), payment=()',
         'Access-Control-Allow-Origin' => '*',
-        'Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE, OPTIONS'
+        'Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE, OPTIONS',
     ];
 
     public function handle(Request $request, Closure $next): Response

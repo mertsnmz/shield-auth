@@ -27,7 +27,7 @@ class TwoFactorAuthTest extends TestCase
 
         $this->user = User::factory()->create([
             'email' => 'test@example.com',
-            'password_hash' => Hash::make(self::TEST_PASSWORD)
+            'password_hash' => Hash::make(self::TEST_PASSWORD),
         ]);
 
         $sessionId = Str::random(40);
@@ -40,9 +40,9 @@ class TwoFactorAuthTest extends TestCase
                 'created_at' => now(),
                 'user_id' => $this->user->id,
                 'ip_address' => '127.0.0.1',
-                'user_agent' => 'PHPUnit'
+                'user_agent' => 'PHPUnit',
             ]),
-            'last_activity' => time()
+            'last_activity' => time(),
         ]);
 
         $encryptedSessionId = Crypt::encryptString($sessionId);
@@ -51,7 +51,7 @@ class TwoFactorAuthTest extends TestCase
         $this->google2fa = new Google2FA();
     }
 
-    public function test_enable_2fa(): array
+    public function testEnable2fa(): array
     {
         $this->withoutMiddleware([AuthenticateSession::class]);
         $this->actingAs($this->user);
@@ -73,9 +73,9 @@ class TwoFactorAuthTest extends TestCase
     }
 
     /**
-     * @depends test_enable_2fa
+     * @depends testEnable2fa
      */
-    public function test_verify_2fa(array $setupData): array
+    public function testVerify2fa(array $setupData): array
     {
         $this->withoutMiddleware([AuthenticateSession::class]);
         $this->actingAs($this->user);
@@ -86,7 +86,7 @@ class TwoFactorAuthTest extends TestCase
 
         $code = str_pad($this->google2fa->getCurrentOtp($setupData['secret']), 6, '0', STR_PAD_LEFT);
         $response = $this->postJson('/api/auth/2fa/verify', [
-            'code' => $code
+            'code' => $code,
         ]);
 
         $response->assertOk();
@@ -98,9 +98,9 @@ class TwoFactorAuthTest extends TestCase
     }
 
     /**
-     * @depends test_verify_2fa
+     * @depends testVerify2fa
      */
-    public function test_backup_codes(array $setupData)
+    public function testBackupCodes(array $setupData)
     {
         $this->withoutMiddleware([AuthenticateSession::class]);
         $this->actingAs($this->user);
@@ -134,9 +134,9 @@ class TwoFactorAuthTest extends TestCase
     }
 
     /**
-     * @depends test_backup_codes
+     * @depends testBackupCodes
      */
-    public function test_disable_2fa(array $setupData)
+    public function testDisable2fa(array $setupData)
     {
         $this->withoutMiddleware([AuthenticateSession::class]);
         $this->actingAs($this->user);
@@ -151,7 +151,7 @@ class TwoFactorAuthTest extends TestCase
 
         $response = $this->postJson('/api/auth/2fa/disable', [
             'current_password' => self::TEST_PASSWORD,
-            'code' => $code
+            'code' => $code,
         ]);
 
         $response->assertOk();
@@ -162,4 +162,4 @@ class TwoFactorAuthTest extends TestCase
         $this->assertNull($this->user->two_factor_recovery_codes);
         $this->assertNull($this->user->two_factor_confirmed_at);
     }
-} 
+}

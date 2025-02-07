@@ -16,12 +16,12 @@ class OAuthAccessToken extends Model
         'user_id',
         'expires',
         'scope',
-        'revoked'
+        'revoked',
     ];
 
     protected $casts = [
         'expires' => 'datetime',
-        'revoked' => 'boolean'
+        'revoked' => 'boolean',
     ];
 
     public function client(): BelongsTo

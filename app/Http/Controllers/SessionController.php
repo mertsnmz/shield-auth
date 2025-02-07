@@ -8,6 +8,7 @@ use App\Services\Session\SessionService;
 use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Exception;
 
 /**
  * @group Session Management
@@ -20,14 +21,16 @@ class SessionController extends Controller
 
     public function __construct(
         private readonly SessionService $sessionService
-    ) {}
+    ) {
+    }
 
     /**
-     * List Sessions
-     * 
+     * List Sessions.
+     *
      * Get all active sessions for the authenticated user.
      *
      * @param ListSessionsRequest $request
+     *
      * @return JsonResponse
      */
     public function index(ListSessionsRequest $request): JsonResponse
@@ -35,18 +38,19 @@ class SessionController extends Controller
         try {
             $sessions = $this->sessionService->getUserSessions(Auth::id());
             return $this->successResponse($sessions);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->errorResponse($e->getMessage(), $e->getCode());
         }
     }
 
     /**
-     * Delete Session
-     * 
+     * Delete Session.
+     *
      * Terminate a specific session.
      *
      * @param DeleteSessionRequest $request
-     * @param string $id
+     * @param string               $id
+     *
      * @return JsonResponse
      */
     public function destroy(DeleteSessionRequest $request, string $id): JsonResponse
@@ -54,8 +58,8 @@ class SessionController extends Controller
         try {
             $this->sessionService->terminateSession(Auth::id(), $id);
             return $this->successResponse(message: 'Session terminated successfully');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->errorResponse($e->getMessage(), $e->getCode());
         }
     }
-} 
+}

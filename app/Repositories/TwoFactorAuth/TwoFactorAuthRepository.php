@@ -10,21 +10,21 @@ class TwoFactorAuthRepository
     {
         $user->update([
             'two_factor_secret' => $secret,
-            'two_factor_enabled' => true
+            'two_factor_enabled' => true,
         ]);
     }
 
     public function updateTwoFactorConfirmation(User $user): void
     {
         $user->update([
-            'two_factor_confirmed_at' => now()
+            'two_factor_confirmed_at' => now(),
         ]);
     }
 
     public function updateRecoveryCodes(User $user, array $codes): void
     {
         $user->update([
-            'two_factor_recovery_codes' => json_encode($codes)
+            'two_factor_recovery_codes' => json_encode($codes),
         ]);
     }
 
@@ -34,14 +34,14 @@ class TwoFactorAuthRepository
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
             'two_factor_enabled' => false,
-            'two_factor_confirmed_at' => null
+            'two_factor_confirmed_at' => null,
         ]);
     }
 
     public function getRecoveryCodes(User $user): ?array
     {
-        return $user->two_factor_recovery_codes ? 
-            json_decode($user->two_factor_recovery_codes, true) : 
+        return $user->two_factor_recovery_codes ?
+            json_decode($user->two_factor_recovery_codes, true) :
             null;
     }
-} 
+}

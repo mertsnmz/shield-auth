@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\RegisterRequest;
 use App\Services\Auth\AuthService;
 use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
+use Exception;
 
 /**
  * @group Authentication
@@ -19,14 +20,16 @@ class AuthController extends Controller
 
     public function __construct(
         private readonly AuthService $authService
-    ) {}
+    ) {
+    }
 
     /**
-     * Login
-     * 
+     * Login.
+     *
      * Authenticate a user and create a new session.
      *
      * @param LoginRequest $request
+     *
      * @return JsonResponse
      */
     public function login(LoginRequest $request): JsonResponse
@@ -45,7 +48,7 @@ class AuthController extends Controller
                 [
                     'session_id' => $result['session_id'],
                     'password_status' => $result['password_status'],
-                    'requires_2fa' => false
+                    'requires_2fa' => false,
                 ],
                 $result['message']
             )->withCookie(
@@ -55,17 +58,18 @@ class AuthController extends Controller
                     $request->boolean('remember_me') ? 43200 : 1440
                 )
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->errorResponse($e->getMessage(), $e->getCode());
         }
     }
 
     /**
-     * Register
-     * 
+     * Register.
+     *
      * Register a new user account.
      *
      * @param RegisterRequest $request
+     *
      * @return JsonResponse
      */
     public function register(RegisterRequest $request): JsonResponse
@@ -80,14 +84,14 @@ class AuthController extends Controller
             )->withCookie(
                 cookie('session_id', $result['session_id'], 24 * 60)
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->errorResponse($e->getMessage(), $e->getCode());
         }
     }
 
     /**
-     * Logout
-     * 
+     * Logout.
+     *
      * Invalidate the current session.
      *
      * @return JsonResponse
@@ -96,7 +100,7 @@ class AuthController extends Controller
     {
         try {
             $sessionId = request()->cookie('session_id');
-            
+
             if (!$sessionId) {
                 return $this->errorResponse('No active session', 400);
             }
@@ -106,8 +110,8 @@ class AuthController extends Controller
             return $this->successResponse(
                 message: 'Logged out successfully'
             )->withoutCookie('session_id');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->errorResponse($e->getMessage(), $e->getCode());
         }
     }
-} 
+}

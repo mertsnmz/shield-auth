@@ -21,7 +21,7 @@ class RegisterRequest extends FormRequest
             'password' => array_merge(
                 ['required', 'string', 'confirmed'],
                 [$passwordPolicyService->getValidationRules()]
-            )
+            ),
         ];
     }
 
@@ -32,7 +32,7 @@ class RegisterRequest extends FormRequest
             'email.email' => 'Please enter a valid email address',
             'email.unique' => 'This email is already registered',
             'password.required' => 'Password is required',
-            'password.confirmed' => 'Password confirmation does not match'
+            'password.confirmed' => 'Password confirmation does not match',
         ];
     }
-} 
+}

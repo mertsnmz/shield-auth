@@ -16,7 +16,7 @@ class OAuthClient extends Model
         'name',
         'redirect_uri',
         'grant_types',
-        'scope'
+        'scope',
     ];
 
     public function scopes(): BelongsToMany

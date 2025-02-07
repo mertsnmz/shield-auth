@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      */
@@ -20,9 +19,9 @@ return new class extends Migration
 
             // Foreign key for access_token_id
             $table->foreign('access_token_id')
-                  ->references('access_token')
-                  ->on('oauth_access_tokens')
-                  ->onDelete('cascade');
+                ->references('access_token')
+                ->on('oauth_access_tokens')
+                ->onDelete('cascade');
         });
     }
 

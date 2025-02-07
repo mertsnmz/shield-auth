@@ -26,8 +26,8 @@ class OAuthController extends Controller
     private const AUTH_CODE_LIFETIME = 600; // 10 minutes
 
     /**
-     * Issue Token
-     * 
+     * Issue Token.
+     *
      * Issue an access token using one of the supported grant types:
      * - authorization_code
      * - client_credentials
@@ -73,7 +73,7 @@ class OAuthController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'error' => 'invalid_request',
-                'error_description' => 'The request is missing a required parameter'
+                'error_description' => 'The request is missing a required parameter',
             ], 400);
         }
 
@@ -85,7 +85,7 @@ class OAuthController extends Controller
         if (!$client) {
             return response()->json([
                 'error' => 'invalid_client',
-                'error_description' => 'Client authentication failed'
+                'error_description' => 'Client authentication failed',
             ], 401);
         }
 
@@ -96,14 +96,14 @@ class OAuthController extends Controller
             'refresh_token' => $this->handleRefreshToken($request, $client),
             default => response()->json([
                 'error' => 'unsupported_grant_type',
-                'error_description' => 'The authorization grant type is not supported'
+                'error_description' => 'The authorization grant type is not supported',
             ], 400)
         };
     }
 
     /**
-     * Authorize
-     * 
+     * Authorize.
+     *
      * First step of Authorization Code flow. Shows authorization form to the user.
      *
      * @queryParam client_id string required The client ID. Example: test-client
@@ -149,7 +149,7 @@ class OAuthController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'error' => 'invalid_request',
-                'error_description' => 'The request is missing a required parameter'
+                'error_description' => 'The request is missing a required parameter',
             ], 400);
         }
 
@@ -161,7 +161,7 @@ class OAuthController extends Controller
         if (!$client) {
             return response()->json([
                 'error' => 'invalid_client',
-                'error_description' => 'Client not found or redirect URI mismatch'
+                'error_description' => 'Client not found or redirect URI mismatch',
             ], 400);
         }
 
@@ -174,18 +174,18 @@ class OAuthController extends Controller
         return response()->json([
             'client' => [
                 'name' => $client->name,
-                'redirect_uri' => $client->redirect_uri
+                'redirect_uri' => $client->redirect_uri,
             ],
-            'scopes' => $scopes->map(fn($scope) => [
+            'scopes' => $scopes->map(fn ($scope) => [
                 'name' => $scope->name,
-                'description' => $scope->description
-            ])
+                'description' => $scope->description,
+            ]),
         ]);
     }
 
     /**
-     * Approve Authorization
-     * 
+     * Approve Authorization.
+     *
      * Second step of Authorization Code flow. Creates authorization code after user approval.
      *
      * @bodyParam client_id string required The client ID. Example: test-client
@@ -207,7 +207,7 @@ class OAuthController extends Controller
         if ($validator->fails()) {
             return redirect($request->redirect_uri . '?' . http_build_query([
                 'error' => 'invalid_request',
-                'error_description' => 'The request is missing a required parameter'
+                'error_description' => 'The request is missing a required parameter',
             ]));
         }
 
@@ -219,7 +219,7 @@ class OAuthController extends Controller
         if (!$client) {
             return redirect($request->redirect_uri . '?' . http_build_query([
                 'error' => 'invalid_client',
-                'error_description' => 'Client not found or redirect URI mismatch'
+                'error_description' => 'Client not found or redirect URI mismatch',
             ]));
         }
 
@@ -231,12 +231,12 @@ class OAuthController extends Controller
             'scopes' => $request->scope,
             'revoked' => false,
             'expires_at' => now()->addSeconds(self::AUTH_CODE_LIFETIME),
-            'redirect_uri' => $request->redirect_uri
+            'redirect_uri' => $request->redirect_uri,
         ]);
 
         return redirect($request->redirect_uri . '?' . http_build_query([
             'code' => $authCode->id,
-            'state' => $request->state
+            'state' => $request->state,
         ]));
     }
 
@@ -251,7 +251,7 @@ class OAuthController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'error' => 'invalid_request',
-                'error_description' => 'The request is missing a required parameter'
+                'error_description' => 'The request is missing a required parameter',
             ], 400);
         }
 
@@ -266,13 +266,13 @@ class OAuthController extends Controller
         if (!$authCode) {
             return response()->json([
                 'error' => 'invalid_grant',
-                'error_description' => 'The authorization code is invalid'
+                'error_description' => 'The authorization code is invalid',
             ], 400);
         }
 
         // Create access token
         $accessToken = $this->createAccessToken($client, $authCode->user_id, $authCode->scopes);
-        
+
         // Create refresh token
         $refreshToken = $this->createRefreshToken($accessToken);
 
@@ -284,7 +284,7 @@ class OAuthController extends Controller
             'expires_in' => self::ACCESS_TOKEN_LIFETIME,
             'access_token' => $accessToken->access_token,
             'refresh_token' => $refreshToken->id,
-            'scope' => $accessToken->scope
+            'scope' => $accessToken->scope,
         ]);
     }
 
@@ -303,7 +303,7 @@ class OAuthController extends Controller
             if (!empty($invalidScopes)) {
                 return response()->json([
                     'error' => 'invalid_scope',
-                    'error_description' => 'The requested scope is invalid'
+                    'error_description' => 'The requested scope is invalid',
                 ], 400);
             }
         }
@@ -315,7 +315,7 @@ class OAuthController extends Controller
             'token_type' => 'Bearer',
             'expires_in' => self::ACCESS_TOKEN_LIFETIME,
             'access_token' => $accessToken->access_token,
-            'scope' => $accessToken->scope
+            'scope' => $accessToken->scope,
         ]);
     }
 
@@ -329,7 +329,7 @@ class OAuthController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'error' => 'invalid_request',
-                'error_description' => 'The request is missing a required parameter'
+                'error_description' => 'The request is missing a required parameter',
             ], 400);
         }
 
@@ -338,14 +338,14 @@ class OAuthController extends Controller
             ->where('revoked', false)
             ->where(function ($query) {
                 $query->where('expires_at', '>', now())
-                      ->orWhereNull('expires_at');
+                    ->orWhereNull('expires_at');
             })
             ->first();
 
         if (!$refreshToken) {
             return response()->json([
                 'error' => 'invalid_grant',
-                'error_description' => 'The refresh token is invalid'
+                'error_description' => 'The refresh token is invalid',
             ], 400);
         }
 
@@ -356,7 +356,7 @@ class OAuthController extends Controller
         if (!$oldAccessToken) {
             return response()->json([
                 'error' => 'invalid_grant',
-                'error_description' => 'The refresh token is invalid'
+                'error_description' => 'The refresh token is invalid',
             ], 400);
         }
 
@@ -379,7 +379,7 @@ class OAuthController extends Controller
             'expires_in' => self::ACCESS_TOKEN_LIFETIME,
             'access_token' => $accessToken->access_token,
             'refresh_token' => $newRefreshToken->id,
-            'scope' => $accessToken->scope
+            'scope' => $accessToken->scope,
         ]);
     }
 
@@ -390,7 +390,7 @@ class OAuthController extends Controller
             'client_id' => $client->client_id,
             'user_id' => $userId,
             'expires' => now()->addSeconds(self::ACCESS_TOKEN_LIFETIME),
-            'scope' => $scope
+            'scope' => $scope,
         ]);
     }
 
@@ -400,13 +400,13 @@ class OAuthController extends Controller
             'id' => Str::random(100),
             'access_token_id' => $accessToken->access_token,
             'revoked' => false,
-            'expires_at' => now()->addSeconds(self::REFRESH_TOKEN_LIFETIME)
+            'expires_at' => now()->addSeconds(self::REFRESH_TOKEN_LIFETIME),
         ]);
     }
 
     /**
-     * Revoke Token
-     * 
+     * Revoke Token.
+     *
      * Revoke an access token and its associated refresh token.
      *
      * @bodyParam token string required The access token to revoke. Example: eyJ0eXAiOiJKV1QiLCJhbG...
@@ -441,7 +441,7 @@ class OAuthController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'error' => 'invalid_request',
-                'error_description' => 'The request is missing a required parameter'
+                'error_description' => 'The request is missing a required parameter',
             ], 400);
         }
 
@@ -453,7 +453,7 @@ class OAuthController extends Controller
         if (!$client) {
             return response()->json([
                 'error' => 'invalid_client',
-                'error_description' => 'Client authentication failed'
+                'error_description' => 'Client authentication failed',
             ], 401);
         }
 
@@ -465,7 +465,7 @@ class OAuthController extends Controller
         if (!$accessToken) {
             return response()->json([
                 'error' => 'invalid_token',
-                'error_description' => 'Token not found'
+                'error_description' => 'Token not found',
             ], 404);
         }
 
@@ -478,7 +478,7 @@ class OAuthController extends Controller
         }
 
         return response()->json([
-            'message' => 'Token revoked successfully'
+            'message' => 'Token revoked successfully',
         ]);
     }
 }

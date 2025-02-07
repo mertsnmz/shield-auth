@@ -20,7 +20,7 @@ class DeleteSessionRequest extends FormRequest
     {
         return [
             'id.required' => 'Session ID is required',
-            'id.exists' => 'Invalid session ID'
+            'id.exists' => 'Invalid session ID',
         ];
     }
-} 
+}

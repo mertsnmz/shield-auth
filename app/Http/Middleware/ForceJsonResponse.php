@@ -9,12 +9,12 @@ use Symfony\Component\HttpFoundation\Response;
 class ForceJsonResponse
 {
     /**
-     * Convert all responses to JSON format
+     * Convert all responses to JSON format.
      */
     public function handle(Request $request, Closure $next): Response
     {
         $request->headers->set('Accept', 'application/json');
-        
+
         return $next($request);
     }
-} 
+}

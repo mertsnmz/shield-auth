@@ -17,10 +17,11 @@ class PasswordController extends Controller
 {
     public function __construct(
         private readonly PasswordPolicyService $passwordPolicy
-    ) {}
+    ) {
+    }
 
     /**
-     * Update Password
+     * Update Password.
      *
      * Update the authenticated user's password.
      *
@@ -51,7 +52,7 @@ class PasswordController extends Controller
         if ($this->passwordPolicy->isPasswordChangeRequired($user)) {
             return response()->json([
                 'message' => 'Password has expired',
-                'status' => $this->passwordPolicy->checkPasswordStatus($user)
+                'status' => $this->passwordPolicy->checkPasswordStatus($user),
             ], 400);
         }
 
@@ -60,23 +61,23 @@ class PasswordController extends Controller
             'password' => array_merge(
                 ['required', 'confirmed'],
                 [$this->passwordPolicy->getValidationRules()]
-            )
+            ),
         ]);
 
         if (!Hash::check($validated['current_password'], $user->password_hash)) {
             return response()->json([
-                'message' => 'Current password is incorrect'
+                'message' => 'Current password is incorrect',
             ], 400);
         }
 
         if ($this->passwordPolicy->wasUsedBefore($user, $validated['password'])) {
             return response()->json([
-                'message' => 'Password was used before'
+                'message' => 'Password was used before',
             ], 400);
         }
 
         $newPasswordHash = Hash::make($validated['password']);
-        
+
         $user->password_hash = $newPasswordHash;
         $user->password_changed_at = now();
         $user->save();
@@ -86,12 +87,12 @@ class PasswordController extends Controller
 
         return response()->json([
             'message' => 'Password updated successfully',
-            'status' => $this->passwordPolicy->checkPasswordStatus($user)
+            'status' => $this->passwordPolicy->checkPasswordStatus($user),
         ]);
     }
 
     /**
-     * Forgot Password
+     * Forgot Password.
      *
      * Request a password reset for a user.
      *
@@ -110,12 +111,12 @@ class PasswordController extends Controller
         // For security reasons, we always return the same response
         // regardless of whether the email exists or not
         return response()->json([
-            'message' => 'If the email exists in our system, a password reset link will be sent'
+            'message' => 'If the email exists in our system, a password reset link will be sent',
         ]);
     }
 
     /**
-     * Reset Password
+     * Reset Password.
      *
      * Reset a user's password.
      *
@@ -147,18 +148,18 @@ class PasswordController extends Controller
 
         if (!$user) {
             return response()->json([
-                'message' => 'User not found'
+                'message' => 'User not found',
             ], 404);
         }
 
         if ($this->passwordPolicy->wasUsedBefore($user, $request->password)) {
             return response()->json([
-                'message' => 'Password was used before'
+                'message' => 'Password was used before',
             ], 400);
         }
 
         $newPasswordHash = Hash::make($request->password);
-        
+
         $user->password_hash = $newPasswordHash;
         $user->password_changed_at = now();
         // Reset failed login attempts when password is reset
@@ -170,7 +171,7 @@ class PasswordController extends Controller
 
         return response()->json([
             'message' => 'Password has been reset',
-            'status' => $this->passwordPolicy->checkPasswordStatus($user)
+            'status' => $this->passwordPolicy->checkPasswordStatus($user),
         ]);
     }
 }

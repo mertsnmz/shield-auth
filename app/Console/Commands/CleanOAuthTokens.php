@@ -27,4 +27,4 @@ class CleanOAuthTokens extends Command
         $this->info("Cleaned {$expiredTokens} expired access tokens");
         $this->info("Cleaned {$expiredRefreshTokens} expired refresh tokens");
     }
-} 
+}

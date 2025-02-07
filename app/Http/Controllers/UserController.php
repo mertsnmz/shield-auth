@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Services\PasswordPolicyService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Rule;
 
@@ -19,10 +18,11 @@ class UserController extends Controller
 {
     public function __construct(
         private readonly PasswordPolicyService $passwordPolicy
-    ) {}
+    ) {
+    }
 
     /**
-     * Get Current User
+     * Get Current User.
      *
      * Get the authenticated user's profile information.
      *
@@ -52,13 +52,13 @@ class UserController extends Controller
                 'email' => $user->email,
                 'last_login_at' => $user->last_login_at,
                 'two_factor_enabled' => $user->two_factor_enabled,
-                'password_status' => $this->passwordPolicy->checkPasswordStatus($user)
-            ]
+                'password_status' => $this->passwordPolicy->checkPasswordStatus($user),
+            ],
         ]);
     }
 
     /**
-     * Update Profile
+     * Update Profile.
      *
      * Update the authenticated user's profile information.
      *
@@ -88,8 +88,8 @@ class UserController extends Controller
             'email' => [
                 'sometimes',
                 'email',
-                Rule::unique('users')->ignore($user->id)
-            ]
+                Rule::unique('users')->ignore($user->id),
+            ],
         ]);
 
         $user->update($validated);
@@ -98,8 +98,8 @@ class UserController extends Controller
             'message' => 'Profile updated successfully',
             'user' => [
                 'id' => $user->id,
-                'email' => $user->email
-            ]
+                'email' => $user->email,
+            ],
         ]);
     }
 }

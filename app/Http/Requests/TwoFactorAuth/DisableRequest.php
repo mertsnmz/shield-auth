@@ -15,7 +15,7 @@ class DisableRequest extends FormRequest
     {
         return [
             'current_password' => ['required', 'string'],
-            'code' => ['required', 'string', 'size:6']
+            'code' => ['required', 'string', 'size:6'],
         ];
     }
 
@@ -24,7 +24,7 @@ class DisableRequest extends FormRequest
         return [
             'current_password.required' => 'Current password is required',
             'code.required' => '2FA code is required',
-            'code.size' => '2FA code must be 6 digits'
+            'code.size' => '2FA code must be 6 digits',
         ];
     }
-} 
+}

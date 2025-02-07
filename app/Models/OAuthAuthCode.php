@@ -19,12 +19,12 @@ class OAuthAuthCode extends Model
         'scopes',
         'revoked',
         'expires_at',
-        'redirect_uri'
+        'redirect_uri',
     ];
 
     protected $casts = [
         'revoked' => 'boolean',
-        'expires_at' => 'datetime'
+        'expires_at' => 'datetime',
     ];
 
     public function client(): BelongsTo

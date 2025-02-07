@@ -6,7 +6,6 @@ use App\Models\OAuthClient;
 use App\Models\OAuthScope;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class OAuthSeeder extends Seeder
 {
@@ -26,7 +25,7 @@ class OAuthSeeder extends Seeder
             'client_secret' => 'test-secret',
             'name' => 'Test Client',
             'redirect_uri' => 'http://localhost:3000/callback',
-            'grant_types' => 'authorization_code client_credentials refresh_token'
+            'grant_types' => 'authorization_code client_credentials refresh_token',
         ]);
 
         // Create scopes
@@ -36,19 +35,19 @@ class OAuthSeeder extends Seeder
                 'name' => 'profile',
                 'description' => 'Access user profile information',
                 'grant_type' => 'authorization_code',
-                'is_default' => true
+                'is_default' => true,
             ],
             [
                 'name' => 'email',
                 'description' => 'Access user email',
                 'grant_type' => 'authorization_code',
-                'is_default' => true
+                'is_default' => true,
             ],
             [
                 'name' => 'manage_account',
                 'description' => 'Manage user account settings',
                 'grant_type' => 'authorization_code',
-                'is_default' => false
+                'is_default' => false,
             ],
 
             // Client Credentials Grant Scopes
@@ -56,19 +55,19 @@ class OAuthSeeder extends Seeder
                 'name' => 'api.read',
                 'description' => 'Read API resources',
                 'grant_type' => 'client_credentials',
-                'is_default' => true
+                'is_default' => true,
             ],
             [
                 'name' => 'api.write',
                 'description' => 'Write API resources',
                 'grant_type' => 'client_credentials',
-                'is_default' => false
+                'is_default' => false,
             ],
             [
                 'name' => 'service.integration',
                 'description' => 'Service integration access',
                 'grant_type' => 'client_credentials',
-                'is_default' => false
+                'is_default' => false,
             ],
 
             // General Scopes
@@ -76,8 +75,8 @@ class OAuthSeeder extends Seeder
                 'name' => 'offline_access',
                 'description' => 'Get refresh token',
                 'grant_type' => null,
-                'is_default' => false
-            ]
+                'is_default' => false,
+            ],
         ];
 
         foreach ($scopes as $scope) {

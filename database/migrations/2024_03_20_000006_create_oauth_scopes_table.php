@@ -5,8 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      */
@@ -27,14 +26,14 @@ return new class extends Migration
             ['profile', 'Access user profile information', 'authorization_code'],
             ['email', 'Access user email', 'authorization_code'],
             ['manage_account', 'Manage user account settings', 'authorization_code'],
-            
+
             // Client Credentials Grant Scopes (service-to-service)
             ['api.read', 'Read API resources', 'client_credentials'],
             ['api.write', 'Write API resources', 'client_credentials'],
             ['service.integration', 'Service integration access', 'client_credentials'],
 
             // General Scopes (can be used with any grant type)
-            ['offline_access', 'Get refresh token', null]
+            ['offline_access', 'Get refresh token', null],
         ];
 
         foreach ($scopes as $scope) {
@@ -44,7 +43,7 @@ return new class extends Migration
                 'grant_type' => $scope[2],
                 'is_default' => false,
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ]);
         }
     }

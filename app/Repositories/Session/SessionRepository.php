@@ -23,4 +23,4 @@ class SessionRepository
     {
         return $session->delete();
     }
-} 
+}

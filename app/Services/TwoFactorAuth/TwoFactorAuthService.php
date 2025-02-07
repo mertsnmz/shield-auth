@@ -10,6 +10,7 @@ use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Renderer\Image\SvgImageBackEnd;
 use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
+use Exception;
 
 class TwoFactorAuthService
 {
@@ -27,7 +28,7 @@ class TwoFactorAuthService
     public function enable(User $user): array
     {
         if ($this->isEnabled($user)) {
-            throw new \Exception('2FA is already enabled', 400);
+            throw new Exception('2FA is already enabled', 400);
         }
 
         $secret = $this->google2fa->generateSecretKey();
@@ -40,18 +41,18 @@ class TwoFactorAuthService
         return [
             'secret' => $secret,
             'qr_code' => $qrCode,
-            'recovery_codes' => $recoveryCodes
+            'recovery_codes' => $recoveryCodes,
         ];
     }
 
     public function verify(User $user, string $code): void
     {
         if (!$user->two_factor_secret) {
-            throw new \Exception('2FA is not enabled', 400);
+            throw new Exception('2FA is not enabled', 400);
         }
 
         if (!$this->verifyCode($user->two_factor_secret, $code)) {
-            throw new \Exception('Invalid verification code', 400);
+            throw new Exception('Invalid verification code', 400);
         }
 
         $this->repository->updateTwoFactorConfirmation($user);
@@ -60,15 +61,15 @@ class TwoFactorAuthService
     public function disable(User $user, string $password, string $code): void
     {
         if (!$this->isEnabled($user)) {
-            throw new \Exception('2FA is not enabled', 400);
+            throw new Exception('2FA is not enabled', 400);
         }
 
         if (!Hash::check($password, $user->password_hash)) {
-            throw new \Exception('Invalid password', 401);
+            throw new Exception('Invalid password', 401);
         }
 
         if (!$this->verifyCode($user->two_factor_secret, $code)) {
-            throw new \Exception('Invalid 2FA code', 401);
+            throw new Exception('Invalid 2FA code', 401);
         }
 
         $this->repository->disableTwoFactor($user);
@@ -77,12 +78,12 @@ class TwoFactorAuthService
     public function getBackupCodes(User $user): array
     {
         if (!$this->isEnabled($user)) {
-            throw new \Exception('2FA is not enabled', 400);
+            throw new Exception('2FA is not enabled', 400);
         }
 
         $codes = $this->repository->getRecoveryCodes($user);
         if (!$codes) {
-            throw new \Exception('No backup codes available', 404);
+            throw new Exception('No backup codes available', 404);
         }
 
         return $codes;
@@ -91,7 +92,7 @@ class TwoFactorAuthService
     public function regenerateBackupCodes(User $user): array
     {
         if (!$this->isEnabled($user)) {
-            throw new \Exception('2FA is not enabled', 400);
+            throw new Exception('2FA is not enabled', 400);
         }
 
         $codes = $this->generateRecoveryCodes();
@@ -104,15 +105,15 @@ class TwoFactorAuthService
     {
         $company = config('app.name', 'Laravel');
         $qrCodeUrl = $this->google2fa->getQRCodeUrl($company, $email, $secret);
-        
+
         $renderer = new ImageRenderer(
             new RendererStyle(self::QR_SIZE),
             new SvgImageBackEnd()
         );
-        
+
         $writer = new Writer($renderer);
         $qrCode = $writer->writeString($qrCodeUrl);
-        
+
         return 'data:image/svg+xml;base64,' . base64_encode($qrCode);
     }
 
@@ -152,4 +153,4 @@ class TwoFactorAuthService
     {
         return $user->two_factor_enabled && $user->two_factor_confirmed_at !== null;
     }
-} 
+}

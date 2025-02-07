@@ -61,7 +61,7 @@ class PasswordPolicyService
         // Create new password history record
         PasswordHistory::create([
             'user_id' => $user->id,
-            'password' => $hashedPassword
+            'password' => $hashedPassword,
         ]);
 
         // Keep only the last MAX_PASSWORD_HISTORY passwords
@@ -99,18 +99,18 @@ class PasswordPolicyService
             return [
                 'expired' => true,
                 'days_left' => 0,
-                'status' => 'expired'
+                'status' => 'expired',
             ];
         }
 
         $expiryDate = $user->password_changed_at->addDays(self::PASSWORD_EXPIRY_DAYS);
         $daysLeft = now()->diffInDays($expiryDate, false);
-        
+
         if ($daysLeft <= 0) {
             return [
                 'expired' => true,
                 'days_left' => abs($daysLeft),
-                'status' => 'expired'
+                'status' => 'expired',
             ];
         }
 
@@ -118,14 +118,14 @@ class PasswordPolicyService
             return [
                 'expired' => false,
                 'days_left' => $daysLeft,
-                'status' => 'warning'
+                'status' => 'warning',
             ];
         }
 
         return [
             'expired' => false,
             'days_left' => $daysLeft,
-            'status' => 'valid'
+            'status' => 'valid',
         ];
     }
 
@@ -134,4 +134,4 @@ class PasswordPolicyService
         $status = $this->checkPasswordStatus($user);
         return $status['expired'];
     }
-} 
+}

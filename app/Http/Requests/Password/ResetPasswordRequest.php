@@ -22,7 +22,7 @@ class ResetPasswordRequest extends FormRequest
             'password' => array_merge(
                 ['required', 'string', 'confirmed'],
                 $policy->getValidationRules()
-            )
+            ),
         ];
     }
 
@@ -33,7 +33,7 @@ class ResetPasswordRequest extends FormRequest
             'email.required' => 'Email address is required',
             'email.email' => 'Please enter a valid email address',
             'password.required' => 'Password is required',
-            'password.confirmed' => 'Password confirmation does not match'
+            'password.confirmed' => 'Password confirmation does not match',
         ];
     }
-} 
+}

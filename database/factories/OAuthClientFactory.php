@@ -30,4 +30,4 @@ class OAuthClientFactory extends Factory
             'revoked' => true,
         ]);
     }
-} 
+}

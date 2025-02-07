@@ -54,9 +54,9 @@ class AuthenticateSession
         $session->update([
             'last_activity' => time(),
             'ip_address' => $request->ip(),
-            'user_agent' => $request->userAgent()
+            'user_agent' => $request->userAgent(),
         ]);
 
         return $next($request);
     }
-} 
+}
