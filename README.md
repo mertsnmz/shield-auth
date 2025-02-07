@@ -77,6 +77,25 @@ The system will automatically:
 
 ## API Documentation
 
+### Interactive Documentation & Testing
+
+1. Generate API documentation:
+```bash
+docker exec auth-app php artisan scribe:generate
+```
+
+2. Access points:
+- API Documentation: http://localhost:8000/docs
+- Postman Collection: http://localhost:8000/docs/collection.json
+- OpenAPI (Swagger) Specification: http://localhost:8000/docs/openapi.yaml
+
+The documentation includes:
+- Detailed API endpoints
+- Request/Response examples
+- Authentication instructions
+- Sample code snippets
+- Interactive API testing interface
+
 ### Authentication Endpoints
 - `POST /api/auth/login` - User Login
   ```json

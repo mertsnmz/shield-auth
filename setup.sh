@@ -43,7 +43,12 @@ echo "🧹 Clearing cache..."
 docker exec auth-app php artisan config:clear
 docker exec auth-app php artisan cache:clear
 
+# Generate API documentation
+echo "📚 Generating API documentation..."
+docker exec auth-app php artisan scribe:generate
+
 echo "✅ Setup completed!"
 echo "🌐 Access the application at: http://localhost:8000"
+echo "📚 API Documentation: http://localhost:8000/docs"
 echo "📧 Test user email: test@example.com"
 echo "🔒 Test user password: Test123!@#\$%^&*" 
