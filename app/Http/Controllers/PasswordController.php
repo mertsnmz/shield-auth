@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Services\PasswordPolicyService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Http\JsonResponse;
 
 /**
@@ -21,17 +20,85 @@ class PasswordController extends Controller
     ) {}
 
     /**
+     * Update Password
+     *
+     * Update the authenticated user's password.
+     *
+     * @authenticated
+     *
+     * @bodyParam current_password string required The current password. Example: CurrentPass123!
+     * @bodyParam password string required The new password. Example: NewStrongPass123!
+     * @bodyParam password_confirmation string required The new password confirmation. Example: NewStrongPass123!
+     *
+     * @response 200 {
+     *   "message": "Password updated successfully"
+     * }
+     * @response 400 {
+     *   "message": "Current password is incorrect"
+     * }
+     * @response 400 {
+     *   "message": "Password was used before"
+     * }
+     * @response 400 {
+     *   "message": "Password has expired"
+     * }
+     */
+    public function update(Request $request): JsonResponse
+    {
+        $user = auth()->user();
+
+        // Check if password change is required due to expiry
+        if ($this->passwordPolicy->isPasswordChangeRequired($user)) {
+            return response()->json([
+                'message' => 'Password has expired',
+                'status' => $this->passwordPolicy->checkPasswordStatus($user)
+            ], 400);
+        }
+
+        $validated = $request->validate([
+            'current_password' => ['required'],
+            'password' => array_merge(
+                ['required', 'confirmed'],
+                [$this->passwordPolicy->getValidationRules()]
+            )
+        ]);
+
+        if (!Hash::check($validated['current_password'], $user->password_hash)) {
+            return response()->json([
+                'message' => 'Current password is incorrect'
+            ], 400);
+        }
+
+        if ($this->passwordPolicy->wasUsedBefore($user, $validated['password'])) {
+            return response()->json([
+                'message' => 'Password was used before'
+            ], 400);
+        }
+
+        $newPasswordHash = Hash::make($validated['password']);
+        
+        $user->password_hash = $newPasswordHash;
+        $user->password_changed_at = now();
+        $user->save();
+
+        // Record the new password in history
+        $this->passwordPolicy->recordPassword($user, $newPasswordHash);
+
+        return response()->json([
+            'message' => 'Password updated successfully',
+            'status' => $this->passwordPolicy->checkPasswordStatus($user)
+        ]);
+    }
+
+    /**
      * Forgot Password
-     * 
-     * Send a password reset link to the given email.
+     *
+     * Request a password reset for a user.
      *
      * @bodyParam email string required The email address. Example: user@example.com
      *
      * @response 200 {
-     *   "message": "Password reset link sent"
-     * }
-     * @response 400 {
-     *   "message": "Unable to send reset link"
+     *   "message": "If the email exists in our system, a password reset link will be sent"
      * }
      */
     public function forgot(Request $request): JsonResponse
@@ -40,27 +107,18 @@ class PasswordController extends Controller
             'email' => ['required', 'email'],
         ]);
 
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
-
-        if ($status === Password::RESET_LINK_SENT) {
-            return response()->json([
-                'message' => 'Password reset link sent'
-            ]);
-        }
-
+        // For security reasons, we always return the same response
+        // regardless of whether the email exists or not
         return response()->json([
-            'message' => 'Unable to send reset link'
-        ], 400);
+            'message' => 'If the email exists in our system, a password reset link will be sent'
+        ]);
     }
 
     /**
      * Reset Password
-     * 
-     * Reset the password using the reset token.
      *
-     * @bodyParam token string required The reset token. Example: 1234567890
+     * Reset a user's password.
+     *
      * @bodyParam email string required The email address. Example: user@example.com
      * @bodyParam password string required The new password. Example: NewStrongPass123!
      * @bodyParam password_confirmation string required The password confirmation. Example: NewStrongPass123!
@@ -71,9 +129,6 @@ class PasswordController extends Controller
      * @response 400 {
      *   "message": "Password was used before"
      * }
-     * @response 400 {
-     *   "message": "Unable to reset password"
-     * }
      * @response 404 {
      *   "message": "User not found"
      * }
@@ -81,7 +136,6 @@ class PasswordController extends Controller
     public function reset(Request $request): JsonResponse
     {
         $request->validate([
-            'token' => ['required'],
             'email' => ['required', 'email'],
             'password' => array_merge(
                 ['required', 'confirmed'],
@@ -103,25 +157,20 @@ class PasswordController extends Controller
             ], 400);
         }
 
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function (User $user, string $password) {
-                $user->password_hash = Hash::make($password);
-                $user->password_changed_at = now();
-                $user->save();
+        $newPasswordHash = Hash::make($request->password);
+        
+        $user->password_hash = $newPasswordHash;
+        $user->password_changed_at = now();
+        // Reset failed login attempts when password is reset
+        $user->failed_login_attempts = 0;
+        $user->save();
 
-                $this->passwordPolicy->recordPassword($user, $user->password_hash);
-            }
-        );
-
-        if ($status === Password::PASSWORD_RESET) {
-            return response()->json([
-                'message' => 'Password has been reset'
-            ]);
-        }
+        // Record the new password in history
+        $this->passwordPolicy->recordPassword($user, $newPasswordHash);
 
         return response()->json([
-            'message' => 'Unable to reset password'
-        ], 400);
+            'message' => 'Password has been reset',
+            'status' => $this->passwordPolicy->checkPasswordStatus($user)
+        ]);
     }
-} 
+}

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('auth')->group(function () {
     Route::post('login', [AuthController::class, 'login'])
         ->middleware('throttle:login');
-    
+
     Route::post('register', [AuthController::class, 'register'])
         ->middleware('throttle:login');
 
@@ -33,7 +33,7 @@ Route::prefix('oauth')->group(function () {
         Route::post('token', [OAuthController::class, 'issueToken']);
         Route::post('token/revoke', [OAuthController::class, 'revokeToken']);
     });
-    
+
     Route::middleware('auth.session')->group(function () {
         Route::get('authorize', [OAuthController::class, 'authorize']);
         Route::post('authorize', [OAuthController::class, 'approveAuthorization']);
@@ -45,7 +45,7 @@ Route::middleware(['auth.session', 'throttle:api'])->group(function () {
     Route::prefix('users/me')->group(function () {
         Route::get('/', [UserController::class, 'me']);
         Route::put('/', [UserController::class, 'update']);
-        Route::put('/password', [UserController::class, 'updatePassword']);
+        Route::put('/password', [PasswordController::class, 'update']);
         Route::get('/sessions', [SessionController::class, 'index']);
         Route::delete('/sessions/{id}', [SessionController::class, 'destroy']);
     });

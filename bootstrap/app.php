@@ -18,7 +18,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'throttle' => \App\Http\Middleware\RateLimiter::class,
         ]);
 
-        // Global middleware'ler
         $middleware->use([
             \App\Http\Middleware\ForceHttps::class,
             \App\Http\Middleware\SecurityHeaders::class,
@@ -34,16 +33,13 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withSchedule(function (Schedule $schedule) {
-        // Her gün gece yarısı security audit çalıştır
         $schedule->command('security:audit')
             ->dailyAt('00:00')
             ->emailOutputTo('security@example.com');
 
-        // Süresi dolmuş token'ları temizle
         $schedule->command('oauth:clean-tokens')
             ->daily();
 
-        // Eski oturumları temizle
         $schedule->command('session:clean')
             ->weekly();
     })
