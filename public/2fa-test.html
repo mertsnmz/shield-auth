@@ -137,7 +137,6 @@
                 document.getElementById('twoFactorVerify').classList.remove('hidden');
             } else {
                 alert('Failed to enable 2FA: ' + (responseData.message || 'Unknown error'));
-                console.error('2FA Enable Response:', responseData);
             }
         }
 
