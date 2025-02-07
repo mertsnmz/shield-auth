@@ -74,7 +74,7 @@ return [
     ],
 
     'external' => [
-        'html_attributes' => []
+        'html_attributes' => [],
     ],
 
     'try_it_out' => [
@@ -224,8 +224,8 @@ INTRO
                 [
                     'Content-Type' => 'application/json',
                     'Accept' => 'application/json',
-                ]
-            ]
+                ],
+            ],
         ],
         'bodyParameters' => [
             Strategies\BodyParameters\GetFromFormRequest::class,
@@ -247,8 +247,8 @@ INTRO
                     'config' => [
                         'app.debug' => false,
                     ],
-                ]
-            ]
+                ],
+            ],
         ],
         'responseFields' => [
             Strategies\ResponseFields\GetFromResponseFieldAttribute::class,
@@ -266,5 +266,5 @@ INTRO
         'serializer' => null,
     ],
 
-    'routeMatcher' => \Knuckles\Scribe\Matching\RouteMatcher::class,
+    'routeMatcher' => Knuckles\Scribe\Matching\RouteMatcher::class,
 ];

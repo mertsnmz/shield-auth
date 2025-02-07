@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder
         User::create([
             'email' => 'test@example.com',
             'password_hash' => Hash::make('Test123!@#$%^&*'),
-            'password_changed_at' => now()
+            'password_changed_at' => now(),
         ]);
 
         $this->call([
-            OAuthSeeder::class
+            OAuthSeeder::class,
         ]);
     }
 }

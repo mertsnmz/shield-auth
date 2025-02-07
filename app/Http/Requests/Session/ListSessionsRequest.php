@@ -15,4 +15,4 @@ class ListSessionsRequest extends FormRequest
     {
         return [];
     }
-} 
+}

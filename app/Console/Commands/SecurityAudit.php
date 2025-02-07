@@ -109,7 +109,7 @@ class SecurityAudit extends Command
             'X-XSS-Protection',
             'Strict-Transport-Security',
             'Content-Security-Policy',
-            'Referrer-Policy'
+            'Referrer-Policy',
         ];
 
         $middleware = app(\App\Http\Middleware\SecurityHeaders::class);
@@ -145,4 +145,4 @@ class SecurityAudit extends Command
             }
         }
     }
-} 
+}

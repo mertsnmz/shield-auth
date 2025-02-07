@@ -12,7 +12,7 @@ class Session extends Model
         'ip_address',
         'user_agent',
         'payload',
-        'last_activity'
+        'last_activity',
     ];
 
     public $incrementing = false;
@@ -22,4 +22,4 @@ class Session extends Model
     {
         return $this->belongsTo(User::class);
     }
-} 
+}

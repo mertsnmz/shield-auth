@@ -27,7 +27,7 @@ class OAuthFlowTest extends TestCase
 
         $this->user = User::factory()->create([
             'email' => 'test@example.com',
-            'password_hash' => bcrypt(self::TEST_PASSWORD)
+            'password_hash' => bcrypt(self::TEST_PASSWORD),
         ]);
 
         $sessionId = Str::random(40);
@@ -40,9 +40,9 @@ class OAuthFlowTest extends TestCase
                 'created_at' => now(),
                 'user_id' => $this->user->id,
                 'ip_address' => '127.0.0.1',
-                'user_agent' => 'PHPUnit'
+                'user_agent' => 'PHPUnit',
             ]),
-            'last_activity' => time()
+            'last_activity' => time(),
         ]);
 
         $this->clientSecret = Str::random(40);
@@ -52,14 +52,14 @@ class OAuthFlowTest extends TestCase
             'client_secret' => hash('sha256', $this->clientSecret),
             'redirect_uri' => 'https://client.example.com/callback',
             'user_id' => $this->user->id,
-            'scopes' => ['read', 'write']
+            'scopes' => ['read', 'write'],
         ]);
 
         $encryptedSessionId = Crypt::encryptString($sessionId);
         $this->withCookie('session_id', $encryptedSessionId);
     }
 
-    public function test_authorization_code_flow()
+    public function testAuthorizationCodeFlow()
     {
         $this->withoutMiddleware([AuthenticateSession::class]);
         $this->be($this->user);
@@ -69,7 +69,7 @@ class OAuthFlowTest extends TestCase
             'redirect_uri' => $this->client->redirect_uri,
             'response_type' => 'code',
             'scope' => 'read write',
-            'state' => 'xyz123'
+            'state' => 'xyz123',
         ]));
 
         $response->assertOk();
@@ -80,7 +80,7 @@ class OAuthFlowTest extends TestCase
             'response_type' => 'code',
             'scope' => 'read write',
             'state' => 'xyz123',
-            'approve' => true
+            'approve' => true,
         ]);
 
         $response->assertFound();
@@ -96,7 +96,7 @@ class OAuthFlowTest extends TestCase
             'client_id' => $this->client->client_id,
             'client_secret' => hash('sha256', $this->clientSecret),
             'redirect_uri' => $this->client->redirect_uri,
-            'code' => $code
+            'code' => $code,
         ]);
 
         $response->assertOk();
@@ -110,7 +110,7 @@ class OAuthFlowTest extends TestCase
         return $responseData;
     }
 
-    public function test_refresh_token_flow()
+    public function testRefreshTokenFlow()
     {
         $this->withoutMiddleware([AuthenticateSession::class]);
         $this->be($this->user);
@@ -123,7 +123,7 @@ class OAuthFlowTest extends TestCase
             'refresh_token' => $refreshToken,
             'client_id' => $this->client->client_id,
             'client_secret' => hash('sha256', $this->clientSecret),
-            'scope' => 'read write'
+            'scope' => 'read write',
         ]);
 
         $response->assertOk();

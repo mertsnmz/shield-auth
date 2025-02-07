@@ -22,24 +22,24 @@ class SanitizeLogData
         'card_number',
         'cvv',
         'social_security',
-        'authorization'
+        'authorization',
     ];
 
     public function handle(Request $request, Closure $next): Response
     {
         // Prepare sanitized data for logs
         $sanitizedData = $this->sanitize($request->all());
-        
+
         // Set sanitized data for log context without modifying original request data
         Log::shareContext([
             'request' => $sanitizedData,
             'headers' => collect($request->headers->all())
-                ->map(function($value, $key) {
+                ->map(function ($value, $key) {
                     return in_array(strtolower($key), $this->sensitiveFields)
                         ? '[REDACTED]'
                         : $value;
                 })
-                ->toArray()
+                ->toArray(),
         ]);
 
         return $next($request);
@@ -50,11 +50,11 @@ class SanitizeLogData
         foreach ($data as $key => $value) {
             if (is_array($value)) {
                 $data[$key] = $this->sanitize($value);
-            } else if (is_string($key) && in_array(strtolower($key), $this->sensitiveFields)) {
+            } elseif (is_string($key) && in_array(strtolower($key), $this->sensitiveFields)) {
                 $data[$key] = '[REDACTED]';
             }
         }
 
         return $data;
     }
-} 
+}

@@ -16,12 +16,12 @@ class OAuthRefreshToken extends Model
         'id',
         'access_token_id',
         'revoked',
-        'expires_at'
+        'expires_at',
     ];
 
     protected $casts = [
         'revoked' => 'boolean',
-        'expires_at' => 'datetime'
+        'expires_at' => 'datetime',
     ];
 
     public function accessToken(): BelongsTo

@@ -11,15 +11,15 @@ class PasswordHistory extends Model
 
     protected $fillable = [
         'user_id',
-        'password'
+        'password',
     ];
 
     protected $hidden = [
-        'password'
+        'password',
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-} 
+}

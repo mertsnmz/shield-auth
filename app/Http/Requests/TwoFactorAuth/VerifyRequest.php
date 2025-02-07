@@ -14,7 +14,7 @@ class VerifyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => ['required', 'string', 'size:6']
+            'code' => ['required', 'string', 'size:6'],
         ];
     }
 
@@ -22,7 +22,7 @@ class VerifyRequest extends FormRequest
     {
         return [
             'code.required' => 'Verification code is required',
-            'code.size' => 'Verification code must be 6 digits'
+            'code.size' => 'Verification code must be 6 digits',
         ];
     }
-} 
+}

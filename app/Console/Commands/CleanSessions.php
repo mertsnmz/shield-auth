@@ -21,4 +21,4 @@ class CleanSessions extends Command
 
         $this->info("Cleaned {$oldSessions} old sessions");
     }
-} 
+}

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\Registered;
+use Exception;
 
 class AuthService
 {
@@ -20,29 +21,30 @@ class AuthService
         private readonly PasswordPolicyService $passwordPolicy,
         private readonly TwoFactorAuthService $twoFactorAuth,
         private readonly AuthRepository $authRepository
-    ) {}
+    ) {
+    }
 
     public function login(array $credentials, bool $remember = false): array
     {
         $user = $this->authRepository->findUserByEmail($credentials['email']);
 
         if (!$user) {
-            throw new \Exception('Invalid credentials', 401);
+            throw new Exception('Invalid credentials', 401);
         }
 
         if ($this->passwordPolicy->isAccountLocked($user)) {
-            throw new \Exception('Account is locked due to too many failed attempts', 401);
+            throw new Exception('Account is locked due to too many failed attempts', 401);
         }
 
         if (!Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
             $this->passwordPolicy->handleFailedLogin($user);
-            throw new \Exception('Invalid credentials', 401);
+            throw new Exception('Invalid credentials', 401);
         }
 
         $this->passwordPolicy->resetFailedAttempts($user);
 
         if ($this->passwordPolicy->isPasswordChangeRequired($user)) {
-            throw new \Exception('Password change required', 403);
+            throw new Exception('Password change required', 403);
         }
 
         // 2FA Check
@@ -50,14 +52,14 @@ class AuthService
             if (!isset($credentials['2fa_code'])) {
                 return [
                     'requires_2fa' => true,
-                    'message' => '2FA code required'
+                    'message' => '2FA code required',
                 ];
             }
 
             if (!$this->twoFactorAuth->verifyCode($user->two_factor_secret, $credentials['2fa_code'])) {
                 return [
                     'requires_2fa' => true,
-                    'message' => 'Invalid 2FA code'
+                    'message' => 'Invalid 2FA code',
                 ];
             }
         }
@@ -69,7 +71,7 @@ class AuthService
             'message' => 'Logged in successfully',
             'session_id' => $session->id,
             'password_status' => $this->passwordPolicy->checkPasswordStatus($user),
-            'requires_2fa' => false
+            'requires_2fa' => false,
         ];
     }
 
@@ -90,14 +92,14 @@ class AuthService
 
         return [
             'message' => 'User registered successfully',
-            'session_id' => $session->id
+            'session_id' => $session->id,
         ];
     }
 
     private function createSession(User $user, bool $remember): Session
     {
         $activeSessions = $this->authRepository->countActiveSessions($user->id);
-        
+
         // Delete current device session if exists
         $currentDeviceSession = $this->authRepository->findSessionByDeviceInfo(
             $user->id,
@@ -128,20 +130,20 @@ class AuthService
                 'user_id' => $user->id,
                 'created_at' => now(),
                 'remember_me' => $remember,
-                'device_fingerprint' => hash('sha256', request()->ip() . request()->userAgent())
+                'device_fingerprint' => hash('sha256', request()->ip() . request()->userAgent()),
             ]),
-            'last_activity' => time()
+            'last_activity' => time(),
         ]);
     }
 
     public function logout(string $sessionId): void
     {
         $session = $this->authRepository->findSessionById($sessionId);
-        
+
         if (!$session) {
-            throw new \Exception('Session not found', 404);
+            throw new Exception('Session not found', 404);
         }
-        
+
         $this->authRepository->deleteSession($session);
     }
-} 
+}

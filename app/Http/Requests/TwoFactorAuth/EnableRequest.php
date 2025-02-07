@@ -15,4 +15,4 @@ class EnableRequest extends FormRequest
     {
         return [];
     }
-} 
+}

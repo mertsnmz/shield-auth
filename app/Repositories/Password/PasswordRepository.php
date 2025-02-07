@@ -4,6 +4,7 @@ namespace App\Repositories\Password;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Password;
+use Closure;
 
 class PasswordRepository
 {
@@ -21,12 +22,12 @@ class PasswordRepository
     {
         $user->update([
             'password_hash' => $password,
-            'password_changed_at' => now()
+            'password_changed_at' => now(),
         ]);
     }
 
-    public function resetPassword(array $credentials, \Closure $callback): string
+    public function resetPassword(array $credentials, Closure $callback): string
     {
         return Password::reset($credentials, $callback);
     }
-} 
+}

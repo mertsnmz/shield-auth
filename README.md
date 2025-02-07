@@ -359,3 +359,40 @@ Referrer-Policy: strict-origin-when-cross-origin
 - Dependencies security scanning
 
 For reporting security vulnerabilities, please email security@example.com or refer to our security policy at SECURITY.md.
+
+## Code Style & Formatting
+
+This project uses [Laravel Pint](https://laravel.com/docs/10.x/pint) for code formatting, which is a PHP code style fixer based on PHP-CS-Fixer. The configuration is defined in `pint.json` and follows PSR-12 standards with some additional rules.
+
+### Format Code
+
+To format your code, run:
+
+```bash
+# If you're using Docker:
+docker exec -it auth-app composer format
+
+# Without Docker:
+composer format
+```
+
+### Check Code Style
+
+To check which files need formatting without actually changing them:
+
+```bash
+# If you're using Docker:
+docker exec -it auth-app composer format-test
+
+# Without Docker:
+composer format-test
+```
+
+The code style configuration can be found in `pint.json`. Some key features include:
+
+- PSR-12 preset
+- Automatic import sorting
+- Consistent array syntax
+- Proper spacing and alignment
+- DocBlock standardization
+- And more...
