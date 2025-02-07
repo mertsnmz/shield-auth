@@ -16,7 +16,7 @@ endpoints:
       subgroupDescription: ''
       title: 'Enable 2FA'
       description: 'Start the 2FA setup process.'
-      authenticated: true
+      authenticated: false
       custom: []
     headers:
       Content-Type: application/json
@@ -28,18 +28,7 @@ endpoints:
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-            "secret": "KRSXG5CTMVRXEZLU",
-            "qr_code": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgA...",
-            "recovery_codes": ["code1", "code2", "code3", ...]
-          }
-        headers: []
-        description: ''
-        custom: []
+    responses: []
     responseFields: []
     auth: []
     controller: null
@@ -59,7 +48,7 @@ endpoints:
       subgroupDescription: ''
       title: 'Verify 2FA'
       description: 'Verify and complete the 2FA setup.'
-      authenticated: true
+      authenticated: false
       custom: []
     headers:
       Content-Type: application/json
@@ -71,36 +60,72 @@ endpoints:
     bodyParameters:
       code:
         name: code
-        description: 'The verification code.'
+        description: 'Must be 6 characters.'
         required: true
-        example: '123456'
+        example: kyxpns
         type: string
         enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
         nullable: false
         custom: []
     cleanBodyParameters:
-      code: '123456'
+      code: kyxpns
     fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-            "message": "2FA enabled successfully"
-          }
-        headers: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/auth/2fa/disable
+    metadata:
+      groupName: 'Two Factor Authentication'
+      groupDescription: |-
+
+        APIs for managing 2FA
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Disable 2FA'
+      description: 'Disable two-factor authentication for the user.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      current_password:
+        name: current_password
         description: ''
+        required: true
+        example: doloremque
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
         custom: []
-      -
-        status: 400
-        content: |-
-          {
-            "message": "Invalid verification code"
-          }
-        headers: []
-        description: ''
+      code:
+        name: code
+        description: 'Must be 6 characters.'
+        required: true
+        example: iaerhp
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
         custom: []
+    cleanBodyParameters:
+      current_password: doloremque
+      code: iaerhp
+    fileParameters: []
+    responses: []
     responseFields: []
     auth: []
     controller: null
@@ -120,7 +145,7 @@ endpoints:
       subgroupDescription: ''
       title: 'Get Backup Codes'
       description: 'Get the list of backup codes.'
-      authenticated: true
+      authenticated: false
       custom: []
     headers:
       Content-Type: application/json
@@ -134,13 +159,23 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 200
-        content: |-
-          {
-            "recovery_codes": ["code1", "code2", "code3", ...]
-          }
-        headers: []
-        description: ''
+        status: 401
+        content: '{"message":"Unauthenticated"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '58'
+          access-control-allow-origin: '*'
+          x-content-type-options: nosniff
+          x-frame-options: SAMEORIGIN
+          x-xss-protection: '1; mode=block'
+          strict-transport-security: 'max-age=31536000; includeSubDomains'
+          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';"
+          referrer-policy: no-referrer-when-downgrade
+          permissions-policy: 'camera=(), microphone=(), geolocation=(), payment=()'
+          access-control-allow-methods: 'GET, POST, PUT, DELETE, OPTIONS'
+        description: null
         custom: []
     responseFields: []
     auth: []
@@ -161,7 +196,7 @@ endpoints:
       subgroupDescription: ''
       title: 'Regenerate Backup Codes'
       description: 'Generate new backup codes.'
-      authenticated: true
+      authenticated: false
       custom: []
     headers:
       Content-Type: application/json
@@ -173,16 +208,7 @@ endpoints:
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-            "recovery_codes": ["code1", "code2", "code3", ...]
-          }
-        headers: []
-        description: ''
-        custom: []
+    responses: []
     responseFields: []
     auth: []
     controller: null

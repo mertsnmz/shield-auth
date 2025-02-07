@@ -87,7 +87,7 @@ docker exec auth-app php artisan scribe:generate
 ```
 
 2. Access points:
-- API Documentation: http://localhost:8000/docs
+- API Documentation: http://localhost:8000/docs/
 - Postman Collection: http://localhost:8000/docs/collection.json
 - OpenAPI (Swagger) Specification: http://localhost:8000/docs/openapi.yaml
 
@@ -239,6 +239,42 @@ docker exec auth-app php artisan optimize:clear
 # Rebuild cache
 docker exec auth-app php artisan optimize
 ```
+
+### Testing & Code Coverage
+
+1. Run all tests:
+```bash
+docker exec auth-app php artisan test
+```
+
+2. Run tests with coverage report:
+```bash
+docker exec auth-app php artisan test --coverage
+```
+
+3. Access points for reports:
+- Test Coverage Report: http://localhost:8000/coverage
+  - Shows detailed code coverage statistics
+  - Highlights tested and untested code
+  - Provides class and method level coverage metrics
+
+4. Current coverage metrics:
+- Overall coverage: 30.0%
+- Fully covered components:
+  - Controller base class
+  - ForceJsonResponse middleware
+  - SecurityHeaders middleware
+  - VerifyCsrfToken middleware
+  - TwoFactorAuth Request classes
+  - AppServiceProvider
+  - TwoFactorAuthRepository
+
+5. Areas needing test coverage:
+- Auth controllers and services
+- Password management
+- Session management
+- OAuth models
+- User model methods
 
 ## Contributing
 

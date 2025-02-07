@@ -5,12 +5,12 @@
             "key": "baseUrl",
             "type": "string",
             "name": "string",
-            "value": "http:\/\/localhost"
+            "value": "http:\/\/localhost:8000"
         }
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "a6749f08-b4bd-4494-bc60-da5f1873bcd6",
+        "_postman_id": "96b4a82c-ce10-44c3-9fba-1107f65218f0",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -41,39 +41,14 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"user@example.com\",\"password\":\"password123\",\"remember_me\":true}"
+                            "raw": "{\"email\":\"bauch.nestor@example.net\",\"password\":\"N:+b\\\/\\\"v*Tv\",\"remember_me\":true,\"2fa_code\":\"xboyza\"}"
                         },
                         "description": "Authenticate a user and create a new session.",
                         "auth": {
                             "type": "noauth"
                         }
                     },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n  \"message\": \"Logged in successfully\",\n  \"session_id\": \"abc123\",\n  \"password_status\": {\n    \"expired\": false,\n    \"days_left\": 45,\n    \"status\": \"valid\"\n  }\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 401,
-                            "body": "{\n  \"message\": \"Invalid credentials\"\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 401,
-                            "body": "{\n  \"message\": \"Account is locked due to too many failed attempts\"\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 403,
-                            "body": "{\n  \"message\": \"Password change required\",\n  \"password_expired\": true\n}",
-                            "name": ""
-                        }
-                    ]
+                    "response": []
                 },
                 {
                     "name": "Register",
@@ -97,27 +72,14 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"user@example.com\",\"password\":\"StrongPass123!\",\"password_confirmation\":\"StrongPass123!\"}"
+                            "raw": "{\"email\":\"dante92@example.org\",\"password\":\"?{rTBcFFG|IXt\"}"
                         },
                         "description": "Register a new user account.",
                         "auth": {
                             "type": "noauth"
                         }
                     },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 201,
-                            "body": "{\n  \"message\": \"User registered successfully\"\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 422,
-                            "body": "{\n  \"message\": \"The given data was invalid.\",\n  \"errors\": {\n    \"email\": [\"The email has already been taken.\"],\n    \"password\": [\"The password must be at least 8 characters.\"]\n  }\n}",
-                            "name": ""
-                        }
-                    ]
+                    "response": []
                 },
                 {
                     "name": "Logout",
@@ -140,16 +102,12 @@
                             }
                         ],
                         "body": null,
-                        "description": "Invalidate the current session."
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n  \"message\": \"Logged out successfully\"\n}",
-                            "name": ""
+                        "description": "Invalidate the current session.",
+                        "auth": {
+                            "type": "noauth"
                         }
-                    ]
+                    },
+                    "response": []
                 }
             ]
         },
@@ -322,7 +280,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"client_id\":\"dolorem\",\"redirect_uri\":\"http:\\\/\\\/www.bradtke.net\\\/nostrum-vel-et-ut-quo-odit-aut.html\",\"response_type\":\"code\",\"scope\":\"ut\",\"state\":\"ipsam\"}"
+                            "raw": "{\"client_id\":\"numquam\",\"redirect_uri\":\"http:\\\/\\\/www.fay.com\\\/\",\"response_type\":\"code\",\"scope\":\"voluptatibus\",\"state\":\"ducimus\"}"
                         },
                         "description": "First step of Authorization Code flow. Shows authorization form to the user.",
                         "auth": {
@@ -388,8 +346,8 @@
                     "response": [
                         {
                             "header": [],
-                            "code": 200,
-                            "body": "{\n  \"code\": \"def50200...\",\n  \"state\": \"xyz123\"\n}",
+                            "code": 302,
+                            "body": "Redirects to client's redirect_uri with authorization code",
                             "name": ""
                         }
                     ]
@@ -527,13 +485,69 @@
                             }
                         ],
                         "body": null,
-                        "description": "Get all active sessions for the authenticated user."
+                        "description": "Get all active sessions for the authenticated user.",
+                        "auth": {
+                            "type": "noauth"
+                        }
                     },
                     "response": [
                         {
-                            "header": [],
-                            "code": 200,
-                            "body": "[\n  {\n    \"id\": \"abc123\",\n    \"ip_address\": \"192.168.1.1\",\n    \"user_agent\": \"Mozilla\/5.0...\",\n    \"last_activity\": \"2024-03-20 10:00:00\",\n    \"is_current_device\": true\n  }\n]",
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "59"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                },
+                                {
+                                    "key": "x-content-type-options",
+                                    "value": "nosniff"
+                                },
+                                {
+                                    "key": "x-frame-options",
+                                    "value": "SAMEORIGIN"
+                                },
+                                {
+                                    "key": "x-xss-protection",
+                                    "value": "1; mode=block"
+                                },
+                                {
+                                    "key": "strict-transport-security",
+                                    "value": "max-age=31536000; includeSubDomains"
+                                },
+                                {
+                                    "key": "content-security-policy",
+                                    "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';"
+                                },
+                                {
+                                    "key": "referrer-policy",
+                                    "value": "no-referrer-when-downgrade"
+                                },
+                                {
+                                    "key": "permissions-policy",
+                                    "value": "camera=(), microphone=(), geolocation=(), payment=()"
+                                },
+                                {
+                                    "key": "access-control-allow-methods",
+                                    "value": "GET, POST, PUT, DELETE, OPTIONS"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated\"}",
                             "name": ""
                         }
                     ]
@@ -550,7 +564,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "abc123",
+                                    "value": "soluta",
                                     "description": "The ID of the session."
                                 }
                             ]
@@ -567,28 +581,12 @@
                             }
                         ],
                         "body": null,
-                        "description": "Terminate a specific session."
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n  \"message\": \"Session terminated successfully\"\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 400,
-                            "body": "{\n  \"message\": \"Cannot delete current session\"\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 404,
-                            "body": "{\n  \"message\": \"Session not found\"\n}",
-                            "name": ""
+                        "description": "Terminate a specific session.",
+                        "auth": {
+                            "type": "noauth"
                         }
-                    ]
+                    },
+                    "response": []
                 }
             ]
         },
@@ -617,16 +615,12 @@
                             }
                         ],
                         "body": null,
-                        "description": "Start the 2FA setup process."
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n  \"secret\": \"KRSXG5CTMVRXEZLU\",\n  \"qr_code\": \"data:image\/png;base64,iVBORw0KGgoAAAANSUhEUgA...\",\n  \"recovery_codes\": [\"code1\", \"code2\", \"code3\", ...]\n}",
-                            "name": ""
+                        "description": "Start the 2FA setup process.",
+                        "auth": {
+                            "type": "noauth"
                         }
-                    ]
+                    },
+                    "response": []
                 },
                 {
                     "name": "Verify 2FA",
@@ -650,24 +644,45 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"code\":\"123456\"}"
+                            "raw": "{\"code\":\"kyxpns\"}"
                         },
-                        "description": "Verify and complete the 2FA setup."
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n  \"message\": \"2FA enabled successfully\"\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 400,
-                            "body": "{\n  \"message\": \"Invalid verification code\"\n}",
-                            "name": ""
+                        "description": "Verify and complete the 2FA setup.",
+                        "auth": {
+                            "type": "noauth"
                         }
-                    ]
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Disable 2FA",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/2fa\/disable",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/2fa\/disable"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"current_password\":\"doloremque\",\"code\":\"iaerhp\"}"
+                        },
+                        "description": "Disable two-factor authentication for the user.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
                 },
                 {
                     "name": "Get Backup Codes",
@@ -690,13 +705,69 @@
                             }
                         ],
                         "body": null,
-                        "description": "Get the list of backup codes."
+                        "description": "Get the list of backup codes.",
+                        "auth": {
+                            "type": "noauth"
+                        }
                     },
                     "response": [
                         {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n  \"recovery_codes\": [\"code1\", \"code2\", \"code3\", ...]\n}",
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "58"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                },
+                                {
+                                    "key": "x-content-type-options",
+                                    "value": "nosniff"
+                                },
+                                {
+                                    "key": "x-frame-options",
+                                    "value": "SAMEORIGIN"
+                                },
+                                {
+                                    "key": "x-xss-protection",
+                                    "value": "1; mode=block"
+                                },
+                                {
+                                    "key": "strict-transport-security",
+                                    "value": "max-age=31536000; includeSubDomains"
+                                },
+                                {
+                                    "key": "content-security-policy",
+                                    "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';"
+                                },
+                                {
+                                    "key": "referrer-policy",
+                                    "value": "no-referrer-when-downgrade"
+                                },
+                                {
+                                    "key": "permissions-policy",
+                                    "value": "camera=(), microphone=(), geolocation=(), payment=()"
+                                },
+                                {
+                                    "key": "access-control-allow-methods",
+                                    "value": "GET, POST, PUT, DELETE, OPTIONS"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated\"}",
                             "name": ""
                         }
                     ]
@@ -722,16 +793,12 @@
                             }
                         ],
                         "body": null,
-                        "description": "Generate new backup codes."
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n  \"recovery_codes\": [\"code1\", \"code2\", \"code3\", ...]\n}",
-                            "name": ""
+                        "description": "Generate new backup codes.",
+                        "auth": {
+                            "type": "noauth"
                         }
-                    ]
+                    },
+                    "response": []
                 }
             ]
         },

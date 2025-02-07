@@ -138,6 +138,9 @@
                                                                                 <li class="tocify-item level-2" data-unique="two-factor-authentication-POSTapi-auth-2fa-verify">
                                 <a href="#two-factor-authentication-POSTapi-auth-2fa-verify">Verify 2FA</a>
                             </li>
+                                                                                <li class="tocify-item level-2" data-unique="two-factor-authentication-POSTapi-auth-2fa-disable">
+                                <a href="#two-factor-authentication-POSTapi-auth-2fa-disable">Disable 2FA</a>
+                            </li>
                                                                                 <li class="tocify-item level-2" data-unique="two-factor-authentication-GETapi-auth-2fa-backup-codes">
                                 <a href="#two-factor-authentication-GETapi-auth-2fa-backup-codes">Get Backup Codes</a>
                             </li>
@@ -171,7 +174,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: February 6, 2025</li>
+        <li>Last updated: February 7, 2025</li>
     </ul>
 </div>
 
@@ -180,7 +183,7 @@
     <div class="content">
         <h1 id="introduction">Introduction</h1>
 <aside>
-    <strong>Base URL</strong>: <code>http://localhost</code>
+    <strong>Base URL</strong>: <code>http://localhost:8000</code>
 </aside>
 <p>This documentation aims to provide all the information you need to work with our API.</p>
 <aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
@@ -206,20 +209,21 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/auth/login" \
+    "http://localhost:8000/api/auth/login" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"email\": \"user@example.com\",
-    \"password\": \"password123\",
-    \"remember_me\": true
+    \"email\": \"bauch.nestor@example.net\",
+    \"password\": \"N:+b\\/\\\"v*Tv\",
+    \"remember_me\": true,
+    \"2fa_code\": \"xboyza\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/auth/login"
+    "http://localhost:8000/api/auth/login"
 );
 
 const headers = {
@@ -228,9 +232,10 @@ const headers = {
 };
 
 let body = {
-    "email": "user@example.com",
-    "password": "password123",
-    "remember_me": true
+    "email": "bauch.nestor@example.net",
+    "password": "N:+b\/\"v*Tv",
+    "remember_me": true,
+    "2fa_code": "xboyza"
 };
 
 fetch(url, {
@@ -242,50 +247,7 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-auth-login">
-            <blockquote>
-            <p>Example response (200):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Logged in successfully&quot;,
-    &quot;session_id&quot;: &quot;abc123&quot;,
-    &quot;password_status&quot;: {
-        &quot;expired&quot;: false,
-        &quot;days_left&quot;: 45,
-        &quot;status&quot;: &quot;valid&quot;
-    }
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (401):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Invalid credentials&quot;
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (401):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Account is locked due to too many failed attempts&quot;
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (403):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Password change required&quot;,
-    &quot;password_expired&quot;: true
-}</code>
- </pre>
-    </span>
+</span>
 <span id="execution-results-POSTapi-auth-login" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-auth-login"></span>:
@@ -362,10 +324,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-auth-login"
-               value="user@example.com"
+               value="bauch.nestor@example.net"
                data-component="body">
     <br>
-<p>The email of the user. Example: <code>user@example.com</code></p>
+<p>Must be a valid email address. Example: <code>bauch.nestor@example.net</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -373,10 +335,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-auth-login"
-               value="password123"
+               value="N:+b/"v*Tv"
                data-component="body">
     <br>
-<p>The password of the user. Example: <code>password123</code></p>
+<p>Example: <code>N:+b/"v*Tv</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>remember_me</code></b>&nbsp;&nbsp;
@@ -397,7 +359,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>optional Remember me option. Example: <code>true</code></p>
+<p>Example: <code>true</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>2fa_code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+                <input type="text" style="display: none"
+                              name="2fa_code"                data-endpoint="POSTapi-auth-login"
+               value="xboyza"
+               data-component="body">
+    <br>
+<p>Must be 6 characters. Example: <code>xboyza</code></p>
         </div>
         </form>
 
@@ -414,20 +387,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/auth/register" \
+    "http://localhost:8000/api/auth/register" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"email\": \"user@example.com\",
-    \"password\": \"StrongPass123!\",
-    \"password_confirmation\": \"StrongPass123!\"
+    \"email\": \"dante92@example.org\",
+    \"password\": \"?{rTBcFFG|IXt\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/auth/register"
+    "http://localhost:8000/api/auth/register"
 );
 
 const headers = {
@@ -436,9 +408,8 @@ const headers = {
 };
 
 let body = {
-    "email": "user@example.com",
-    "password": "StrongPass123!",
-    "password_confirmation": "StrongPass123!"
+    "email": "dante92@example.org",
+    "password": "?{rTBcFFG|IXt"
 };
 
 fetch(url, {
@@ -450,33 +421,7 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-auth-register">
-            <blockquote>
-            <p>Example response (201):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;User registered successfully&quot;
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (422):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;The given data was invalid.&quot;,
-    &quot;errors&quot;: {
-        &quot;email&quot;: [
-            &quot;The email has already been taken.&quot;
-        ],
-        &quot;password&quot;: [
-            &quot;The password must be at least 8 characters.&quot;
-        ]
-    }
-}</code>
- </pre>
-    </span>
+</span>
 <span id="execution-results-POSTapi-auth-register" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-auth-register"></span>:
@@ -553,10 +498,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-auth-register"
-               value="user@example.com"
+               value="dante92@example.org"
                data-component="body">
     <br>
-<p>The email address. Example: <code>user@example.com</code></p>
+<p>Must be a valid email address. Must not be greater than 255 characters. Example: <code>dante92@example.org</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -564,28 +509,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-auth-register"
-               value="StrongPass123!"
+               value="?{rTBcFFG|IXt"
                data-component="body">
     <br>
-<p>The password (must meet password policy requirements). Example: <code>StrongPass123!</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>password_confirmation</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="password_confirmation"                data-endpoint="POSTapi-auth-register"
-               value="StrongPass123!"
-               data-component="body">
-    <br>
-<p>The password confirmation. Example: <code>StrongPass123!</code></p>
+<p>Example: <code>?{rTBcFFG|IXt</code></p>
         </div>
         </form>
 
                     <h2 id="authentication-POSTapi-auth-logout">Logout</h2>
 
 <p>
-<small class="badge badge-darkred">requires authentication</small>
 </p>
 
 <p>Invalidate the current session.</p>
@@ -596,14 +529,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/auth/logout" \
+    "http://localhost:8000/api/auth/logout" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/auth/logout"
+    "http://localhost:8000/api/auth/logout"
 );
 
 const headers = {
@@ -619,16 +552,7 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-auth-logout">
-            <blockquote>
-            <p>Example response (200):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Logged out successfully&quot;
-}</code>
- </pre>
-    </span>
+</span>
 <span id="execution-results-POSTapi-auth-logout" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-auth-logout"></span>:
@@ -646,7 +570,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 </span>
 <form id="form-POSTapi-auth-logout" data-method="POST"
       data-path="api/auth/logout"
-      data-authed="1"
+      data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
@@ -722,7 +646,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/oauth/token" \
+    "http://localhost:8000/api/oauth/token" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -739,7 +663,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/oauth/token"
+    "http://localhost:8000/api/oauth/token"
 );
 
 const headers = {
@@ -911,7 +835,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="test-secret"
                data-component="body">
     <br>
-<p>The client secret. Example: <code>test-secret</code></p>
+<p>The client secret (raw value, will be hashed internally). Example: <code>test-secret</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>code</code></b>&nbsp;&nbsp;
@@ -972,7 +896,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/oauth/token/revoke" \
+    "http://localhost:8000/api/oauth/token/revoke" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -985,7 +909,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/oauth/token/revoke"
+    "http://localhost:8000/api/oauth/token/revoke"
 );
 
 const headers = {
@@ -1149,7 +1073,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="test-secret"
                data-component="body">
     <br>
-<p>The client secret. Example: <code>test-secret</code></p>
+<p>The client secret (raw value, will be hashed internally). Example: <code>test-secret</code></p>
         </div>
         </form>
 
@@ -1166,22 +1090,22 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/oauth/authorize?client_id=test-client&amp;redirect_uri=https%3A%2F%2Fclient.example.com%2Fcallback&amp;response_type=code&amp;scope=profile+email&amp;state=xyz123" \
+    --get "http://localhost:8000/api/oauth/authorize?client_id=test-client&amp;redirect_uri=https%3A%2F%2Fclient.example.com%2Fcallback&amp;response_type=code&amp;scope=profile+email&amp;state=xyz123" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"client_id\": \"dolorem\",
-    \"redirect_uri\": \"http:\\/\\/www.bradtke.net\\/nostrum-vel-et-ut-quo-odit-aut.html\",
+    \"client_id\": \"numquam\",
+    \"redirect_uri\": \"http:\\/\\/www.fay.com\\/\",
     \"response_type\": \"code\",
-    \"scope\": \"ut\",
-    \"state\": \"ipsam\"
+    \"scope\": \"voluptatibus\",
+    \"state\": \"ducimus\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/oauth/authorize"
+    "http://localhost:8000/api/oauth/authorize"
 );
 
 const params = {
@@ -1200,11 +1124,11 @@ const headers = {
 };
 
 let body = {
-    "client_id": "dolorem",
-    "redirect_uri": "http:\/\/www.bradtke.net\/nostrum-vel-et-ut-quo-odit-aut.html",
+    "client_id": "numquam",
+    "redirect_uri": "http:\/\/www.fay.com\/",
     "response_type": "code",
-    "scope": "ut",
-    "state": "ipsam"
+    "scope": "voluptatibus",
+    "state": "ducimus"
 };
 
 fetch(url, {
@@ -1396,10 +1320,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="client_id"                data-endpoint="GETapi-oauth-authorize"
-               value="dolorem"
+               value="numquam"
                data-component="body">
     <br>
-<p>Example: <code>dolorem</code></p>
+<p>Example: <code>numquam</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>redirect_uri</code></b>&nbsp;&nbsp;
@@ -1407,10 +1331,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="redirect_uri"                data-endpoint="GETapi-oauth-authorize"
-               value="http://www.bradtke.net/nostrum-vel-et-ut-quo-odit-aut.html"
+               value="http://www.fay.com/"
                data-component="body">
     <br>
-<p>Must be a valid URL. Example: <code>http://www.bradtke.net/nostrum-vel-et-ut-quo-odit-aut.html</code></p>
+<p>Must be a valid URL. Example: <code>http://www.fay.com/</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>response_type</code></b>&nbsp;&nbsp;
@@ -1431,10 +1355,10 @@ Must be one of:
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="scope"                data-endpoint="GETapi-oauth-authorize"
-               value="ut"
+               value="voluptatibus"
                data-component="body">
     <br>
-<p>Example: <code>ut</code></p>
+<p>Example: <code>voluptatibus</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>state</code></b>&nbsp;&nbsp;
@@ -1442,10 +1366,10 @@ Must be one of:
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="state"                data-endpoint="GETapi-oauth-authorize"
-               value="ipsam"
+               value="ducimus"
                data-component="body">
     <br>
-<p>Example: <code>ipsam</code></p>
+<p>Example: <code>ducimus</code></p>
         </div>
         </form>
 
@@ -1462,7 +1386,7 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/oauth/authorize" \
+    "http://localhost:8000/api/oauth/authorize" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1476,7 +1400,7 @@ Must be one of:
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/oauth/authorize"
+    "http://localhost:8000/api/oauth/authorize"
 );
 
 const headers = {
@@ -1501,14 +1425,11 @@ fetch(url, {
 
 <span id="example-responses-POSTapi-oauth-authorize">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (302):</p>
         </blockquote>
                 <pre>
 
-<code class="language-json" style="max-height: 300px;">{
-    &quot;code&quot;: &quot;def50200...&quot;,
-    &quot;state&quot;: &quot;xyz123&quot;
-}</code>
+<code class="language-json" style="max-height: 300px;">Redirects to client&#039;s redirect_uri with authorization code</code>
  </pre>
     </span>
 <span id="execution-results-POSTapi-oauth-authorize" hidden>
@@ -1644,7 +1565,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/auth/password/forgot" \
+    "http://localhost:8000/api/auth/password/forgot" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1655,7 +1576,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/auth/password/forgot"
+    "http://localhost:8000/api/auth/password/forgot"
 );
 
 const headers = {
@@ -1791,7 +1712,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/auth/password/reset" \
+    "http://localhost:8000/api/auth/password/reset" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1805,7 +1726,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/auth/password/reset"
+    "http://localhost:8000/api/auth/password/reset"
 );
 
 const headers = {
@@ -1989,7 +1910,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                 <h2 id="session-management-GETapi-users-me-sessions">List Sessions</h2>
 
 <p>
-<small class="badge badge-darkred">requires authentication</small>
 </p>
 
 <p>Get all active sessions for the authenticated user.</p>
@@ -2000,14 +1920,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/users/me/sessions" \
+    --get "http://localhost:8000/api/users/me/sessions" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/me/sessions"
+    "http://localhost:8000/api/users/me/sessions"
 );
 
 const headers = {
@@ -2024,19 +1944,30 @@ fetch(url, {
 
 <span id="example-responses-GETapi-users-me-sessions">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
-                <pre>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 59
+access-control-allow-origin: *
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-xss-protection: 1; mode=block
+strict-transport-security: max-age=31536000; includeSubDomains
+content-security-policy: default-src &#039;self&#039;; script-src &#039;self&#039; &#039;unsafe-inline&#039; &#039;unsafe-eval&#039;; style-src &#039;self&#039; &#039;unsafe-inline&#039;;
+referrer-policy: no-referrer-when-downgrade
+permissions-policy: camera=(), microphone=(), geolocation=(), payment=()
+access-control-allow-methods: GET, POST, PUT, DELETE, OPTIONS
+ </code></pre></details>         <pre>
 
-<code class="language-json" style="max-height: 300px;">[
-    {
-        &quot;id&quot;: &quot;abc123&quot;,
-        &quot;ip_address&quot;: &quot;192.168.1.1&quot;,
-        &quot;user_agent&quot;: &quot;Mozilla/5.0...&quot;,
-        &quot;last_activity&quot;: &quot;2024-03-20 10:00:00&quot;,
-        &quot;is_current_device&quot;: true
-    }
-]</code>
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Unauthenticated&quot;
+}</code>
  </pre>
     </span>
 <span id="execution-results-GETapi-users-me-sessions" hidden>
@@ -2056,7 +1987,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 </span>
 <form id="form-GETapi-users-me-sessions" data-method="GET"
       data-path="api/users/me/sessions"
-      data-authed="1"
+      data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
@@ -2113,7 +2044,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
                     <h2 id="session-management-DELETEapi-users-me-sessions--id-">Delete Session</h2>
 
 <p>
-<small class="badge badge-darkred">requires authentication</small>
 </p>
 
 <p>Terminate a specific session.</p>
@@ -2124,14 +2054,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/users/me/sessions/abc123" \
+    "http://localhost:8000/api/users/me/sessions/soluta" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/me/sessions/abc123"
+    "http://localhost:8000/api/users/me/sessions/soluta"
 );
 
 const headers = {
@@ -2147,34 +2077,7 @@ fetch(url, {
 </span>
 
 <span id="example-responses-DELETEapi-users-me-sessions--id-">
-            <blockquote>
-            <p>Example response (200):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Session terminated successfully&quot;
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (400):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Cannot delete current session&quot;
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (404):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Session not found&quot;
-}</code>
- </pre>
-    </span>
+</span>
 <span id="execution-results-DELETEapi-users-me-sessions--id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-DELETEapi-users-me-sessions--id-"></span>:
@@ -2192,7 +2095,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 </span>
 <form id="form-DELETEapi-users-me-sessions--id-" data-method="DELETE"
       data-path="api/users/me/sessions/{id}"
-      data-authed="1"
+      data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
@@ -2251,10 +2154,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-users-me-sessions--id-"
-               value="abc123"
+               value="soluta"
                data-component="url">
     <br>
-<p>The ID of the session. Example: <code>abc123</code></p>
+<p>The ID of the session. Example: <code>soluta</code></p>
             </div>
                     </form>
 
@@ -2265,7 +2168,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
                                 <h2 id="two-factor-authentication-POSTapi-auth-2fa-enable">Enable 2FA</h2>
 
 <p>
-<small class="badge badge-darkred">requires authentication</small>
 </p>
 
 <p>Start the 2FA setup process.</p>
@@ -2276,14 +2178,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/auth/2fa/enable" \
+    "http://localhost:8000/api/auth/2fa/enable" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/auth/2fa/enable"
+    "http://localhost:8000/api/auth/2fa/enable"
 );
 
 const headers = {
@@ -2299,18 +2201,7 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-auth-2fa-enable">
-            <blockquote>
-            <p>Example response (200):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-  &quot;secret&quot;: &quot;KRSXG5CTMVRXEZLU&quot;,
-  &quot;qr_code&quot;: &quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgA...&quot;,
-  &quot;recovery_codes&quot;: [&quot;code1&quot;, &quot;code2&quot;, &quot;code3&quot;, ...]
-}</code>
- </pre>
-    </span>
+</span>
 <span id="execution-results-POSTapi-auth-2fa-enable" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-auth-2fa-enable"></span>:
@@ -2328,7 +2219,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 </span>
 <form id="form-POSTapi-auth-2fa-enable" data-method="POST"
       data-path="api/auth/2fa/enable"
-      data-authed="1"
+      data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
@@ -2385,7 +2276,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
                     <h2 id="two-factor-authentication-POSTapi-auth-2fa-verify">Verify 2FA</h2>
 
 <p>
-<small class="badge badge-darkred">requires authentication</small>
 </p>
 
 <p>Verify and complete the 2FA setup.</p>
@@ -2396,18 +2286,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/auth/2fa/verify" \
+    "http://localhost:8000/api/auth/2fa/verify" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"code\": \"123456\"
+    \"code\": \"kyxpns\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/auth/2fa/verify"
+    "http://localhost:8000/api/auth/2fa/verify"
 );
 
 const headers = {
@@ -2416,7 +2306,7 @@ const headers = {
 };
 
 let body = {
-    "code": "123456"
+    "code": "kyxpns"
 };
 
 fetch(url, {
@@ -2428,25 +2318,7 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-auth-2fa-verify">
-            <blockquote>
-            <p>Example response (200):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;2FA enabled successfully&quot;
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (400):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Invalid verification code&quot;
-}</code>
- </pre>
-    </span>
+</span>
 <span id="execution-results-POSTapi-auth-2fa-verify" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-auth-2fa-verify"></span>:
@@ -2464,7 +2336,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 </span>
 <form id="form-POSTapi-auth-2fa-verify" data-method="POST"
       data-path="api/auth/2fa/verify"
-      data-authed="1"
+      data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
@@ -2523,17 +2395,158 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="code"                data-endpoint="POSTapi-auth-2fa-verify"
-               value="123456"
+               value="kyxpns"
                data-component="body">
     <br>
-<p>The verification code. Example: <code>123456</code></p>
+<p>Must be 6 characters. Example: <code>kyxpns</code></p>
+        </div>
+        </form>
+
+                    <h2 id="two-factor-authentication-POSTapi-auth-2fa-disable">Disable 2FA</h2>
+
+<p>
+</p>
+
+<p>Disable two-factor authentication for the user.</p>
+
+<span id="example-requests-POSTapi-auth-2fa-disable">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost:8000/api/auth/2fa/disable" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"current_password\": \"doloremque\",
+    \"code\": \"iaerhp\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/api/auth/2fa/disable"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "current_password": "doloremque",
+    "code": "iaerhp"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-auth-2fa-disable">
+</span>
+<span id="execution-results-POSTapi-auth-2fa-disable" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-auth-2fa-disable"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-auth-2fa-disable"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-auth-2fa-disable" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-auth-2fa-disable">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-auth-2fa-disable" data-method="POST"
+      data-path="api/auth/2fa/disable"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-auth-2fa-disable', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-auth-2fa-disable"
+                    onclick="tryItOut('POSTapi-auth-2fa-disable');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-auth-2fa-disable"
+                    onclick="cancelTryOut('POSTapi-auth-2fa-disable');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-auth-2fa-disable"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/auth/2fa/disable</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-auth-2fa-disable"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-auth-2fa-disable"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>current_password</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="current_password"                data-endpoint="POSTapi-auth-2fa-disable"
+               value="doloremque"
+               data-component="body">
+    <br>
+<p>Example: <code>doloremque</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="code"                data-endpoint="POSTapi-auth-2fa-disable"
+               value="iaerhp"
+               data-component="body">
+    <br>
+<p>Must be 6 characters. Example: <code>iaerhp</code></p>
         </div>
         </form>
 
                     <h2 id="two-factor-authentication-GETapi-auth-2fa-backup-codes">Get Backup Codes</h2>
 
 <p>
-<small class="badge badge-darkred">requires authentication</small>
 </p>
 
 <p>Get the list of backup codes.</p>
@@ -2544,14 +2557,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/auth/2fa/backup-codes" \
+    --get "http://localhost:8000/api/auth/2fa/backup-codes" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/auth/2fa/backup-codes"
+    "http://localhost:8000/api/auth/2fa/backup-codes"
 );
 
 const headers = {
@@ -2568,12 +2581,29 @@ fetch(url, {
 
 <span id="example-responses-GETapi-auth-2fa-backup-codes">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
-                <pre>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 58
+access-control-allow-origin: *
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-xss-protection: 1; mode=block
+strict-transport-security: max-age=31536000; includeSubDomains
+content-security-policy: default-src &#039;self&#039;; script-src &#039;self&#039; &#039;unsafe-inline&#039; &#039;unsafe-eval&#039;; style-src &#039;self&#039; &#039;unsafe-inline&#039;;
+referrer-policy: no-referrer-when-downgrade
+permissions-policy: camera=(), microphone=(), geolocation=(), payment=()
+access-control-allow-methods: GET, POST, PUT, DELETE, OPTIONS
+ </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-  &quot;recovery_codes&quot;: [&quot;code1&quot;, &quot;code2&quot;, &quot;code3&quot;, ...]
+    &quot;message&quot;: &quot;Unauthenticated&quot;
 }</code>
  </pre>
     </span>
@@ -2594,7 +2624,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 </span>
 <form id="form-GETapi-auth-2fa-backup-codes" data-method="GET"
       data-path="api/auth/2fa/backup-codes"
-      data-authed="1"
+      data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
@@ -2651,7 +2681,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
                     <h2 id="two-factor-authentication-POSTapi-auth-2fa-regenerate-backup-codes">Regenerate Backup Codes</h2>
 
 <p>
-<small class="badge badge-darkred">requires authentication</small>
 </p>
 
 <p>Generate new backup codes.</p>
@@ -2662,14 +2691,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/auth/2fa/regenerate-backup-codes" \
+    "http://localhost:8000/api/auth/2fa/regenerate-backup-codes" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/auth/2fa/regenerate-backup-codes"
+    "http://localhost:8000/api/auth/2fa/regenerate-backup-codes"
 );
 
 const headers = {
@@ -2685,16 +2714,7 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-auth-2fa-regenerate-backup-codes">
-            <blockquote>
-            <p>Example response (200):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-  &quot;recovery_codes&quot;: [&quot;code1&quot;, &quot;code2&quot;, &quot;code3&quot;, ...]
-}</code>
- </pre>
-    </span>
+</span>
 <span id="execution-results-POSTapi-auth-2fa-regenerate-backup-codes" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-auth-2fa-regenerate-backup-codes"></span>:
@@ -2712,7 +2732,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 </span>
 <form id="form-POSTapi-auth-2fa-regenerate-backup-codes" data-method="POST"
       data-path="api/auth/2fa/regenerate-backup-codes"
-      data-authed="1"
+      data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
@@ -2784,14 +2804,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/users/me" \
+    --get "http://localhost:8000/api/users/me" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/me"
+    "http://localhost:8000/api/users/me"
 );
 
 const headers = {
@@ -2912,7 +2932,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/users/me" \
+    "http://localhost:8000/api/users/me" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -2923,7 +2943,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/me"
+    "http://localhost:8000/api/users/me"
 );
 
 const headers = {
@@ -3069,7 +3089,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/users/me/password" \
+    "http://localhost:8000/api/users/me/password" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -3082,7 +3102,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/users/me/password"
+    "http://localhost:8000/api/users/me/password"
 );
 
 const headers = {

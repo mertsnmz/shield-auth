@@ -52,7 +52,7 @@ endpoints:
         custom: []
       client_secret:
         name: client_secret
-        description: 'The client secret.'
+        description: 'The client secret (raw value, will be hashed internally).'
         required: true
         example: test-secret
         type: string
@@ -204,7 +204,7 @@ endpoints:
         custom: []
       client_secret:
         name: client_secret
-        description: 'The client secret.'
+        description: 'The client secret (raw value, will be hashed internally).'
         required: true
         example: test-secret
         type: string
@@ -345,7 +345,7 @@ endpoints:
         name: client_id
         description: ''
         required: true
-        example: dolorem
+        example: numquam
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -355,7 +355,7 @@ endpoints:
         name: redirect_uri
         description: 'Must be a valid URL.'
         required: true
-        example: 'http://www.bradtke.net/nostrum-vel-et-ut-quo-odit-aut.html'
+        example: 'http://www.fay.com/'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -376,7 +376,7 @@ endpoints:
         name: scope
         description: ''
         required: false
-        example: ut
+        example: voluptatibus
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -386,18 +386,18 @@ endpoints:
         name: state
         description: ''
         required: false
-        example: ipsam
+        example: ducimus
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         custom: []
     cleanBodyParameters:
-      client_id: dolorem
-      redirect_uri: 'http://www.bradtke.net/nostrum-vel-et-ut-quo-odit-aut.html'
+      client_id: numquam
+      redirect_uri: 'http://www.fay.com/'
       response_type: code
-      scope: ut
-      state: ipsam
+      scope: voluptatibus
+      state: ducimus
     fileParameters: []
     responses:
       -
@@ -524,12 +524,8 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 200
-        content: |-
-          {
-            "code": "def50200...",
-            "state": "xyz123"
-          }
+        status: 302
+        content: "Redirects to client's redirect_uri with authorization code"
         headers: []
         description: ''
         custom: []

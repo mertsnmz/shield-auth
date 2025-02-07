@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /var/www/app</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css?v=11.0.8" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css?v=11.0.8" rel="stylesheet" type="text/css">
+  <link href="_css/style.css?v=11.0.8" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">/var/www/app</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Console/Commands/CleanOAuthTokens.php.html#8">App\Console\Commands\CleanOAuthTokens</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/CleanSessions.php.html#8">App\Console\Commands\CleanSessions</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/SecurityAudit.php.html#9">App\Console\Commands\SecurityAudit</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Api/PasswordController.php.html#12">App\Http\Controllers\Api\PasswordController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#16">App\Http\Controllers\AuthController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/PasswordController.php.html#17">App\Http\Controllers\PasswordController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/SessionController.php.html#17">App\Http\Controllers\SessionController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#18">App\Http\Controllers\UserController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Middleware/AuthenticateSession.php.html#12">App\Http\Middleware\AuthenticateSession</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#7">App\Http\Requests\Auth\LoginRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/RegisterRequest.php.html#8">App\Http\Requests\Auth\RegisterRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Password/ForgotPasswordRequest.php.html#7">App\Http\Requests\Password\ForgotPasswordRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Password/ResetPasswordRequest.php.html#8">App\Http\Requests\Password\ResetPasswordRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Session/DeleteSessionRequest.php.html#7">App\Http\Requests\Session\DeleteSessionRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Session/ListSessionsRequest.php.html#7">App\Http\Requests\Session\ListSessionsRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/OAuthAccessToken.php.html#9">App\Models\OAuthAccessToken</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/OAuthAuthCode.php.html#8">App\Models\OAuthAuthCode</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/OAuthRefreshToken.php.html#8">App\Models\OAuthRefreshToken</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/OAuthScope.php.html#8">App\Models\OAuthScope</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/PasswordHistory.php.html#8">App\Models\PasswordHistory</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Session.php.html#7">App\Models\Session</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Auth/AuthRepository.php.html#9">App\Repositories\Auth\AuthRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Password/PasswordRepository.php.html#8">App\Repositories\Password\PasswordRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Session/SessionRepository.php.html#8">App\Repositories\Session\SessionRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Auth/AuthService.php.html#15">App\Services\Auth\AuthService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Password/PasswordService.php.html#11">App\Services\Password\PasswordService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/PasswordPolicyService.php.html#10">App\Services\PasswordPolicyService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Session/SessionService.php.html#8">App\Services\Session\SessionService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TwoFactorAuthService.php.html#12">App\Services\TwoFactorAuthService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Traits/ApiResponse.php.html#7">App\Traits\ApiResponse</a></td><td class="text-right">18%</td></tr>
+       <tr><td><a href="Models/User.php.html#12">App\Models\User</a></td><td class="text-right">41%</td></tr>
+       <tr><td><a href="Http/Controllers/OAuth/OAuthController.php.html#22">App\Http\Controllers\OAuth\OAuthController</a></td><td class="text-right">58%</td></tr>
+       <tr><td><a href="Http/Middleware/RateLimiter.php.html#12">App\Http\Middleware\RateLimiter</a></td><td class="text-right">63%</td></tr>
+       <tr><td><a href="Http/Middleware/ForceHttps.php.html#9">App\Http\Middleware\ForceHttps</a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Http/Controllers/TwoFactorAuthController.php.html#19">App\Http\Controllers\TwoFactorAuthController</a></td><td class="text-right">67%</td></tr>
+       <tr><td><a href="Services/TwoFactorAuth/TwoFactorAuthService.php.html#14">App\Services\TwoFactorAuth\TwoFactorAuthService</a></td><td class="text-right">70%</td></tr>
+       <tr><td><a href="Models/OAuthClient.php.html#9">App\Models\OAuthClient</a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Http/Middleware/SanitizeLogData.php.html#10">App\Http\Middleware\SanitizeLogData</a></td><td class="text-right">88%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Console/Commands/SecurityAudit.php.html#9">App\Console\Commands\SecurityAudit</a></td><td class="text-right">380</td></tr>
+       <tr><td><a href="Services/Auth/AuthService.php.html#15">App\Services\Auth\AuthService</a></td><td class="text-right">306</td></tr>
+       <tr><td><a href="Services/PasswordPolicyService.php.html#10">App\Services\PasswordPolicyService</a></td><td class="text-right">272</td></tr>
+       <tr><td><a href="Services/TwoFactorAuthService.php.html#12">App\Services\TwoFactorAuthService</a></td><td class="text-right">182</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#16">App\Http\Controllers\AuthController</a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="Http/Controllers/OAuth/OAuthController.php.html#22">App\Http\Controllers\OAuth\OAuthController</a></td><td class="text-right">96</td></tr>
+       <tr><td><a href="Http/Controllers/PasswordController.php.html#17">App\Http\Controllers\PasswordController</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Services/Password/PasswordService.php.html#11">App\Services\Password\PasswordService</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#18">App\Http\Controllers\UserController</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Http/Middleware/AuthenticateSession.php.html#12">App\Http\Middleware\AuthenticateSession</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Services/Session/SessionService.php.html#8">App\Services\Session\SessionService</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Services/TwoFactorAuth/TwoFactorAuthService.php.html#14">App\Services\TwoFactorAuth\TwoFactorAuthService</a></td><td class="text-right">39</td></tr>
+       <tr><td><a href="Http/Controllers/Api/PasswordController.php.html#12">App\Http\Controllers\Api\PasswordController</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Http/Controllers/SessionController.php.html#17">App\Http\Controllers\SessionController</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Http/Controllers/TwoFactorAuthController.php.html#19">App\Http\Controllers\TwoFactorAuthController</a></td><td class="text-right">15</td></tr>
+       <tr><td><a href="Http/Middleware/RateLimiter.php.html#12">App\Http\Middleware\RateLimiter</a></td><td class="text-right">14</td></tr>
+       <tr><td><a href="Http/Middleware/SanitizeLogData.php.html#10">App\Http\Middleware\SanitizeLogData</a></td><td class="text-right">7</td></tr>
+       <tr><td><a href="Http/Middleware/ForceHttps.php.html#9">App\Http\Middleware\ForceHttps</a></td><td class="text-right">3</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Console/Commands/CleanOAuthTokens.php.html#13"><abbr title="App\Console\Commands\CleanOAuthTokens::handle">handle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/CleanSessions.php.html#13"><abbr title="App\Console\Commands\CleanSessions::handle">handle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/SecurityAudit.php.html#14"><abbr title="App\Console\Commands\SecurityAudit::handle">handle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/SecurityAudit.php.html#36"><abbr title="App\Console\Commands\SecurityAudit::checkEnvironment">checkEnvironment</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/SecurityAudit.php.html#56"><abbr title="App\Console\Commands\SecurityAudit::checkDatabase">checkDatabase</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/SecurityAudit.php.html#80"><abbr title="App\Console\Commands\SecurityAudit::checkFilePermissions">checkFilePermissions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/SecurityAudit.php.html#102"><abbr title="App\Console\Commands\SecurityAudit::checkSecurityHeaders">checkSecurityHeaders</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Console/Commands/SecurityAudit.php.html#127"><abbr title="App\Console\Commands\SecurityAudit::checkOAuthConfig">checkOAuthConfig</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Api/PasswordController.php.html#16"><abbr title="App\Http\Controllers\Api\PasswordController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Api/PasswordController.php.html#20"><abbr title="App\Http\Controllers\Api\PasswordController::forgot">forgot</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Api/PasswordController.php.html#30"><abbr title="App\Http\Controllers\Api\PasswordController::reset">reset</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#20"><abbr title="App\Http\Controllers\AuthController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#32"><abbr title="App\Http\Controllers\AuthController::login">login</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#71"><abbr title="App\Http\Controllers\AuthController::register">register</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#95"><abbr title="App\Http\Controllers\AuthController::logout">logout</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/OAuth/OAuthController.php.html#291"><abbr title="App\Http\Controllers\OAuth\OAuthController::handleClientCredentials">handleClientCredentials</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/OAuth/OAuthController.php.html#432"><abbr title="App\Http\Controllers\OAuth\OAuthController::revokeToken">revokeToken</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/PasswordController.php.html#19"><abbr title="App\Http\Controllers\PasswordController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/PasswordController.php.html#37"><abbr title="App\Http\Controllers\PasswordController::forgot">forgot</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/PasswordController.php.html#81"><abbr title="App\Http\Controllers\PasswordController::reset">reset</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/SessionController.php.html#21"><abbr title="App\Http\Controllers\SessionController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/SessionController.php.html#33"><abbr title="App\Http\Controllers\SessionController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/SessionController.php.html#52"><abbr title="App\Http\Controllers\SessionController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#20"><abbr title="App\Http\Controllers\UserController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#45"><abbr title="App\Http\Controllers\UserController::me">me</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#83"><abbr title="App\Http\Controllers\UserController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#127"><abbr title="App\Http\Controllers\UserController::updatePassword">updatePassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Middleware/AuthenticateSession.php.html#18"><abbr title="App\Http\Middleware\AuthenticateSession::handle">handle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#9"><abbr title="App\Http\Requests\Auth\LoginRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#14"><abbr title="App\Http\Requests\Auth\LoginRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/LoginRequest.php.html#24"><abbr title="App\Http\Requests\Auth\LoginRequest::messages">messages</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/RegisterRequest.php.html#10"><abbr title="App\Http\Requests\Auth\RegisterRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/RegisterRequest.php.html#15"><abbr title="App\Http\Requests\Auth\RegisterRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Auth/RegisterRequest.php.html#28"><abbr title="App\Http\Requests\Auth\RegisterRequest::messages">messages</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Password/ForgotPasswordRequest.php.html#9"><abbr title="App\Http\Requests\Password\ForgotPasswordRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Password/ForgotPasswordRequest.php.html#14"><abbr title="App\Http\Requests\Password\ForgotPasswordRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Password/ForgotPasswordRequest.php.html#21"><abbr title="App\Http\Requests\Password\ForgotPasswordRequest::messages">messages</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Password/ResetPasswordRequest.php.html#10"><abbr title="App\Http\Requests\Password\ResetPasswordRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Password/ResetPasswordRequest.php.html#15"><abbr title="App\Http\Requests\Password\ResetPasswordRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Password/ResetPasswordRequest.php.html#29"><abbr title="App\Http\Requests\Password\ResetPasswordRequest::messages">messages</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Session/DeleteSessionRequest.php.html#9"><abbr title="App\Http\Requests\Session\DeleteSessionRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Session/DeleteSessionRequest.php.html#14"><abbr title="App\Http\Requests\Session\DeleteSessionRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Session/DeleteSessionRequest.php.html#19"><abbr title="App\Http\Requests\Session\DeleteSessionRequest::messages">messages</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Session/ListSessionsRequest.php.html#9"><abbr title="App\Http\Requests\Session\ListSessionsRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Session/ListSessionsRequest.php.html#14"><abbr title="App\Http\Requests\Session\ListSessionsRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/OAuthAccessToken.php.html#27"><abbr title="App\Models\OAuthAccessToken::client">client</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/OAuthAccessToken.php.html#32"><abbr title="App\Models\OAuthAccessToken::user">user</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/OAuthAccessToken.php.html#37"><abbr title="App\Models\OAuthAccessToken::refreshToken">refreshToken</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/OAuthAuthCode.php.html#30"><abbr title="App\Models\OAuthAuthCode::client">client</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/OAuthAuthCode.php.html#35"><abbr title="App\Models\OAuthAuthCode::user">user</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/OAuthClient.php.html#34"><abbr title="App\Models\OAuthClient::accessTokens">accessTokens</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/OAuthClient.php.html#39"><abbr title="App\Models\OAuthClient::authCodes">authCodes</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/OAuthRefreshToken.php.html#27"><abbr title="App\Models\OAuthRefreshToken::accessToken">accessToken</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/OAuthScope.php.html#23"><abbr title="App\Models\OAuthScope::clients">clients</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/PasswordHistory.php.html#21"><abbr title="App\Models\PasswordHistory::user">user</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Session.php.html#21"><abbr title="App\Models\Session::user">user</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#60"><abbr title="App\Models\User::sessions">sessions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#65"><abbr title="App\Models\User::passwordHistory">passwordHistory</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#70"><abbr title="App\Models\User::oauthAccessTokens">oauthAccessTokens</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#75"><abbr title="App\Models\User::getAuthPassword">getAuthPassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#80"><abbr title="App\Models\User::incrementLoginAttempts">incrementLoginAttempts</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#86"><abbr title="App\Models\User::resetLoginAttempts">resetLoginAttempts</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#92"><abbr title="App\Models\User::updateLastLogin">updateLastLogin</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Auth/AuthRepository.php.html#11"><abbr title="App\Repositories\Auth\AuthRepository::findUserByEmail">findUserByEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Auth/AuthRepository.php.html#16"><abbr title="App\Repositories\Auth\AuthRepository::createUser">createUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Auth/AuthRepository.php.html#21"><abbr title="App\Repositories\Auth\AuthRepository::getUserActiveSessions">getUserActiveSessions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Auth/AuthRepository.php.html#26"><abbr title="App\Repositories\Auth\AuthRepository::findSessionById">findSessionById</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Auth/AuthRepository.php.html#31"><abbr title="App\Repositories\Auth\AuthRepository::findSessionByDeviceInfo">findSessionByDeviceInfo</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Auth/AuthRepository.php.html#39"><abbr title="App\Repositories\Auth\AuthRepository::deleteSession">deleteSession</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Auth/AuthRepository.php.html#44"><abbr title="App\Repositories\Auth\AuthRepository::getOldestSession">getOldestSession</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Auth/AuthRepository.php.html#51"><abbr title="App\Repositories\Auth\AuthRepository::createSession">createSession</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Auth/AuthRepository.php.html#56"><abbr title="App\Repositories\Auth\AuthRepository::countActiveSessions">countActiveSessions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Password/PasswordRepository.php.html#10"><abbr title="App\Repositories\Password\PasswordRepository::sendResetLink">sendResetLink</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Password/PasswordRepository.php.html#15"><abbr title="App\Repositories\Password\PasswordRepository::findUserByEmail">findUserByEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Password/PasswordRepository.php.html#20"><abbr title="App\Repositories\Password\PasswordRepository::updatePassword">updatePassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Password/PasswordRepository.php.html#28"><abbr title="App\Repositories\Password\PasswordRepository::resetPassword">resetPassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Session/SessionRepository.php.html#10"><abbr title="App\Repositories\Session\SessionRepository::getUserSessions">getUserSessions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Session/SessionRepository.php.html#15"><abbr title="App\Repositories\Session\SessionRepository::findSessionByIdAndUser">findSessionByIdAndUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/Session/SessionRepository.php.html#22"><abbr title="App\Repositories\Session\SessionRepository::deleteSession">deleteSession</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Auth/AuthService.php.html#19"><abbr title="App\Services\Auth\AuthService::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Auth/AuthService.php.html#25"><abbr title="App\Services\Auth\AuthService::login">login</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Auth/AuthService.php.html#76"><abbr title="App\Services\Auth\AuthService::register">register</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Auth/AuthService.php.html#97"><abbr title="App\Services\Auth\AuthService::createSession">createSession</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Auth/AuthService.php.html#137"><abbr title="App\Services\Auth\AuthService::logout">logout</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Password/PasswordService.php.html#13"><abbr title="App\Services\Password\PasswordService::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Password/PasswordService.php.html#18"><abbr title="App\Services\Password\PasswordService::sendResetLink">sendResetLink</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Password/PasswordService.php.html#27"><abbr title="App\Services\Password\PasswordService::reset">reset</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/PasswordPolicyService.php.html#24"><abbr title="App\Services\PasswordPolicyService::getValidationRules">getValidationRules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/PasswordPolicyService.php.html#43"><abbr title="App\Services\PasswordPolicyService::wasUsedBefore">wasUsedBefore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/PasswordPolicyService.php.html#56"><abbr title="App\Services\PasswordPolicyService::recordPassword">recordPassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/PasswordPolicyService.php.html#69"><abbr title="App\Services\PasswordPolicyService::handleFailedLogin">handleFailedLogin</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/PasswordPolicyService.php.html#75"><abbr title="App\Services\PasswordPolicyService::resetFailedAttempts">resetFailedAttempts</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/PasswordPolicyService.php.html#81"><abbr title="App\Services\PasswordPolicyService::isAccountLocked">isAccountLocked</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/PasswordPolicyService.php.html#86"><abbr title="App\Services\PasswordPolicyService::checkPasswordStatus">checkPasswordStatus</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/PasswordPolicyService.php.html#122"><abbr title="App\Services\PasswordPolicyService::isPasswordChangeRequired">isPasswordChangeRequired</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Session/SessionService.php.html#10"><abbr title="App\Services\Session\SessionService::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Session/SessionService.php.html#14"><abbr title="App\Services\Session\SessionService::getUserSessions">getUserSessions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Session/SessionService.php.html#32"><abbr title="App\Services\Session\SessionService::terminateSession">terminateSession</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TwoFactorAuth/TwoFactorAuthService.php.html#133"><abbr title="App\Services\TwoFactorAuth\TwoFactorAuthService::verifyRecoveryCode">verifyRecoveryCode</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TwoFactorAuthService.php.html#20"><abbr title="App\Services\TwoFactorAuthService::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TwoFactorAuthService.php.html#25"><abbr title="App\Services\TwoFactorAuthService::generateSecretKey">generateSecretKey</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TwoFactorAuthService.php.html#30"><abbr title="App\Services\TwoFactorAuthService::generateQrCode">generateQrCode</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TwoFactorAuthService.php.html#46"><abbr title="App\Services\TwoFactorAuthService::verifyCode">verifyCode</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TwoFactorAuthService.php.html#51"><abbr title="App\Services\TwoFactorAuthService::generateRecoveryCodes">generateRecoveryCodes</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TwoFactorAuthService.php.html#60"><abbr title="App\Services\TwoFactorAuthService::verifyRecoveryCode">verifyRecoveryCode</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TwoFactorAuthService.php.html#81"><abbr title="App\Services\TwoFactorAuthService::enable2FA">enable2FA</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TwoFactorAuthService.php.html#102"><abbr title="App\Services\TwoFactorAuthService::disable2FA">disable2FA</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/TwoFactorAuthService.php.html#114"><abbr title="App\Services\TwoFactorAuthService::isEnabled">isEnabled</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Traits/ApiResponse.php.html#24"><abbr title="App\Traits\ApiResponse::errorResponse">errorResponse</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Traits/ApiResponse.php.html#36"><abbr title="App\Traits\ApiResponse::validationErrorResponse">validationErrorResponse</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Traits/ApiResponse.php.html#48"><abbr title="App\Traits\ApiResponse::unauthorizedResponse">unauthorizedResponse</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Traits/ApiResponse.php.html#59"><abbr title="App\Traits\ApiResponse::forbiddenResponse">forbiddenResponse</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Traits/ApiResponse.php.html#70"><abbr title="App\Traits\ApiResponse::notFoundResponse">notFoundResponse</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/TwoFactorAuthController.php.html#35"><abbr title="App\Http\Controllers\TwoFactorAuthController::enable">enable</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Http/Controllers/TwoFactorAuthController.php.html#53"><abbr title="App\Http\Controllers\TwoFactorAuthController::verify">verify</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Http/Controllers/TwoFactorAuthController.php.html#70"><abbr title="App\Http\Controllers\TwoFactorAuthController::getBackupCodes">getBackupCodes</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Http/Controllers/TwoFactorAuthController.php.html#87"><abbr title="App\Http\Controllers\TwoFactorAuthController::regenerateBackupCodes">regenerateBackupCodes</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Http/Middleware/RateLimiter.php.html#17"><abbr title="App\Http\Middleware\RateLimiter::handle">handle</abbr></a></td><td class="text-right">54%</td></tr>
+       <tr><td><a href="Services/TwoFactorAuth/TwoFactorAuthService.php.html#60"><abbr title="App\Services\TwoFactorAuth\TwoFactorAuthService::disable">disable</abbr></a></td><td class="text-right">57%</td></tr>
+       <tr><td><a href="Services/TwoFactorAuth/TwoFactorAuthService.php.html#47"><abbr title="App\Services\TwoFactorAuth\TwoFactorAuthService::verify">verify</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Http/Middleware/RateLimiter.php.html#83"><abbr title="App\Http\Middleware\RateLimiter::getRateLimits">getRateLimits</abbr></a></td><td class="text-right">63%</td></tr>
+       <tr><td><a href="Http/Controllers/OAuth/OAuthController.php.html#64"><abbr title="App\Http\Controllers\OAuth\OAuthController::issueToken">issueToken</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Http/Middleware/ForceHttps.php.html#11"><abbr title="App\Http\Middleware\ForceHttps::handle">handle</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Services/TwoFactorAuth/TwoFactorAuthService.php.html#77"><abbr title="App\Services\TwoFactorAuth\TwoFactorAuthService::getBackupCodes">getBackupCodes</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Http/Controllers/OAuth/OAuthController.php.html#322"><abbr title="App\Http\Controllers\OAuth\OAuthController::handleRefreshToken">handleRefreshToken</abbr></a></td><td class="text-right">71%</td></tr>
+       <tr><td><a href="Http/Controllers/OAuth/OAuthController.php.html#243"><abbr title="App\Http\Controllers\OAuth\OAuthController::handleAuthorizationCode">handleAuthorizationCode</abbr></a></td><td class="text-right">73%</td></tr>
+       <tr><td><a href="Http/Controllers/OAuth/OAuthController.php.html#198"><abbr title="App\Http\Controllers\OAuth\OAuthController::approveAuthorization">approveAuthorization</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Http/Controllers/OAuth/OAuthController.php.html#139"><abbr title="App\Http\Controllers\OAuth\OAuthController::authorize">authorize</abbr></a></td><td class="text-right">76%</td></tr>
+       <tr><td><a href="Services/TwoFactorAuth/TwoFactorAuthService.php.html#91"><abbr title="App\Services\TwoFactorAuth\TwoFactorAuthService::regenerateBackupCodes">regenerateBackupCodes</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Http/Middleware/SanitizeLogData.php.html#48"><abbr title="App\Http\Middleware\SanitizeLogData::sanitize">sanitize</abbr></a></td><td class="text-right">83%</td></tr>
+       <tr><td><a href="Http/Controllers/TwoFactorAuthController.php.html#105"><abbr title="App\Http\Controllers\TwoFactorAuthController::disable">disable</abbr></a></td><td class="text-right">85%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Services/Auth/AuthService.php.html#25"><abbr title="App\Services\Auth\AuthService::login">login</abbr></a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="Http/Middleware/AuthenticateSession.php.html#18"><abbr title="App\Http\Middleware\AuthenticateSession::handle">handle</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Console/Commands/SecurityAudit.php.html#127"><abbr title="App\Console\Commands\SecurityAudit::checkOAuthConfig">checkOAuthConfig</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#32"><abbr title="App\Http\Controllers\AuthController::login">login</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Http/Controllers/OAuth/OAuthController.php.html#432"><abbr title="App\Http\Controllers\OAuth\OAuthController::revokeToken">revokeToken</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Console/Commands/SecurityAudit.php.html#80"><abbr title="App\Console\Commands\SecurityAudit::checkFilePermissions">checkFilePermissions</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Http/Controllers/PasswordController.php.html#81"><abbr title="App\Http\Controllers\PasswordController::reset">reset</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Services/Auth/AuthService.php.html#97"><abbr title="App\Services\Auth\AuthService::createSession">createSession</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Services/Password/PasswordService.php.html#27"><abbr title="App\Services\Password\PasswordService::reset">reset</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Services/PasswordPolicyService.php.html#24"><abbr title="App\Services\PasswordPolicyService::getValidationRules">getValidationRules</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Services/PasswordPolicyService.php.html#86"><abbr title="App\Services\PasswordPolicyService::checkPasswordStatus">checkPasswordStatus</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Services/Session/SessionService.php.html#32"><abbr title="App\Services\Session\SessionService::terminateSession">terminateSession</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Console/Commands/SecurityAudit.php.html#36"><abbr title="App\Console\Commands\SecurityAudit::checkEnvironment">checkEnvironment</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Console/Commands/SecurityAudit.php.html#56"><abbr title="App\Console\Commands\SecurityAudit::checkDatabase">checkDatabase</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Console/Commands/SecurityAudit.php.html#102"><abbr title="App\Console\Commands\SecurityAudit::checkSecurityHeaders">checkSecurityHeaders</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#95"><abbr title="App\Http\Controllers\AuthController::logout">logout</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/OAuth/OAuthController.php.html#291"><abbr title="App\Http\Controllers\OAuth\OAuthController::handleClientCredentials">handleClientCredentials</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#127"><abbr title="App\Http\Controllers\UserController::updatePassword">updatePassword</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Services/PasswordPolicyService.php.html#43"><abbr title="App\Services\PasswordPolicyService::wasUsedBefore">wasUsedBefore</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Services/TwoFactorAuth/TwoFactorAuthService.php.html#133"><abbr title="App\Services\TwoFactorAuth\TwoFactorAuthService::verifyRecoveryCode">verifyRecoveryCode</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Services/TwoFactorAuthService.php.html#60"><abbr title="App\Services\TwoFactorAuthService::verifyRecoveryCode">verifyRecoveryCode</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/OAuth/OAuthController.php.html#64"><abbr title="App\Http\Controllers\OAuth\OAuthController::issueToken">issueToken</abbr></a></td><td class="text-right">8</td></tr>
+       <tr><td><a href="Http/Middleware/RateLimiter.php.html#83"><abbr title="App\Http\Middleware\RateLimiter::getRateLimits">getRateLimits</abbr></a></td><td class="text-right">7</td></tr>
+       <tr><td><a href="Http/Controllers/Api/PasswordController.php.html#20"><abbr title="App\Http\Controllers\Api\PasswordController::forgot">forgot</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Api/PasswordController.php.html#30"><abbr title="App\Http\Controllers\Api\PasswordController::reset">reset</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#71"><abbr title="App\Http\Controllers\AuthController::register">register</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/PasswordController.php.html#37"><abbr title="App\Http\Controllers\PasswordController::forgot">forgot</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/SessionController.php.html#33"><abbr title="App\Http\Controllers\SessionController::index">index</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/SessionController.php.html#52"><abbr title="App\Http\Controllers\SessionController::destroy">destroy</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Services/Auth/AuthService.php.html#137"><abbr title="App\Services\Auth\AuthService::logout">logout</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Services/Password/PasswordService.php.html#18"><abbr title="App\Services\Password\PasswordService::sendResetLink">sendResetLink</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Services/TwoFactorAuthService.php.html#51"><abbr title="App\Services\TwoFactorAuthService::generateRecoveryCodes">generateRecoveryCodes</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Services/TwoFactorAuthService.php.html#114"><abbr title="App\Services\TwoFactorAuthService::isEnabled">isEnabled</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Services/TwoFactorAuth/TwoFactorAuthService.php.html#60"><abbr title="App\Services\TwoFactorAuth\TwoFactorAuthService::disable">disable</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Http/Middleware/SanitizeLogData.php.html#48"><abbr title="App\Http\Middleware\SanitizeLogData::sanitize">sanitize</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Http/Controllers/OAuth/OAuthController.php.html#322"><abbr title="App\Http\Controllers\OAuth\OAuthController::handleRefreshToken">handleRefreshToken</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Services/TwoFactorAuth/TwoFactorAuthService.php.html#47"><abbr title="App\Services\TwoFactorAuth\TwoFactorAuthService::verify">verify</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Http/Middleware/ForceHttps.php.html#11"><abbr title="App\Http\Middleware\ForceHttps::handle">handle</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Services/TwoFactorAuth/TwoFactorAuthService.php.html#77"><abbr title="App\Services\TwoFactorAuth\TwoFactorAuthService::getBackupCodes">getBackupCodes</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Http/Controllers/OAuth/OAuthController.php.html#243"><abbr title="App\Http\Controllers\OAuth\OAuthController::handleAuthorizationCode">handleAuthorizationCode</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Http/Controllers/OAuth/OAuthController.php.html#198"><abbr title="App\Http\Controllers\OAuth\OAuthController::approveAuthorization">approveAuthorization</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Http/Controllers/OAuth/OAuthController.php.html#139"><abbr title="App\Http\Controllers\OAuth\OAuthController::authorize">authorize</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Http/Controllers/TwoFactorAuthController.php.html#35"><abbr title="App\Http\Controllers\TwoFactorAuthController::enable">enable</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Http/Controllers/TwoFactorAuthController.php.html#53"><abbr title="App\Http\Controllers\TwoFactorAuthController::verify">verify</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Http/Controllers/TwoFactorAuthController.php.html#70"><abbr title="App\Http\Controllers\TwoFactorAuthController::getBackupCodes">getBackupCodes</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Http/Controllers/TwoFactorAuthController.php.html#87"><abbr title="App\Http\Controllers\TwoFactorAuthController::regenerateBackupCodes">regenerateBackupCodes</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Http/Middleware/RateLimiter.php.html#17"><abbr title="App\Http\Middleware\RateLimiter::handle">handle</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Services/TwoFactorAuth/TwoFactorAuthService.php.html#91"><abbr title="App\Services\TwoFactorAuth\TwoFactorAuthService::regenerateBackupCodes">regenerateBackupCodes</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Http/Controllers/TwoFactorAuthController.php.html#105"><abbr title="App\Http\Controllers\TwoFactorAuthController::disable">disable</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 11.0.8</a> using <a href="https://www.php.net/" target="_top">PHP 8.2.27</a> and <a href="https://phpunit.de/">PHPUnit 11.5.3</a> at Fri Feb 7 10:06:45 UTC 2025.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js?v=11.0.8" type="text/javascript"></script>
+  <script src="_js/d3.min.js?v=11.0.8" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js?v=11.0.8" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([29,0,1,0,0,1,1,3,1,2,0,9], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([113,0,0,0,0,0,6,5,4,3,2,30], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Console\/Commands\/CleanOAuthTokens.php.html#8\">App\\Console\\Commands\\CleanOAuthTokens<\/a>"],[0,1,"<a href=\"Console\/Commands\/CleanSessions.php.html#8\">App\\Console\\Commands\\CleanSessions<\/a>"],[0,19,"<a href=\"Console\/Commands\/SecurityAudit.php.html#9\">App\\Console\\Commands\\SecurityAudit<\/a>"],[0,5,"<a href=\"Http\/Controllers\/Api\/PasswordController.php.html#12\">App\\Http\\Controllers\\Api\\PasswordController<\/a>"],[0,11,"<a href=\"Http\/Controllers\/AuthController.php.html#16\">App\\Http\\Controllers\\AuthController<\/a>"],[100,0,"<a href=\"Http\/Controllers\/Controller.php.html#5\">App\\Http\\Controllers\\Controller<\/a>"],[58.07860262008734,30,"<a href=\"Http\/Controllers\/OAuth\/OAuthController.php.html#22\">App\\Http\\Controllers\\OAuth\\OAuthController<\/a>"],[0,7,"<a href=\"Http\/Controllers\/PasswordController.php.html#17\">App\\Http\\Controllers\\PasswordController<\/a>"],[0,5,"<a href=\"Http\/Controllers\/SessionController.php.html#17\">App\\Http\\Controllers\\SessionController<\/a>"],[67.74193548387096,11,"<a href=\"Http\/Controllers\/TwoFactorAuthController.php.html#19\">App\\Http\\Controllers\\TwoFactorAuthController<\/a>"],[0,6,"<a href=\"Http\/Controllers\/UserController.php.html#18\">App\\Http\\Controllers\\UserController<\/a>"],[0,6,"<a href=\"Http\/Middleware\/AuthenticateSession.php.html#12\">App\\Http\\Middleware\\AuthenticateSession<\/a>"],[66.66666666666666,3,"<a href=\"Http\/Middleware\/ForceHttps.php.html#9\">App\\Http\\Middleware\\ForceHttps<\/a>"],[100,1,"<a href=\"Http\/Middleware\/ForceJsonResponse.php.html#9\">App\\Http\\Middleware\\ForceJsonResponse<\/a>"],[63.76811594202898,10,"<a href=\"Http\/Middleware\/RateLimiter.php.html#12\">App\\Http\\Middleware\\RateLimiter<\/a>"],[88.88888888888889,7,"<a href=\"Http\/Middleware\/SanitizeLogData.php.html#10\">App\\Http\\Middleware\\SanitizeLogData<\/a>"],[100,2,"<a href=\"Http\/Middleware\/SecurityHeaders.php.html#9\">App\\Http\\Middleware\\SecurityHeaders<\/a>"],[100,0,"<a href=\"Http\/Middleware\/VerifyCsrfToken.php.html#7\">App\\Http\\Middleware\\VerifyCsrfToken<\/a>"],[0,3,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#7\">App\\Http\\Requests\\Auth\\LoginRequest<\/a>"],[0,3,"<a href=\"Http\/Requests\/Auth\/RegisterRequest.php.html#8\">App\\Http\\Requests\\Auth\\RegisterRequest<\/a>"],[0,3,"<a href=\"Http\/Requests\/Password\/ForgotPasswordRequest.php.html#7\">App\\Http\\Requests\\Password\\ForgotPasswordRequest<\/a>"],[0,3,"<a href=\"Http\/Requests\/Password\/ResetPasswordRequest.php.html#8\">App\\Http\\Requests\\Password\\ResetPasswordRequest<\/a>"],[0,3,"<a href=\"Http\/Requests\/Session\/DeleteSessionRequest.php.html#7\">App\\Http\\Requests\\Session\\DeleteSessionRequest<\/a>"],[0,2,"<a href=\"Http\/Requests\/Session\/ListSessionsRequest.php.html#7\">App\\Http\\Requests\\Session\\ListSessionsRequest<\/a>"],[100,3,"<a href=\"Http\/Requests\/TwoFactorAuth\/DisableRequest.php.html#7\">App\\Http\\Requests\\TwoFactorAuth\\DisableRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/TwoFactorAuth\/EnableRequest.php.html#7\">App\\Http\\Requests\\TwoFactorAuth\\EnableRequest<\/a>"],[100,3,"<a href=\"Http\/Requests\/TwoFactorAuth\/VerifyRequest.php.html#7\">App\\Http\\Requests\\TwoFactorAuth\\VerifyRequest<\/a>"],[0,3,"<a href=\"Models\/OAuthAccessToken.php.html#9\">App\\Models\\OAuthAccessToken<\/a>"],[0,2,"<a href=\"Models\/OAuthAuthCode.php.html#8\">App\\Models\\OAuthAuthCode<\/a>"],[80,3,"<a href=\"Models\/OAuthClient.php.html#9\">App\\Models\\OAuthClient<\/a>"],[0,1,"<a href=\"Models\/OAuthRefreshToken.php.html#8\">App\\Models\\OAuthRefreshToken<\/a>"],[0,1,"<a href=\"Models\/OAuthScope.php.html#8\">App\\Models\\OAuthScope<\/a>"],[0,1,"<a href=\"Models\/PasswordHistory.php.html#8\">App\\Models\\PasswordHistory<\/a>"],[0,1,"<a href=\"Models\/Session.php.html#7\">App\\Models\\Session<\/a>"],[41.17647058823529,8,"<a href=\"Models\/User.php.html#12\">App\\Models\\User<\/a>"],[100,2,"<a href=\"Providers\/AppServiceProvider.php.html#7\">App\\Providers\\AppServiceProvider<\/a>"],[0,9,"<a href=\"Repositories\/Auth\/AuthRepository.php.html#9\">App\\Repositories\\Auth\\AuthRepository<\/a>"],[0,4,"<a href=\"Repositories\/Password\/PasswordRepository.php.html#8\">App\\Repositories\\Password\\PasswordRepository<\/a>"],[0,3,"<a href=\"Repositories\/Session\/SessionRepository.php.html#8\">App\\Repositories\\Session\\SessionRepository<\/a>"],[100,6,"<a href=\"Repositories\/TwoFactorAuth\/TwoFactorAuthRepository.php.html#7\">App\\Repositories\\TwoFactorAuth\\TwoFactorAuthRepository<\/a>"],[0,17,"<a href=\"Services\/Auth\/AuthService.php.html#15\">App\\Services\\Auth\\AuthService<\/a>"],[0,7,"<a href=\"Services\/Password\/PasswordService.php.html#11\">App\\Services\\Password\\PasswordService<\/a>"],[0,16,"<a href=\"Services\/PasswordPolicyService.php.html#10\">App\\Services\\PasswordPolicyService<\/a>"],[0,6,"<a href=\"Services\/Session\/SessionService.php.html#8\">App\\Services\\Session\\SessionService<\/a>"],[70,24,"<a href=\"Services\/TwoFactorAuth\/TwoFactorAuthService.php.html#14\">App\\Services\\TwoFactorAuth\\TwoFactorAuthService<\/a>"],[0,13,"<a href=\"Services\/TwoFactorAuthService.php.html#12\">App\\Services\\TwoFactorAuthService<\/a>"],[18.51851851851852,6,"<a href=\"Traits\/ApiResponse.php.html#7\">App\\Traits\\ApiResponse<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Console\/Commands\/CleanOAuthTokens.php.html#13\">App\\Console\\Commands\\CleanOAuthTokens::handle<\/a>"],[0,1,"<a href=\"Console\/Commands\/CleanSessions.php.html#13\">App\\Console\\Commands\\CleanSessions::handle<\/a>"],[0,1,"<a href=\"Console\/Commands\/SecurityAudit.php.html#14\">App\\Console\\Commands\\SecurityAudit::handle<\/a>"],[0,3,"<a href=\"Console\/Commands\/SecurityAudit.php.html#36\">App\\Console\\Commands\\SecurityAudit::checkEnvironment<\/a>"],[0,3,"<a href=\"Console\/Commands\/SecurityAudit.php.html#56\">App\\Console\\Commands\\SecurityAudit::checkDatabase<\/a>"],[0,4,"<a href=\"Console\/Commands\/SecurityAudit.php.html#80\">App\\Console\\Commands\\SecurityAudit::checkFilePermissions<\/a>"],[0,3,"<a href=\"Console\/Commands\/SecurityAudit.php.html#102\">App\\Console\\Commands\\SecurityAudit::checkSecurityHeaders<\/a>"],[0,5,"<a href=\"Console\/Commands\/SecurityAudit.php.html#127\">App\\Console\\Commands\\SecurityAudit::checkOAuthConfig<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Api\/PasswordController.php.html#16\">App\\Http\\Controllers\\Api\\PasswordController::__construct<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Api\/PasswordController.php.html#20\">App\\Http\\Controllers\\Api\\PasswordController::forgot<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Api\/PasswordController.php.html#30\">App\\Http\\Controllers\\Api\\PasswordController::reset<\/a>"],[0,1,"<a href=\"Http\/Controllers\/AuthController.php.html#20\">App\\Http\\Controllers\\AuthController::__construct<\/a>"],[0,5,"<a href=\"Http\/Controllers\/AuthController.php.html#32\">App\\Http\\Controllers\\AuthController::login<\/a>"],[0,2,"<a href=\"Http\/Controllers\/AuthController.php.html#71\">App\\Http\\Controllers\\AuthController::register<\/a>"],[0,3,"<a href=\"Http\/Controllers\/AuthController.php.html#95\">App\\Http\\Controllers\\AuthController::logout<\/a>"],[66.66666666666666,7,"<a href=\"Http\/Controllers\/OAuth\/OAuthController.php.html#64\">App\\Http\\Controllers\\OAuth\\OAuthController::issueToken<\/a>"],[76.47058823529412,3,"<a href=\"Http\/Controllers\/OAuth\/OAuthController.php.html#139\">App\\Http\\Controllers\\OAuth\\OAuthController::authorize<\/a>"],[75,3,"<a href=\"Http\/Controllers\/OAuth\/OAuthController.php.html#198\">App\\Http\\Controllers\\OAuth\\OAuthController::approveAuthorization<\/a>"],[73.33333333333333,3,"<a href=\"Http\/Controllers\/OAuth\/OAuthController.php.html#243\">App\\Http\\Controllers\\OAuth\\OAuthController::handleAuthorizationCode<\/a>"],[0,3,"<a href=\"Http\/Controllers\/OAuth\/OAuthController.php.html#291\">App\\Http\\Controllers\\OAuth\\OAuthController::handleClientCredentials<\/a>"],[71.42857142857143,4,"<a href=\"Http\/Controllers\/OAuth\/OAuthController.php.html#322\">App\\Http\\Controllers\\OAuth\\OAuthController::handleRefreshToken<\/a>"],[100,1,"<a href=\"Http\/Controllers\/OAuth\/OAuthController.php.html#386\">App\\Http\\Controllers\\OAuth\\OAuthController::createAccessToken<\/a>"],[100,1,"<a href=\"Http\/Controllers\/OAuth\/OAuthController.php.html#397\">App\\Http\\Controllers\\OAuth\\OAuthController::createRefreshToken<\/a>"],[0,5,"<a href=\"Http\/Controllers\/OAuth\/OAuthController.php.html#432\">App\\Http\\Controllers\\OAuth\\OAuthController::revokeToken<\/a>"],[0,1,"<a href=\"Http\/Controllers\/PasswordController.php.html#19\">App\\Http\\Controllers\\PasswordController::__construct<\/a>"],[0,2,"<a href=\"Http\/Controllers\/PasswordController.php.html#37\">App\\Http\\Controllers\\PasswordController::forgot<\/a>"],[0,4,"<a href=\"Http\/Controllers\/PasswordController.php.html#81\">App\\Http\\Controllers\\PasswordController::reset<\/a>"],[0,1,"<a href=\"Http\/Controllers\/SessionController.php.html#21\">App\\Http\\Controllers\\SessionController::__construct<\/a>"],[0,2,"<a href=\"Http\/Controllers\/SessionController.php.html#33\">App\\Http\\Controllers\\SessionController::index<\/a>"],[0,2,"<a href=\"Http\/Controllers\/SessionController.php.html#52\">App\\Http\\Controllers\\SessionController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/TwoFactorAuthController.php.html#23\">App\\Http\\Controllers\\TwoFactorAuthController::__construct<\/a>"],[50,2,"<a href=\"Http\/Controllers\/TwoFactorAuthController.php.html#35\">App\\Http\\Controllers\\TwoFactorAuthController::enable<\/a>"],[50,2,"<a href=\"Http\/Controllers\/TwoFactorAuthController.php.html#53\">App\\Http\\Controllers\\TwoFactorAuthController::verify<\/a>"],[50,2,"<a href=\"Http\/Controllers\/TwoFactorAuthController.php.html#70\">App\\Http\\Controllers\\TwoFactorAuthController::getBackupCodes<\/a>"],[50,2,"<a href=\"Http\/Controllers\/TwoFactorAuthController.php.html#87\">App\\Http\\Controllers\\TwoFactorAuthController::regenerateBackupCodes<\/a>"],[85.71428571428571,2,"<a href=\"Http\/Controllers\/TwoFactorAuthController.php.html#105\">App\\Http\\Controllers\\TwoFactorAuthController::disable<\/a>"],[0,1,"<a href=\"Http\/Controllers\/UserController.php.html#20\">App\\Http\\Controllers\\UserController::__construct<\/a>"],[0,1,"<a href=\"Http\/Controllers\/UserController.php.html#45\">App\\Http\\Controllers\\UserController::me<\/a>"],[0,1,"<a href=\"Http\/Controllers\/UserController.php.html#83\">App\\Http\\Controllers\\UserController::update<\/a>"],[0,3,"<a href=\"Http\/Controllers\/UserController.php.html#127\">App\\Http\\Controllers\\UserController::updatePassword<\/a>"],[0,6,"<a href=\"Http\/Middleware\/AuthenticateSession.php.html#18\">App\\Http\\Middleware\\AuthenticateSession::handle<\/a>"],[66.66666666666666,3,"<a href=\"Http\/Middleware\/ForceHttps.php.html#11\">App\\Http\\Middleware\\ForceHttps::handle<\/a>"],[100,1,"<a href=\"Http\/Middleware\/ForceJsonResponse.php.html#14\">App\\Http\\Middleware\\ForceJsonResponse::handle<\/a>"],[54.054054054054056,2,"<a href=\"Http\/Middleware\/RateLimiter.php.html#17\">App\\Http\\Middleware\\RateLimiter::handle<\/a>"],[100,1,"<a href=\"Http\/Middleware\/RateLimiter.php.html#70\">App\\Http\\Middleware\\RateLimiter::resolveRequestSignature<\/a>"],[63.63636363636363,6,"<a href=\"Http\/Middleware\/RateLimiter.php.html#83\">App\\Http\\Middleware\\RateLimiter::getRateLimits<\/a>"],[100,1,"<a href=\"Http\/Middleware\/RateLimiter.php.html#117\">App\\Http\\Middleware\\RateLimiter::addRateLimitHeaders<\/a>"],[91.66666666666666,2,"<a href=\"Http\/Middleware\/SanitizeLogData.php.html#28\">App\\Http\\Middleware\\SanitizeLogData::handle<\/a>"],[83.33333333333334,5,"<a href=\"Http\/Middleware\/SanitizeLogData.php.html#48\">App\\Http\\Middleware\\SanitizeLogData::sanitize<\/a>"],[100,2,"<a href=\"Http\/Middleware\/SecurityHeaders.php.html#23\">App\\Http\\Middleware\\SecurityHeaders::handle<\/a>"],[0,1,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#9\">App\\Http\\Requests\\Auth\\LoginRequest::authorize<\/a>"],[0,1,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#14\">App\\Http\\Requests\\Auth\\LoginRequest::rules<\/a>"],[0,1,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#24\">App\\Http\\Requests\\Auth\\LoginRequest::messages<\/a>"],[0,1,"<a href=\"Http\/Requests\/Auth\/RegisterRequest.php.html#10\">App\\Http\\Requests\\Auth\\RegisterRequest::authorize<\/a>"],[0,1,"<a href=\"Http\/Requests\/Auth\/RegisterRequest.php.html#15\">App\\Http\\Requests\\Auth\\RegisterRequest::rules<\/a>"],[0,1,"<a href=\"Http\/Requests\/Auth\/RegisterRequest.php.html#28\">App\\Http\\Requests\\Auth\\RegisterRequest::messages<\/a>"],[0,1,"<a href=\"Http\/Requests\/Password\/ForgotPasswordRequest.php.html#9\">App\\Http\\Requests\\Password\\ForgotPasswordRequest::authorize<\/a>"],[0,1,"<a href=\"Http\/Requests\/Password\/ForgotPasswordRequest.php.html#14\">App\\Http\\Requests\\Password\\ForgotPasswordRequest::rules<\/a>"],[0,1,"<a href=\"Http\/Requests\/Password\/ForgotPasswordRequest.php.html#21\">App\\Http\\Requests\\Password\\ForgotPasswordRequest::messages<\/a>"],[0,1,"<a href=\"Http\/Requests\/Password\/ResetPasswordRequest.php.html#10\">App\\Http\\Requests\\Password\\ResetPasswordRequest::authorize<\/a>"],[0,1,"<a href=\"Http\/Requests\/Password\/ResetPasswordRequest.php.html#15\">App\\Http\\Requests\\Password\\ResetPasswordRequest::rules<\/a>"],[0,1,"<a href=\"Http\/Requests\/Password\/ResetPasswordRequest.php.html#29\">App\\Http\\Requests\\Password\\ResetPasswordRequest::messages<\/a>"],[0,1,"<a href=\"Http\/Requests\/Session\/DeleteSessionRequest.php.html#9\">App\\Http\\Requests\\Session\\DeleteSessionRequest::authorize<\/a>"],[0,1,"<a href=\"Http\/Requests\/Session\/DeleteSessionRequest.php.html#14\">App\\Http\\Requests\\Session\\DeleteSessionRequest::rules<\/a>"],[0,1,"<a href=\"Http\/Requests\/Session\/DeleteSessionRequest.php.html#19\">App\\Http\\Requests\\Session\\DeleteSessionRequest::messages<\/a>"],[0,1,"<a href=\"Http\/Requests\/Session\/ListSessionsRequest.php.html#9\">App\\Http\\Requests\\Session\\ListSessionsRequest::authorize<\/a>"],[0,1,"<a href=\"Http\/Requests\/Session\/ListSessionsRequest.php.html#14\">App\\Http\\Requests\\Session\\ListSessionsRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/TwoFactorAuth\/DisableRequest.php.html#9\">App\\Http\\Requests\\TwoFactorAuth\\DisableRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/TwoFactorAuth\/DisableRequest.php.html#14\">App\\Http\\Requests\\TwoFactorAuth\\DisableRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/TwoFactorAuth\/DisableRequest.php.html#22\">App\\Http\\Requests\\TwoFactorAuth\\DisableRequest::messages<\/a>"],[100,1,"<a href=\"Http\/Requests\/TwoFactorAuth\/EnableRequest.php.html#9\">App\\Http\\Requests\\TwoFactorAuth\\EnableRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/TwoFactorAuth\/EnableRequest.php.html#14\">App\\Http\\Requests\\TwoFactorAuth\\EnableRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/TwoFactorAuth\/VerifyRequest.php.html#9\">App\\Http\\Requests\\TwoFactorAuth\\VerifyRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/TwoFactorAuth\/VerifyRequest.php.html#14\">App\\Http\\Requests\\TwoFactorAuth\\VerifyRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/TwoFactorAuth\/VerifyRequest.php.html#21\">App\\Http\\Requests\\TwoFactorAuth\\VerifyRequest::messages<\/a>"],[0,1,"<a href=\"Models\/OAuthAccessToken.php.html#27\">App\\Models\\OAuthAccessToken::client<\/a>"],[0,1,"<a href=\"Models\/OAuthAccessToken.php.html#32\">App\\Models\\OAuthAccessToken::user<\/a>"],[0,1,"<a href=\"Models\/OAuthAccessToken.php.html#37\">App\\Models\\OAuthAccessToken::refreshToken<\/a>"],[0,1,"<a href=\"Models\/OAuthAuthCode.php.html#30\">App\\Models\\OAuthAuthCode::client<\/a>"],[0,1,"<a href=\"Models\/OAuthAuthCode.php.html#35\">App\\Models\\OAuthAuthCode::user<\/a>"],[100,1,"<a href=\"Models\/OAuthClient.php.html#22\">App\\Models\\OAuthClient::scopes<\/a>"],[0,1,"<a href=\"Models\/OAuthClient.php.html#34\">App\\Models\\OAuthClient::accessTokens<\/a>"],[0,1,"<a href=\"Models\/OAuthClient.php.html#39\">App\\Models\\OAuthClient::authCodes<\/a>"],[0,1,"<a href=\"Models\/OAuthRefreshToken.php.html#27\">App\\Models\\OAuthRefreshToken::accessToken<\/a>"],[0,1,"<a href=\"Models\/OAuthScope.php.html#23\">App\\Models\\OAuthScope::clients<\/a>"],[0,1,"<a href=\"Models\/PasswordHistory.php.html#21\">App\\Models\\PasswordHistory::user<\/a>"],[0,1,"<a href=\"Models\/Session.php.html#21\">App\\Models\\Session::user<\/a>"],[100,1,"<a href=\"Models\/User.php.html#49\">App\\Models\\User::casts<\/a>"],[0,1,"<a href=\"Models\/User.php.html#60\">App\\Models\\User::sessions<\/a>"],[0,1,"<a href=\"Models\/User.php.html#65\">App\\Models\\User::passwordHistory<\/a>"],[0,1,"<a href=\"Models\/User.php.html#70\">App\\Models\\User::oauthAccessTokens<\/a>"],[0,1,"<a href=\"Models\/User.php.html#75\">App\\Models\\User::getAuthPassword<\/a>"],[0,1,"<a href=\"Models\/User.php.html#80\">App\\Models\\User::incrementLoginAttempts<\/a>"],[0,1,"<a href=\"Models\/User.php.html#86\">App\\Models\\User::resetLoginAttempts<\/a>"],[0,1,"<a href=\"Models\/User.php.html#92\">App\\Models\\User::updateLastLogin<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#12\">App\\Providers\\AppServiceProvider::register<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#20\">App\\Providers\\AppServiceProvider::boot<\/a>"],[0,1,"<a href=\"Repositories\/Auth\/AuthRepository.php.html#11\">App\\Repositories\\Auth\\AuthRepository::findUserByEmail<\/a>"],[0,1,"<a href=\"Repositories\/Auth\/AuthRepository.php.html#16\">App\\Repositories\\Auth\\AuthRepository::createUser<\/a>"],[0,1,"<a href=\"Repositories\/Auth\/AuthRepository.php.html#21\">App\\Repositories\\Auth\\AuthRepository::getUserActiveSessions<\/a>"],[0,1,"<a href=\"Repositories\/Auth\/AuthRepository.php.html#26\">App\\Repositories\\Auth\\AuthRepository::findSessionById<\/a>"],[0,1,"<a href=\"Repositories\/Auth\/AuthRepository.php.html#31\">App\\Repositories\\Auth\\AuthRepository::findSessionByDeviceInfo<\/a>"],[0,1,"<a href=\"Repositories\/Auth\/AuthRepository.php.html#39\">App\\Repositories\\Auth\\AuthRepository::deleteSession<\/a>"],[0,1,"<a href=\"Repositories\/Auth\/AuthRepository.php.html#44\">App\\Repositories\\Auth\\AuthRepository::getOldestSession<\/a>"],[0,1,"<a href=\"Repositories\/Auth\/AuthRepository.php.html#51\">App\\Repositories\\Auth\\AuthRepository::createSession<\/a>"],[0,1,"<a href=\"Repositories\/Auth\/AuthRepository.php.html#56\">App\\Repositories\\Auth\\AuthRepository::countActiveSessions<\/a>"],[0,1,"<a href=\"Repositories\/Password\/PasswordRepository.php.html#10\">App\\Repositories\\Password\\PasswordRepository::sendResetLink<\/a>"],[0,1,"<a href=\"Repositories\/Password\/PasswordRepository.php.html#15\">App\\Repositories\\Password\\PasswordRepository::findUserByEmail<\/a>"],[0,1,"<a href=\"Repositories\/Password\/PasswordRepository.php.html#20\">App\\Repositories\\Password\\PasswordRepository::updatePassword<\/a>"],[0,1,"<a href=\"Repositories\/Password\/PasswordRepository.php.html#28\">App\\Repositories\\Password\\PasswordRepository::resetPassword<\/a>"],[0,1,"<a href=\"Repositories\/Session\/SessionRepository.php.html#10\">App\\Repositories\\Session\\SessionRepository::getUserSessions<\/a>"],[0,1,"<a href=\"Repositories\/Session\/SessionRepository.php.html#15\">App\\Repositories\\Session\\SessionRepository::findSessionByIdAndUser<\/a>"],[0,1,"<a href=\"Repositories\/Session\/SessionRepository.php.html#22\">App\\Repositories\\Session\\SessionRepository::deleteSession<\/a>"],[100,1,"<a href=\"Repositories\/TwoFactorAuth\/TwoFactorAuthRepository.php.html#9\">App\\Repositories\\TwoFactorAuth\\TwoFactorAuthRepository::updateTwoFactorSecret<\/a>"],[100,1,"<a href=\"Repositories\/TwoFactorAuth\/TwoFactorAuthRepository.php.html#17\">App\\Repositories\\TwoFactorAuth\\TwoFactorAuthRepository::updateTwoFactorConfirmation<\/a>"],[100,1,"<a href=\"Repositories\/TwoFactorAuth\/TwoFactorAuthRepository.php.html#24\">App\\Repositories\\TwoFactorAuth\\TwoFactorAuthRepository::updateRecoveryCodes<\/a>"],[100,1,"<a href=\"Repositories\/TwoFactorAuth\/TwoFactorAuthRepository.php.html#31\">App\\Repositories\\TwoFactorAuth\\TwoFactorAuthRepository::disableTwoFactor<\/a>"],[100,2,"<a href=\"Repositories\/TwoFactorAuth\/TwoFactorAuthRepository.php.html#41\">App\\Repositories\\TwoFactorAuth\\TwoFactorAuthRepository::getRecoveryCodes<\/a>"],[0,1,"<a href=\"Services\/Auth\/AuthService.php.html#19\">App\\Services\\Auth\\AuthService::__construct<\/a>"],[0,9,"<a href=\"Services\/Auth\/AuthService.php.html#25\">App\\Services\\Auth\\AuthService::login<\/a>"],[0,1,"<a href=\"Services\/Auth\/AuthService.php.html#76\">App\\Services\\Auth\\AuthService::register<\/a>"],[0,4,"<a href=\"Services\/Auth\/AuthService.php.html#97\">App\\Services\\Auth\\AuthService::createSession<\/a>"],[0,2,"<a href=\"Services\/Auth\/AuthService.php.html#137\">App\\Services\\Auth\\AuthService::logout<\/a>"],[0,1,"<a href=\"Services\/Password\/PasswordService.php.html#13\">App\\Services\\Password\\PasswordService::__construct<\/a>"],[0,2,"<a href=\"Services\/Password\/PasswordService.php.html#18\">App\\Services\\Password\\PasswordService::sendResetLink<\/a>"],[0,4,"<a href=\"Services\/Password\/PasswordService.php.html#27\">App\\Services\\Password\\PasswordService::reset<\/a>"],[0,4,"<a href=\"Services\/PasswordPolicyService.php.html#24\">App\\Services\\PasswordPolicyService::getValidationRules<\/a>"],[0,3,"<a href=\"Services\/PasswordPolicyService.php.html#43\">App\\Services\\PasswordPolicyService::wasUsedBefore<\/a>"],[0,1,"<a href=\"Services\/PasswordPolicyService.php.html#56\">App\\Services\\PasswordPolicyService::recordPassword<\/a>"],[0,1,"<a href=\"Services\/PasswordPolicyService.php.html#69\">App\\Services\\PasswordPolicyService::handleFailedLogin<\/a>"],[0,1,"<a href=\"Services\/PasswordPolicyService.php.html#75\">App\\Services\\PasswordPolicyService::resetFailedAttempts<\/a>"],[0,1,"<a href=\"Services\/PasswordPolicyService.php.html#81\">App\\Services\\PasswordPolicyService::isAccountLocked<\/a>"],[0,4,"<a href=\"Services\/PasswordPolicyService.php.html#86\">App\\Services\\PasswordPolicyService::checkPasswordStatus<\/a>"],[0,1,"<a href=\"Services\/PasswordPolicyService.php.html#122\">App\\Services\\PasswordPolicyService::isPasswordChangeRequired<\/a>"],[0,1,"<a href=\"Services\/Session\/SessionService.php.html#10\">App\\Services\\Session\\SessionService::__construct<\/a>"],[0,1,"<a href=\"Services\/Session\/SessionService.php.html#14\">App\\Services\\Session\\SessionService::getUserSessions<\/a>"],[0,4,"<a href=\"Services\/Session\/SessionService.php.html#32\">App\\Services\\Session\\SessionService::terminateSession<\/a>"],[100,1,"<a href=\"Services\/TwoFactorAuth\/TwoFactorAuthService.php.html#21\">App\\Services\\TwoFactorAuth\\TwoFactorAuthService::__construct<\/a>"],[91.66666666666666,2,"<a href=\"Services\/TwoFactorAuth\/TwoFactorAuthService.php.html#27\">App\\Services\\TwoFactorAuth\\TwoFactorAuthService::enable<\/a>"],[60,3,"<a href=\"Services\/TwoFactorAuth\/TwoFactorAuthService.php.html#47\">App\\Services\\TwoFactorAuth\\TwoFactorAuthService::verify<\/a>"],[57.14285714285714,4,"<a href=\"Services\/TwoFactorAuth\/TwoFactorAuthService.php.html#60\">App\\Services\\TwoFactorAuth\\TwoFactorAuthService::disable<\/a>"],[66.66666666666666,3,"<a href=\"Services\/TwoFactorAuth\/TwoFactorAuthService.php.html#77\">App\\Services\\TwoFactorAuth\\TwoFactorAuthService::getBackupCodes<\/a>"],[80,2,"<a href=\"Services\/TwoFactorAuth\/TwoFactorAuthService.php.html#91\">App\\Services\\TwoFactorAuth\\TwoFactorAuthService::regenerateBackupCodes<\/a>"],[100,1,"<a href=\"Services\/TwoFactorAuth\/TwoFactorAuthService.php.html#103\">App\\Services\\TwoFactorAuth\\TwoFactorAuthService::generateQrCode<\/a>"],[100,2,"<a href=\"Services\/TwoFactorAuth\/TwoFactorAuthService.php.html#119\">App\\Services\\TwoFactorAuth\\TwoFactorAuthService::generateRecoveryCodes<\/a>"],[100,1,"<a href=\"Services\/TwoFactorAuth\/TwoFactorAuthService.php.html#128\">App\\Services\\TwoFactorAuth\\TwoFactorAuthService::verifyCode<\/a>"],[0,3,"<a href=\"Services\/TwoFactorAuth\/TwoFactorAuthService.php.html#133\">App\\Services\\TwoFactorAuth\\TwoFactorAuthService::verifyRecoveryCode<\/a>"],[100,2,"<a href=\"Services\/TwoFactorAuth\/TwoFactorAuthService.php.html#151\">App\\Services\\TwoFactorAuth\\TwoFactorAuthService::isEnabled<\/a>"],[0,1,"<a href=\"Services\/TwoFactorAuthService.php.html#20\">App\\Services\\TwoFactorAuthService::__construct<\/a>"],[0,1,"<a href=\"Services\/TwoFactorAuthService.php.html#25\">App\\Services\\TwoFactorAuthService::generateSecretKey<\/a>"],[0,1,"<a href=\"Services\/TwoFactorAuthService.php.html#30\">App\\Services\\TwoFactorAuthService::generateQrCode<\/a>"],[0,1,"<a href=\"Services\/TwoFactorAuthService.php.html#46\">App\\Services\\TwoFactorAuthService::verifyCode<\/a>"],[0,2,"<a href=\"Services\/TwoFactorAuthService.php.html#51\">App\\Services\\TwoFactorAuthService::generateRecoveryCodes<\/a>"],[0,3,"<a href=\"Services\/TwoFactorAuthService.php.html#60\">App\\Services\\TwoFactorAuthService::verifyRecoveryCode<\/a>"],[0,1,"<a href=\"Services\/TwoFactorAuthService.php.html#81\">App\\Services\\TwoFactorAuthService::enable2FA<\/a>"],[0,1,"<a href=\"Services\/TwoFactorAuthService.php.html#102\">App\\Services\\TwoFactorAuthService::disable2FA<\/a>"],[0,2,"<a href=\"Services\/TwoFactorAuthService.php.html#114\">App\\Services\\TwoFactorAuthService::isEnabled<\/a>"],[100,1,"<a href=\"Traits\/ApiResponse.php.html#12\">App\\Traits\\ApiResponse::successResponse<\/a>"],[0,1,"<a href=\"Traits\/ApiResponse.php.html#24\">App\\Traits\\ApiResponse::errorResponse<\/a>"],[0,1,"<a href=\"Traits\/ApiResponse.php.html#36\">App\\Traits\\ApiResponse::validationErrorResponse<\/a>"],[0,1,"<a href=\"Traits\/ApiResponse.php.html#48\">App\\Traits\\ApiResponse::unauthorizedResponse<\/a>"],[0,1,"<a href=\"Traits\/ApiResponse.php.html#59\">App\\Traits\\ApiResponse::forbiddenResponse<\/a>"],[0,1,"<a href=\"Traits\/ApiResponse.php.html#70\">App\\Traits\\ApiResponse::notFoundResponse<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

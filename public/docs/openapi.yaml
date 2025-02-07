@@ -5,7 +5,7 @@ info:
   version: 1.0.0
 servers:
   -
-    url: 'http://localhost'
+    url: 'http://localhost:8000'
 paths:
   /api/auth/login:
     post:
@@ -13,79 +13,7 @@ paths:
       operationId: login
       description: 'Authenticate a user and create a new session.'
       parameters: []
-      responses:
-        200:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Logged in successfully'
-                  session_id: abc123
-                  password_status:
-                    expired: false
-                    days_left: 45
-                    status: valid
-                properties:
-                  message:
-                    type: string
-                    example: 'Logged in successfully'
-                  session_id:
-                    type: string
-                    example: abc123
-                  password_status:
-                    type: object
-                    properties:
-                      expired:
-                        type: boolean
-                        example: false
-                      days_left:
-                        type: integer
-                        example: 45
-                      status:
-                        type: string
-                        example: valid
-        401:
-          description: ''
-          content:
-            application/json:
-              schema:
-                oneOf:
-                  -
-                    description: ''
-                    type: object
-                    example:
-                      message: 'Invalid credentials'
-                    properties:
-                      message:
-                        type: string
-                        example: 'Invalid credentials'
-                  -
-                    description: ''
-                    type: object
-                    example:
-                      message: 'Account is locked due to too many failed attempts'
-                    properties:
-                      message:
-                        type: string
-                        example: 'Account is locked due to too many failed attempts'
-        403:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Password change required'
-                  password_expired: true
-                properties:
-                  message:
-                    type: string
-                    example: 'Password change required'
-                  password_expired:
-                    type: boolean
-                    example: true
+      responses: {  }
       tags:
         - Authentication
       requestBody:
@@ -97,18 +25,23 @@ paths:
               properties:
                 email:
                   type: string
-                  description: 'The email of the user.'
-                  example: user@example.com
+                  description: 'Must be a valid email address.'
+                  example: bauch.nestor@example.net
                   nullable: false
                 password:
                   type: string
-                  description: 'The password of the user.'
-                  example: password123
+                  description: ''
+                  example: 'N:+b/"v*Tv'
                   nullable: false
                 remember_me:
                   type: boolean
-                  description: 'optional Remember me option.'
+                  description: ''
                   example: true
+                  nullable: false
+                2fa_code:
+                  type: string
+                  description: 'Must be 6 characters.'
+                  example: xboyza
                   nullable: false
               required:
                 - email
@@ -120,51 +53,7 @@ paths:
       operationId: register
       description: 'Register a new user account.'
       parameters: []
-      responses:
-        201:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'User registered successfully'
-                properties:
-                  message:
-                    type: string
-                    example: 'User registered successfully'
-        422:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'The given data was invalid.'
-                  errors:
-                    email:
-                      - 'The email has already been taken.'
-                    password:
-                      - 'The password must be at least 8 characters.'
-                properties:
-                  message:
-                    type: string
-                    example: 'The given data was invalid.'
-                  errors:
-                    type: object
-                    properties:
-                      email:
-                        type: array
-                        example:
-                          - 'The email has already been taken.'
-                        items:
-                          type: string
-                      password:
-                        type: array
-                        example:
-                          - 'The password must be at least 8 characters.'
-                        items:
-                          type: string
+      responses: {  }
       tags:
         - Authentication
       requestBody:
@@ -176,23 +65,17 @@ paths:
               properties:
                 email:
                   type: string
-                  description: 'The email address.'
-                  example: user@example.com
+                  description: 'Must be a valid email address. Must not be greater than 255 characters.'
+                  example: dante92@example.org
                   nullable: false
                 password:
                   type: string
-                  description: 'The password (must meet password policy requirements).'
-                  example: StrongPass123!
-                  nullable: false
-                password_confirmation:
-                  type: string
-                  description: 'The password confirmation.'
-                  example: StrongPass123!
+                  description: ''
+                  example: '?{rTBcFFG|IXt'
                   nullable: false
               required:
                 - email
                 - password
-                - password_confirmation
       security: []
   /api/auth/logout:
     post:
@@ -200,21 +83,10 @@ paths:
       operationId: logout
       description: 'Invalidate the current session.'
       parameters: []
-      responses:
-        200:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Logged out successfully'
-                properties:
-                  message:
-                    type: string
-                    example: 'Logged out successfully'
+      responses: {  }
       tags:
         - Authentication
+      security: []
   /api/oauth/token:
     post:
       summary: 'Issue Token'
@@ -319,7 +191,7 @@ paths:
                   nullable: false
                 client_secret:
                   type: string
-                  description: 'The client secret.'
+                  description: 'The client secret (raw value, will be hashed internally).'
                   example: test-secret
                   nullable: false
                 code:
@@ -438,7 +310,7 @@ paths:
                   nullable: false
                 client_secret:
                   type: string
-                  description: 'The client secret.'
+                  description: 'The client secret (raw value, will be hashed internally).'
                   example: test-secret
                   nullable: false
               required:
@@ -603,12 +475,12 @@ paths:
                 client_id:
                   type: string
                   description: ''
-                  example: dolorem
+                  example: numquam
                   nullable: false
                 redirect_uri:
                   type: string
                   description: 'Must be a valid URL.'
-                  example: 'http://www.bradtke.net/nostrum-vel-et-ut-quo-odit-aut.html'
+                  example: 'http://www.fay.com/'
                   nullable: false
                 response_type:
                   type: string
@@ -620,12 +492,12 @@ paths:
                 scope:
                   type: string
                   description: ''
-                  example: ut
+                  example: voluptatibus
                   nullable: false
                 state:
                   type: string
                   description: ''
-                  example: ipsam
+                  example: ducimus
                   nullable: false
               required:
                 - client_id
@@ -638,22 +510,13 @@ paths:
       description: 'Second step of Authorization Code flow. Creates authorization code after user approval.'
       parameters: []
       responses:
-        200:
+        302:
           description: ''
           content:
-            application/json:
+            text/plain:
               schema:
-                type: object
-                example:
-                  code: def50200...
-                  state: xyz123
-                properties:
-                  code:
-                    type: string
-                    example: def50200...
-                  state:
-                    type: string
-                    example: xyz123
+                type: string
+                example: "Redirects to client's redirect_uri with authorization code"
       tags:
         - 'OAuth2 Authentication'
       requestBody:
@@ -832,74 +695,37 @@ paths:
       description: 'Get all active sessions for the authenticated user.'
       parameters: []
       responses:
-        200:
+        401:
           description: ''
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
+                type: object
                 example:
-                  -
-                    id: abc123
-                    ip_address: 192.168.1.1
-                    user_agent: Mozilla/5.0...
-                    last_activity: '2024-03-20 10:00:00'
-                    is_current_device: true
+                  message: Unauthenticated
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated
       tags:
         - 'Session Management'
+      security: []
   '/api/users/me/sessions/{id}':
     delete:
       summary: 'Delete Session'
       operationId: deleteSession
       description: 'Terminate a specific session.'
       parameters: []
-      responses:
-        200:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Session terminated successfully'
-                properties:
-                  message:
-                    type: string
-                    example: 'Session terminated successfully'
-        400:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Cannot delete current session'
-                properties:
-                  message:
-                    type: string
-                    example: 'Cannot delete current session'
-        404:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Session not found'
-                properties:
-                  message:
-                    type: string
-                    example: 'Session not found'
+      responses: {  }
       tags:
         - 'Session Management'
+      security: []
     parameters:
       -
         in: path
         name: id
         description: 'The ID of the session.'
-        example: abc123
+        example: soluta
         required: true
         schema:
           type: string
@@ -909,47 +735,17 @@ paths:
       operationId: enable2FA
       description: 'Start the 2FA setup process.'
       parameters: []
-      responses:
-        200:
-          description: ''
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: "{\n  \"secret\": \"KRSXG5CTMVRXEZLU\",\n  \"qr_code\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgA...\",\n  \"recovery_codes\": [\"code1\", \"code2\", \"code3\", ...]\n}"
+      responses: {  }
       tags:
         - 'Two Factor Authentication'
+      security: []
   /api/auth/2fa/verify:
     post:
       summary: 'Verify 2FA'
       operationId: verify2FA
       description: 'Verify and complete the 2FA setup.'
       parameters: []
-      responses:
-        200:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: '2FA enabled successfully'
-                properties:
-                  message:
-                    type: string
-                    example: '2FA enabled successfully'
-        400:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Invalid verification code'
-                properties:
-                  message:
-                    type: string
-                    example: 'Invalid verification code'
+      responses: {  }
       tags:
         - 'Two Factor Authentication'
       requestBody:
@@ -961,11 +757,42 @@ paths:
               properties:
                 code:
                   type: string
-                  description: 'The verification code.'
-                  example: '123456'
+                  description: 'Must be 6 characters.'
+                  example: kyxpns
                   nullable: false
               required:
                 - code
+      security: []
+  /api/auth/2fa/disable:
+    post:
+      summary: 'Disable 2FA'
+      operationId: disable2FA
+      description: 'Disable two-factor authentication for the user.'
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Two Factor Authentication'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                current_password:
+                  type: string
+                  description: ''
+                  example: doloremque
+                  nullable: false
+                code:
+                  type: string
+                  description: 'Must be 6 characters.'
+                  example: iaerhp
+                  nullable: false
+              required:
+                - current_password
+                - code
+      security: []
   /api/auth/2fa/backup-codes:
     get:
       summary: 'Get Backup Codes'
@@ -973,31 +800,31 @@ paths:
       description: 'Get the list of backup codes.'
       parameters: []
       responses:
-        200:
+        401:
           description: ''
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-                example: "{\n  \"recovery_codes\": [\"code1\", \"code2\", \"code3\", ...]\n}"
+                type: object
+                example:
+                  message: Unauthenticated
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated
       tags:
         - 'Two Factor Authentication'
+      security: []
   /api/auth/2fa/regenerate-backup-codes:
     post:
       summary: 'Regenerate Backup Codes'
       operationId: regenerateBackupCodes
       description: 'Generate new backup codes.'
       parameters: []
-      responses:
-        200:
-          description: ''
-          content:
-            text/plain:
-              schema:
-                type: string
-                example: "{\n  \"recovery_codes\": [\"code1\", \"code2\", \"code3\", ...]\n}"
+      responses: {  }
       tags:
         - 'Two Factor Authentication'
+      security: []
   /api/users/me:
     get:
       summary: 'Get Current User'
