@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "d5cb6a39-c9db-4798-9210-1af11b29263d",
+        "_postman_id": "a6749f08-b4bd-4494-bc60-da5f1873bcd6",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -41,7 +41,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"user@example.com\",\"password\":\"password123\"}"
+                            "raw": "{\"email\":\"user@example.com\",\"password\":\"password123\",\"remember_me\":true}"
                         },
                         "description": "Authenticate a user and create a new session.",
                         "auth": {
@@ -71,38 +71,6 @@
                             "header": [],
                             "code": 403,
                             "body": "{\n  \"message\": \"Password change required\",\n  \"password_expired\": true\n}",
-                            "name": ""
-                        }
-                    ]
-                },
-                {
-                    "name": "Logout",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/auth\/logout",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/auth\/logout"
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
-                        "description": "Invalidate the current session."
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n  \"message\": \"Logged out successfully\"\n}",
                             "name": ""
                         }
                     ]
@@ -147,6 +115,281 @@
                             "header": [],
                             "code": 422,
                             "body": "{\n  \"message\": \"The given data was invalid.\",\n  \"errors\": {\n    \"email\": [\"The email has already been taken.\"],\n    \"password\": [\"The password must be at least 8 characters.\"]\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Logout",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/logout",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/logout"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Invalidate the current session."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"Logged out successfully\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "OAuth2 Authentication",
+            "description": "\nAPIs for OAuth2 authentication flows",
+            "item": [
+                {
+                    "name": "Issue Token",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/oauth\/token",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/oauth\/token"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"grant_type\":\"authorization_code\",\"client_id\":\"test-client\",\"client_secret\":\"test-secret\",\"code\":\"def50200...\",\"refresh_token\":\"def50200...\",\"redirect_uri\":\"https:\\\/\\\/client.example.com\\\/callback\",\"scope\":\"profile email\"}"
+                        },
+                        "description": "Issue an access token using one of the supported grant types:\n- authorization_code\n- client_credentials\n- refresh_token",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 3600,\n  \"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbG...\",\n  \"refresh_token\": \"def50200841d3e9ad...\",\n  \"scope\": \"profile email\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\n  \"error\": \"invalid_request\",\n  \"error_description\": \"The request is missing a required parameter\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\n  \"error\": \"invalid_grant\",\n  \"error_description\": \"The authorization code is invalid\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n  \"error\": \"invalid_client\",\n  \"error_description\": \"Client authentication failed\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Revoke Token",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/oauth\/token\/revoke",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/oauth\/token\/revoke"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"token\":\"eyJ0eXAiOiJKV1QiLCJhbG...\",\"client_id\":\"test-client\",\"client_secret\":\"test-secret\"}"
+                        },
+                        "description": "Revoke an access token and its associated refresh token.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"Token revoked successfully\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\n  \"error\": \"invalid_request\",\n  \"error_description\": \"The request is missing a required parameter\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n  \"error\": \"invalid_client\",\n  \"error_description\": \"Client authentication failed\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"error\": \"invalid_token\",\n  \"error_description\": \"Token not found\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Authorize",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/oauth\/authorize",
+                            "query": [
+                                {
+                                    "key": "client_id",
+                                    "value": "test-client",
+                                    "description": "The client ID.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "redirect_uri",
+                                    "value": "https%3A%2F%2Fclient.example.com%2Fcallback",
+                                    "description": "The redirect URI.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "response_type",
+                                    "value": "code",
+                                    "description": "Must be \"code\".",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "scope",
+                                    "value": "profile+email",
+                                    "description": "The requested scope.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "state",
+                                    "value": "xyz123",
+                                    "description": "A random string to prevent CSRF.",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "{{baseUrl}}\/api\/oauth\/authorize?client_id=test-client&redirect_uri=https%3A%2F%2Fclient.example.com%2Fcallback&response_type=code&scope=profile+email&state=xyz123"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"client_id\":\"dolorem\",\"redirect_uri\":\"http:\\\/\\\/www.bradtke.net\\\/nostrum-vel-et-ut-quo-odit-aut.html\",\"response_type\":\"code\",\"scope\":\"ut\",\"state\":\"ipsam\"}"
+                        },
+                        "description": "First step of Authorization Code flow. Shows authorization form to the user.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"client\": {\n    \"name\": \"Test Client\",\n    \"redirect_uri\": \"https:\/\/client.example.com\/callback\"\n  },\n  \"scopes\": [\n    {\n      \"name\": \"profile\",\n      \"description\": \"Access user profile information\"\n    }\n  ]\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\n  \"error\": \"invalid_request\",\n  \"error_description\": \"The request is missing a required parameter\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\n  \"error\": \"invalid_client\",\n  \"error_description\": \"Client not found or redirect URI mismatch\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n  \"message\": \"Unauthenticated\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Approve Authorization",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/oauth\/authorize",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/oauth\/authorize"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"client_id\":\"test-client\",\"redirect_uri\":\"https:\\\/\\\/client.example.com\\\/callback\",\"scope\":\"profile email\",\"state\":\"xyz123\"}"
+                        },
+                        "description": "Second step of Authorization Code flow. Creates authorization code after user approval.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"code\": \"def50200...\",\n  \"state\": \"xyz123\"\n}",
                             "name": ""
                         }
                     ]
@@ -343,6 +586,149 @@
                             "header": [],
                             "code": 404,
                             "body": "{\n  \"message\": \"Session not found\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Two Factor Authentication",
+            "description": "\nAPIs for managing 2FA",
+            "item": [
+                {
+                    "name": "Enable 2FA",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/2fa\/enable",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/2fa\/enable"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Start the 2FA setup process."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"secret\": \"KRSXG5CTMVRXEZLU\",\n  \"qr_code\": \"data:image\/png;base64,iVBORw0KGgoAAAANSUhEUgA...\",\n  \"recovery_codes\": [\"code1\", \"code2\", \"code3\", ...]\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Verify 2FA",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/2fa\/verify",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/2fa\/verify"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"code\":\"123456\"}"
+                        },
+                        "description": "Verify and complete the 2FA setup."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"2FA enabled successfully\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\n  \"message\": \"Invalid verification code\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Backup Codes",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/2fa\/backup-codes",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/2fa\/backup-codes"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Get the list of backup codes."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"recovery_codes\": [\"code1\", \"code2\", \"code3\", ...]\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Regenerate Backup Codes",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/2fa\/regenerate-backup-codes",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/2fa\/regenerate-backup-codes"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Generate new backup codes."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"recovery_codes\": [\"code1\", \"code2\", \"code3\", ...]\n}",
                             "name": ""
                         }
                     ]

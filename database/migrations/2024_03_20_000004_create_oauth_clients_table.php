@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('client_id', 80)->unique();
             $table->string('client_secret', 80);
+            $table->string('name', 255);
             $table->string('redirect_uri', 2000)->nullable();
             $table->string('grant_types', 80)->nullable();
             $table->string('scope', 4000)->nullable();

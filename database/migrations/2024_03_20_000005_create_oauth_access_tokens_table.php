@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamp('expires');
             $table->string('scope', 4000)->nullable();
+            $table->boolean('revoked')->default(false);
             $table->timestamps();
 
             $table->foreign('client_id')

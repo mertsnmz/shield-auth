@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Console\Scheduling\Schedule;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,9 +15,37 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'auth.session' => \App\Http\Middleware\AuthenticateSession::class,
+            'throttle' => \App\Http\Middleware\RateLimiter::class,
         ]);
 
-        $middleware->group('api', []);
+        // Global middleware'ler
+        $middleware->use([
+            \App\Http\Middleware\ForceHttps::class,
+            \App\Http\Middleware\SecurityHeaders::class,
+            \App\Http\Middleware\SanitizeLogData::class,
+        ]);
+
+        $middleware->group('api', [
+            \Illuminate\Http\Middleware\HandleCors::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+            \App\Http\Middleware\ForceJsonResponse::class,
+            \App\Http\Middleware\RateLimiter::class,
+        ]);
+    })
+    ->withSchedule(function (Schedule $schedule) {
+        // Her gün gece yarısı security audit çalıştır
+        $schedule->command('security:audit')
+            ->dailyAt('00:00')
+            ->emailOutputTo('security@example.com');
+
+        // Süresi dolmuş token'ları temizle
+        $schedule->command('oauth:clean-tokens')
+            ->daily();
+
+        // Eski oturumları temizle
+        $schedule->command('session:clean')
+            ->weekly();
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

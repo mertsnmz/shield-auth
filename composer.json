@@ -2,14 +2,20 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "laravel/laravel",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "Secure authentication system with session management, OAuth2, and Two-Factor Authentication.",
+    "keywords": ["laravel", "authentication", "2fa", "oauth2", "security"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "ext-json": "*",
+        "bacon/bacon-qr-code": "^3.0",
+        "guzzlehttp/guzzle": "^7.2",
+        "intervention/image": "^3.11",
         "knuckleswtf/scribe": "^4.40",
         "laravel/framework": "^11.31",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "league/oauth2-server": "^9.1",
+        "pragmarx/google2fa": "^8.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -19,7 +25,12 @@
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.1",
         "pestphp/pest": "^3.7",
-        "pestphp/pest-plugin-laravel": "^3.1"
+        "pestphp/pest-plugin-laravel": "^3.1",
+        "phpunit/phpunit": "^11.5",
+        "spatie/laravel-ignition": "^2.4"
+    },
+    "suggest": {
+        "ext-imagick": "Required for QR code generation in 2FA"
     },
     "autoload": {
         "psr-4": {
