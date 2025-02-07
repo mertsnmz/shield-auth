@@ -82,7 +82,6 @@
                 password: document.getElementById('password').value
             };
 
-            // Add 2FA code if it exists
             const twoFactorCode = document.getElementById('twoFactorCode').value;
             if (twoFactorCode) {
                 loginData['2fa_code'] = twoFactorCode;
@@ -125,14 +124,12 @@
             
             const responseData = await response.json();
             if (response.ok) {
-                // API response'u data property'si içinde olabilir
+
                 const data = responseData.data || responseData;
                 
-                // QR kodu görüntüleme
                 document.getElementById('qrCode').src = data.qr_code;
                 document.getElementById('qrCode').style.display = 'block';
                 
-                // Recovery kodları görüntüleme
                 const recoveryCodes = data.recovery_codes.join('\n');
                 document.getElementById('recoveryCodes').textContent = recoveryCodes;
                 document.getElementById('recoveryCodes').style.display = 'block';
