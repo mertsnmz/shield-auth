@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Events\Registered;
+use App\Services\TwoFactorAuthService;
 
 /**
  * @group Authentication
@@ -34,6 +35,7 @@ class AuthController extends Controller
      * @bodyParam email string required The email of the user. Example: user@example.com
      * @bodyParam password string required The password of the user. Example: password123
      * @bodyParam remember_me boolean optional Remember me option. Example: true
+     * @bodyParam 2fa_code string optional 2FA code. Example: 123456
      *
      * @response 200 {
      *   "message": "Logged in successfully",
@@ -42,7 +44,8 @@ class AuthController extends Controller
      *     "expired": false,
      *     "days_left": 45,
      *     "status": "valid"
-     *   }
+     *   },
+     *   "requires_2fa": false
      * }
      * @response 401 {
      *   "message": "Invalid credentials"
@@ -60,12 +63,14 @@ class AuthController extends Controller
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
-            'remember_me' => ['sometimes', 'boolean']
+            'remember_me' => ['sometimes', 'boolean'],
+            '2fa_code' => ['sometimes', 'string', 'size:6']
         ]);
 
         // remember_me'yi credentials'dan çıkar
         $remember_me = $request->boolean('remember_me', false);
-        unset($credentials['remember_me']);
+        $twoFactorCode = $credentials['2fa_code'] ?? null;
+        unset($credentials['remember_me'], $credentials['2fa_code']);
 
         $user = User::where('email', $credentials['email'])->first();
 
@@ -99,6 +104,26 @@ class AuthController extends Controller
                 'message' => 'Password change required',
                 'password_expired' => true
             ], 403);
+        }
+
+        // 2FA Check
+        if ($user->two_factor_enabled && $user->two_factor_confirmed_at) {
+            // If 2FA is enabled but no code provided, return need 2FA response
+            if (!$twoFactorCode) {
+                return response()->json([
+                    'message' => '2FA code required',
+                    'requires_2fa' => true
+                ], 403);
+            }
+
+            // Verify 2FA code
+            $twoFactorService = app(TwoFactorAuthService::class);
+            if (!$twoFactorService->verifyCode($user->two_factor_secret, $twoFactorCode)) {
+                return response()->json([
+                    'message' => 'Invalid 2FA code',
+                    'requires_2fa' => true
+                ], 401);
+            }
         }
 
         // Check for maximum active sessions
@@ -164,7 +189,8 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Logged in successfully',
             'session_id' => $session->id,
-            'password_status' => $this->passwordPolicy->checkPasswordStatus($user)
+            'password_status' => $this->passwordPolicy->checkPasswordStatus($user),
+            'requires_2fa' => false
         ])->withCookie(
             cookie('session_id', $session->id, $cookieLifetime)
         );

@@ -5,6 +5,7 @@ use App\Http\Controllers\OAuth\OAuthController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TwoFactorAuthController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -47,5 +48,14 @@ Route::middleware(['auth.session', 'throttle:api'])->group(function () {
         Route::put('/password', [UserController::class, 'updatePassword']);
         Route::get('/sessions', [SessionController::class, 'index']);
         Route::delete('/sessions/{id}', [SessionController::class, 'destroy']);
+    });
+
+    // 2FA routes
+    Route::prefix('auth/2fa')->middleware('throttle:2fa')->group(function () {
+        Route::post('/enable', [TwoFactorAuthController::class, 'enable']);
+        Route::post('/verify', [TwoFactorAuthController::class, 'verify']);
+        Route::post('/disable', [TwoFactorAuthController::class, 'disable']);
+        Route::get('/backup-codes', [TwoFactorAuthController::class, 'getBackupCodes']);
+        Route::post('/regenerate-backup-codes', [TwoFactorAuthController::class, 'regenerateBackupCodes']);
     });
 });

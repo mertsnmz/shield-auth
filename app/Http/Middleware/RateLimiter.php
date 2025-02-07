@@ -88,9 +88,9 @@ class RateLimiter
                 'maxAttempts' => 5,      // 5 deneme hakkı
                 'decayMinutes' => 1      // 1 dakika bekleme
             ],
-            // 2FA için makul limit
+            // 2FA için sıkı limit
             '2fa' => [
-                'maxAttempts' => 5,      // 5 deneme hakkı
+                'maxAttempts' => 3,      // 3 deneme hakkı
                 'decayMinutes' => 5      // 5 dakika bekleme
             ],
             // Şifre sıfırlama için daha geniş limit

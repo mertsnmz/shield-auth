@@ -127,6 +127,25 @@
                             </li>
                                                                         </ul>
                             </ul>
+                    <ul id="tocify-header-two-factor-authentication" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="two-factor-authentication">
+                    <a href="#two-factor-authentication">Two Factor Authentication</a>
+                </li>
+                                    <ul id="tocify-subheader-two-factor-authentication" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="two-factor-authentication-POSTapi-auth-2fa-enable">
+                                <a href="#two-factor-authentication-POSTapi-auth-2fa-enable">Enable 2FA</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="two-factor-authentication-POSTapi-auth-2fa-verify">
+                                <a href="#two-factor-authentication-POSTapi-auth-2fa-verify">Verify 2FA</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="two-factor-authentication-GETapi-auth-2fa-backup-codes">
+                                <a href="#two-factor-authentication-GETapi-auth-2fa-backup-codes">Get Backup Codes</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="two-factor-authentication-POSTapi-auth-2fa-regenerate-backup-codes">
+                                <a href="#two-factor-authentication-POSTapi-auth-2fa-regenerate-backup-codes">Regenerate Backup Codes</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
                     <ul id="tocify-header-user-management" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="user-management">
                     <a href="#user-management">User Management</a>
@@ -1151,11 +1170,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"client_id\": \"ut\",
-    \"redirect_uri\": \"https:\\/\\/rutherford.net\\/dolore-consequatur-quia-dolor-doloremque-architecto-exercitationem-omnis.html\",
+    \"client_id\": \"dolorem\",
+    \"redirect_uri\": \"http:\\/\\/www.bradtke.net\\/nostrum-vel-et-ut-quo-odit-aut.html\",
     \"response_type\": \"code\",
-    \"scope\": \"perspiciatis\",
-    \"state\": \"veritatis\"
+    \"scope\": \"ut\",
+    \"state\": \"ipsam\"
 }"
 </code></pre></div>
 
@@ -1181,11 +1200,11 @@ const headers = {
 };
 
 let body = {
-    "client_id": "ut",
-    "redirect_uri": "https:\/\/rutherford.net\/dolore-consequatur-quia-dolor-doloremque-architecto-exercitationem-omnis.html",
+    "client_id": "dolorem",
+    "redirect_uri": "http:\/\/www.bradtke.net\/nostrum-vel-et-ut-quo-odit-aut.html",
     "response_type": "code",
-    "scope": "perspiciatis",
-    "state": "veritatis"
+    "scope": "ut",
+    "state": "ipsam"
 };
 
 fetch(url, {
@@ -1377,10 +1396,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="client_id"                data-endpoint="GETapi-oauth-authorize"
-               value="ut"
+               value="dolorem"
                data-component="body">
     <br>
-<p>Example: <code>ut</code></p>
+<p>Example: <code>dolorem</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>redirect_uri</code></b>&nbsp;&nbsp;
@@ -1388,10 +1407,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="redirect_uri"                data-endpoint="GETapi-oauth-authorize"
-               value="https://rutherford.net/dolore-consequatur-quia-dolor-doloremque-architecto-exercitationem-omnis.html"
+               value="http://www.bradtke.net/nostrum-vel-et-ut-quo-odit-aut.html"
                data-component="body">
     <br>
-<p>Must be a valid URL. Example: <code>https://rutherford.net/dolore-consequatur-quia-dolor-doloremque-architecto-exercitationem-omnis.html</code></p>
+<p>Must be a valid URL. Example: <code>http://www.bradtke.net/nostrum-vel-et-ut-quo-odit-aut.html</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>response_type</code></b>&nbsp;&nbsp;
@@ -1412,10 +1431,10 @@ Must be one of:
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="scope"                data-endpoint="GETapi-oauth-authorize"
-               value="perspiciatis"
+               value="ut"
                data-component="body">
     <br>
-<p>Example: <code>perspiciatis</code></p>
+<p>Example: <code>ut</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>state</code></b>&nbsp;&nbsp;
@@ -1423,10 +1442,10 @@ Must be one of:
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="state"                data-endpoint="GETapi-oauth-authorize"
-               value="veritatis"
+               value="ipsam"
                data-component="body">
     <br>
-<p>Example: <code>veritatis</code></p>
+<p>Example: <code>ipsam</code></p>
         </div>
         </form>
 
@@ -2238,6 +2257,514 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>The ID of the session. Example: <code>abc123</code></p>
             </div>
                     </form>
+
+                <h1 id="two-factor-authentication">Two Factor Authentication</h1>
+
+    <p>APIs for managing 2FA</p>
+
+                                <h2 id="two-factor-authentication-POSTapi-auth-2fa-enable">Enable 2FA</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Start the 2FA setup process.</p>
+
+<span id="example-requests-POSTapi-auth-2fa-enable">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/auth/2fa/enable" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/auth/2fa/enable"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-auth-2fa-enable">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+  &quot;secret&quot;: &quot;KRSXG5CTMVRXEZLU&quot;,
+  &quot;qr_code&quot;: &quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgA...&quot;,
+  &quot;recovery_codes&quot;: [&quot;code1&quot;, &quot;code2&quot;, &quot;code3&quot;, ...]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-auth-2fa-enable" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-auth-2fa-enable"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-auth-2fa-enable"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-auth-2fa-enable" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-auth-2fa-enable">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-auth-2fa-enable" data-method="POST"
+      data-path="api/auth/2fa/enable"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-auth-2fa-enable', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-auth-2fa-enable"
+                    onclick="tryItOut('POSTapi-auth-2fa-enable');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-auth-2fa-enable"
+                    onclick="cancelTryOut('POSTapi-auth-2fa-enable');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-auth-2fa-enable"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/auth/2fa/enable</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-auth-2fa-enable"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-auth-2fa-enable"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                    <h2 id="two-factor-authentication-POSTapi-auth-2fa-verify">Verify 2FA</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Verify and complete the 2FA setup.</p>
+
+<span id="example-requests-POSTapi-auth-2fa-verify">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/auth/2fa/verify" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"code\": \"123456\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/auth/2fa/verify"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "code": "123456"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-auth-2fa-verify">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;2FA enabled successfully&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (400):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Invalid verification code&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-auth-2fa-verify" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-auth-2fa-verify"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-auth-2fa-verify"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-auth-2fa-verify" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-auth-2fa-verify">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-auth-2fa-verify" data-method="POST"
+      data-path="api/auth/2fa/verify"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-auth-2fa-verify', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-auth-2fa-verify"
+                    onclick="tryItOut('POSTapi-auth-2fa-verify');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-auth-2fa-verify"
+                    onclick="cancelTryOut('POSTapi-auth-2fa-verify');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-auth-2fa-verify"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/auth/2fa/verify</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-auth-2fa-verify"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-auth-2fa-verify"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>code</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="code"                data-endpoint="POSTapi-auth-2fa-verify"
+               value="123456"
+               data-component="body">
+    <br>
+<p>The verification code. Example: <code>123456</code></p>
+        </div>
+        </form>
+
+                    <h2 id="two-factor-authentication-GETapi-auth-2fa-backup-codes">Get Backup Codes</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Get the list of backup codes.</p>
+
+<span id="example-requests-GETapi-auth-2fa-backup-codes">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/auth/2fa/backup-codes" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/auth/2fa/backup-codes"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-auth-2fa-backup-codes">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+  &quot;recovery_codes&quot;: [&quot;code1&quot;, &quot;code2&quot;, &quot;code3&quot;, ...]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-auth-2fa-backup-codes" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-auth-2fa-backup-codes"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-auth-2fa-backup-codes"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-auth-2fa-backup-codes" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-auth-2fa-backup-codes">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-auth-2fa-backup-codes" data-method="GET"
+      data-path="api/auth/2fa/backup-codes"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-auth-2fa-backup-codes', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-auth-2fa-backup-codes"
+                    onclick="tryItOut('GETapi-auth-2fa-backup-codes');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-auth-2fa-backup-codes"
+                    onclick="cancelTryOut('GETapi-auth-2fa-backup-codes');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-auth-2fa-backup-codes"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/auth/2fa/backup-codes</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-auth-2fa-backup-codes"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-auth-2fa-backup-codes"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
+
+                    <h2 id="two-factor-authentication-POSTapi-auth-2fa-regenerate-backup-codes">Regenerate Backup Codes</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Generate new backup codes.</p>
+
+<span id="example-requests-POSTapi-auth-2fa-regenerate-backup-codes">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/auth/2fa/regenerate-backup-codes" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/auth/2fa/regenerate-backup-codes"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-auth-2fa-regenerate-backup-codes">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+  &quot;recovery_codes&quot;: [&quot;code1&quot;, &quot;code2&quot;, &quot;code3&quot;, ...]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-auth-2fa-regenerate-backup-codes" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-auth-2fa-regenerate-backup-codes"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-auth-2fa-regenerate-backup-codes"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-auth-2fa-regenerate-backup-codes" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-auth-2fa-regenerate-backup-codes">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-auth-2fa-regenerate-backup-codes" data-method="POST"
+      data-path="api/auth/2fa/regenerate-backup-codes"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-auth-2fa-regenerate-backup-codes', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-auth-2fa-regenerate-backup-codes"
+                    onclick="tryItOut('POSTapi-auth-2fa-regenerate-backup-codes');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-auth-2fa-regenerate-backup-codes"
+                    onclick="cancelTryOut('POSTapi-auth-2fa-regenerate-backup-codes');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-auth-2fa-regenerate-backup-codes"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/auth/2fa/regenerate-backup-codes</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-auth-2fa-regenerate-backup-codes"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-auth-2fa-regenerate-backup-codes"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
 
                 <h1 id="user-management">User Management</h1>
 

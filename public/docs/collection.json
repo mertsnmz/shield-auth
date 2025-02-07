@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "13b4dbdd-77e0-4b8a-9749-9cff34941e2d",
+        "_postman_id": "a6749f08-b4bd-4494-bc60-da5f1873bcd6",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -322,7 +322,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"client_id\":\"ut\",\"redirect_uri\":\"https:\\\/\\\/rutherford.net\\\/dolore-consequatur-quia-dolor-doloremque-architecto-exercitationem-omnis.html\",\"response_type\":\"code\",\"scope\":\"perspiciatis\",\"state\":\"veritatis\"}"
+                            "raw": "{\"client_id\":\"dolorem\",\"redirect_uri\":\"http:\\\/\\\/www.bradtke.net\\\/nostrum-vel-et-ut-quo-odit-aut.html\",\"response_type\":\"code\",\"scope\":\"ut\",\"state\":\"ipsam\"}"
                         },
                         "description": "First step of Authorization Code flow. Shows authorization form to the user.",
                         "auth": {
@@ -586,6 +586,149 @@
                             "header": [],
                             "code": 404,
                             "body": "{\n  \"message\": \"Session not found\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Two Factor Authentication",
+            "description": "\nAPIs for managing 2FA",
+            "item": [
+                {
+                    "name": "Enable 2FA",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/2fa\/enable",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/2fa\/enable"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Start the 2FA setup process."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"secret\": \"KRSXG5CTMVRXEZLU\",\n  \"qr_code\": \"data:image\/png;base64,iVBORw0KGgoAAAANSUhEUgA...\",\n  \"recovery_codes\": [\"code1\", \"code2\", \"code3\", ...]\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Verify 2FA",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/2fa\/verify",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/2fa\/verify"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"code\":\"123456\"}"
+                        },
+                        "description": "Verify and complete the 2FA setup."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"2FA enabled successfully\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\n  \"message\": \"Invalid verification code\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Backup Codes",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/2fa\/backup-codes",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/2fa\/backup-codes"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Get the list of backup codes."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"recovery_codes\": [\"code1\", \"code2\", \"code3\", ...]\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Regenerate Backup Codes",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/2fa\/regenerate-backup-codes",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/2fa\/regenerate-backup-codes"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Generate new backup codes."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"recovery_codes\": [\"code1\", \"code2\", \"code3\", ...]\n}",
                             "name": ""
                         }
                     ]

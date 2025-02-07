@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>2FA Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .qr-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .qr-code {
+            max-width: 300px;
+            margin: 20px auto;
+        }
+        .recovery-codes {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        input {
+            padding: 8px;
+            margin: 5px;
+            width: 200px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>2FA Test Panel</h1>
+    
+    <div id="loginForm">
+        <h2>1. Login</h2>
+        <input type="email" id="email" placeholder="Email" value="test@example.com">
+        <input type="password" id="password" placeholder="Password" value="Test123!@#$%^&*">
+        <div id="twoFactorInput" class="hidden">
+            <input type="text" id="twoFactorCode" placeholder="Enter 6-digit 2FA code">
+        </div>
+        <button onclick="login()">Login</button>
+    </div>
+
+    <div id="twoFactorSetup" class="hidden">
+        <h2>2. Enable 2FA</h2>
+        <button onclick="enable2FA()">Enable 2FA</button>
+        <div class="qr-container">
+            <img id="qrCode" class="qr-code" style="display: none;">
+        </div>
+        <div id="recoveryCodes" class="recovery-codes" style="display: none;"></div>
+    </div>
+
+    <div id="twoFactorVerify" class="hidden">
+        <h2>3. Verify 2FA</h2>
+        <input type="text" id="verificationCode" placeholder="Enter 6-digit code">
+        <button onclick="verify2FA()">Verify</button>
+    </div>
+
+    <div id="twoFactorDisable" class="hidden">
+        <h2>4. Disable 2FA</h2>
+        <input type="password" id="disablePassword" placeholder="Enter your password">
+        <input type="text" id="disable2FACode" placeholder="Enter current 2FA code">
+        <button onclick="disable2FA()">Disable 2FA</button>
+    </div>
+
+    <script>
+        let sessionId = '';
+
+        async function login() {
+            const loginData = {
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            };
+
+            // Add 2FA code if it exists
+            const twoFactorCode = document.getElementById('twoFactorCode').value;
+            if (twoFactorCode) {
+                loginData['2fa_code'] = twoFactorCode;
+            }
+
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(loginData)
+            });
+            
+            const data = await response.json();
+            
+            if (response.status === 403 && data.requires_2fa) {
+                document.getElementById('twoFactorInput').classList.remove('hidden');
+                alert('Please enter your 2FA code');
+                return;
+            }
+            
+            if (response.ok) {
+                sessionId = data.session_id;
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('twoFactorSetup').classList.remove('hidden');
+                alert('Logged in successfully!');
+            } else {
+                alert('Login failed: ' + data.message);
+            }
+        }
+
+        async function enable2FA() {
+            const response = await fetch('/api/auth/2fa/enable', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Cookie': `session_id=${sessionId}`
+                }
+            });
+            
+            const data = await response.json();
+            if (response.ok) {
+                document.getElementById('qrCode').src = data.qr_code;
+                document.getElementById('qrCode').style.display = 'block';
+                
+                const recoveryCodes = data.recovery_codes.join('\n');
+                document.getElementById('recoveryCodes').textContent = recoveryCodes;
+                document.getElementById('recoveryCodes').style.display = 'block';
+                
+                document.getElementById('twoFactorVerify').classList.remove('hidden');
+            } else {
+                alert('Failed to enable 2FA: ' + data.message);
+            }
+        }
+
+        async function verify2FA() {
+            const response = await fetch('/api/auth/2fa/verify', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Cookie': `session_id=${sessionId}`
+                },
+                body: JSON.stringify({
+                    code: document.getElementById('verificationCode').value
+                })
+            });
+            
+            const data = await response.json();
+            if (response.ok) {
+                document.getElementById('twoFactorDisable').classList.remove('hidden');
+                alert('2FA verified successfully!');
+            } else {
+                alert('Verification failed: ' + data.message);
+            }
+        }
+
+        async function disable2FA() {
+            const response = await fetch('/api/auth/2fa/disable', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Cookie': `session_id=${sessionId}`
+                },
+                body: JSON.stringify({
+                    current_password: document.getElementById('disablePassword').value,
+                    code: document.getElementById('disable2FACode').value
+                })
+            });
+            
+            const data = await response.json();
+            if (response.ok) {
+                document.getElementById('twoFactorDisable').classList.add('hidden');
+                document.getElementById('twoFactorSetup').classList.remove('hidden');
+                // Clear sensitive fields
+                document.getElementById('disablePassword').value = '';
+                document.getElementById('disable2FACode').value = '';
+                alert('2FA disabled successfully!');
+            } else {
+                alert('Failed to disable 2FA: ' + data.message);
+            }
+        }
+    </script>
+</body>
+</html> 

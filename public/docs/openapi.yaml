@@ -603,12 +603,12 @@ paths:
                 client_id:
                   type: string
                   description: ''
-                  example: ut
+                  example: dolorem
                   nullable: false
                 redirect_uri:
                   type: string
                   description: 'Must be a valid URL.'
-                  example: 'https://rutherford.net/dolore-consequatur-quia-dolor-doloremque-architecto-exercitationem-omnis.html'
+                  example: 'http://www.bradtke.net/nostrum-vel-et-ut-quo-odit-aut.html'
                   nullable: false
                 response_type:
                   type: string
@@ -620,12 +620,12 @@ paths:
                 scope:
                   type: string
                   description: ''
-                  example: perspiciatis
+                  example: ut
                   nullable: false
                 state:
                   type: string
                   description: ''
-                  example: veritatis
+                  example: ipsam
                   nullable: false
               required:
                 - client_id
@@ -903,6 +903,101 @@ paths:
         required: true
         schema:
           type: string
+  /api/auth/2fa/enable:
+    post:
+      summary: 'Enable 2FA'
+      operationId: enable2FA
+      description: 'Start the 2FA setup process.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\n  \"secret\": \"KRSXG5CTMVRXEZLU\",\n  \"qr_code\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgA...\",\n  \"recovery_codes\": [\"code1\", \"code2\", \"code3\", ...]\n}"
+      tags:
+        - 'Two Factor Authentication'
+  /api/auth/2fa/verify:
+    post:
+      summary: 'Verify 2FA'
+      operationId: verify2FA
+      description: 'Verify and complete the 2FA setup.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: '2FA enabled successfully'
+                properties:
+                  message:
+                    type: string
+                    example: '2FA enabled successfully'
+        400:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Invalid verification code'
+                properties:
+                  message:
+                    type: string
+                    example: 'Invalid verification code'
+      tags:
+        - 'Two Factor Authentication'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  description: 'The verification code.'
+                  example: '123456'
+                  nullable: false
+              required:
+                - code
+  /api/auth/2fa/backup-codes:
+    get:
+      summary: 'Get Backup Codes'
+      operationId: getBackupCodes
+      description: 'Get the list of backup codes.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\n  \"recovery_codes\": [\"code1\", \"code2\", \"code3\", ...]\n}"
+      tags:
+        - 'Two Factor Authentication'
+  /api/auth/2fa/regenerate-backup-codes:
+    post:
+      summary: 'Regenerate Backup Codes'
+      operationId: regenerateBackupCodes
+      description: 'Generate new backup codes.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\n  \"recovery_codes\": [\"code1\", \"code2\", \"code3\", ...]\n}"
+      tags:
+        - 'Two Factor Authentication'
   /api/users/me:
     get:
       summary: 'Get Current User'
@@ -1108,6 +1203,9 @@ tags:
   -
     name: 'Session Management'
     description: "\nAPIs for managing user sessions"
+  -
+    name: 'Two Factor Authentication'
+    description: "\nAPIs for managing 2FA"
   -
     name: 'User Management'
     description: "\nAPIs for managing user profile"

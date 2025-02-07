@@ -347,7 +347,7 @@ endpoints:
         name: client_id
         description: ''
         required: true
-        example: ut
+        example: dolorem
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -357,7 +357,7 @@ endpoints:
         name: redirect_uri
         description: 'Must be a valid URL.'
         required: true
-        example: 'https://rutherford.net/dolore-consequatur-quia-dolor-doloremque-architecto-exercitationem-omnis.html'
+        example: 'http://www.bradtke.net/nostrum-vel-et-ut-quo-odit-aut.html'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -378,7 +378,7 @@ endpoints:
         name: scope
         description: ''
         required: false
-        example: perspiciatis
+        example: ut
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -388,18 +388,18 @@ endpoints:
         name: state
         description: ''
         required: false
-        example: veritatis
+        example: ipsam
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         custom: []
     cleanBodyParameters:
-      client_id: ut
-      redirect_uri: 'https://rutherford.net/dolore-consequatur-quia-dolor-doloremque-architecto-exercitationem-omnis.html'
+      client_id: dolorem
+      redirect_uri: 'http://www.bradtke.net/nostrum-vel-et-ut-quo-odit-aut.html'
       response_type: code
-      scope: perspiciatis
-      state: veritatis
+      scope: ut
+      state: ipsam
     fileParameters: []
     responses:
       -

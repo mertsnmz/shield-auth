@@ -64,4 +64,87 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# auth-project
+
+# Auth Project
+
+A secure authentication system with session management, OAuth2, and Two-Factor Authentication.
+
+## System Requirements
+
+- PHP 8.2+
+- MySQL 8.0+
+- Composer
+- Node.js & NPM
+- ImageMagick (`imagemagick` package)
+  - Required for QR code generation in 2FA
+  - Installation:
+    ```bash
+    # macOS
+    brew install imagemagick
+
+    # Ubuntu/Debian
+    sudo apt-get install imagemagick
+
+    # CentOS/RHEL
+    sudo yum install imagemagick
+    ```
+
+## Installation
+
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/auth-project.git
+cd auth-project
+```
+
+2. Install PHP dependencies
+```bash
+composer install
+```
+
+3. Copy environment file
+```bash
+cp .env.example .env
+```
+
+4. Generate application key
+```bash
+php artisan key:generate
+```
+
+5. Run migrations
+```bash
+php artisan migrate
+```
+
+6. Seed the database (optional)
+```bash
+php artisan db:seed
+```
+
+## Features
+
+- Session-based Authentication
+- OAuth2 Support
+- Two-Factor Authentication (2FA)
+  - TOTP (Time-based One-Time Password)
+  - QR Code Generation
+  - Backup Codes
+- Password Policy Management
+- Rate Limiting
+- Security Headers
+- HTTPS Enforcement
+- Session Management
+- Audit Logging
+
+## Security Considerations
+
+- All passwords are hashed using bcrypt
+- Sessions are protected against fixation attacks
+- Rate limiting is implemented for all sensitive endpoints
+- 2FA uses RFC 6238 compliant TOTP
+- Secure random number generation for all tokens
+- XSS protection headers
+- CSRF protection for all state-changing operations
+- SQL injection protection through prepared statements
+- Proper session handling and timeout
