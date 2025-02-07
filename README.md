@@ -2,6 +2,8 @@
 
 A comprehensive authentication and authorization system built with Laravel, featuring OAuth2, Two-Factor Authentication (2FA), and secure session management.
 
+> **Security Notice**: For detailed security information and vulnerability reporting guidelines, please refer to our [Security Policy](SECURITY.md).
+
 ## Features
 
 - 🔐 Secure Session Management
@@ -253,3 +255,95 @@ If you discover any security vulnerabilities, please report them via email. All 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Security Considerations
+
+### Authentication & Authorization
+- **Session Management**
+  - Session tokens are securely hashed using SHA-256
+  - Sessions expire after 3 hours of inactivity
+  - Sessions are bound to IP address and user agent
+  - Automatic cleanup of expired sessions via scheduled task
+
+- **Password Security**
+  - Passwords are hashed using bcrypt with appropriate work factor
+  - Password policy enforces minimum length and complexity requirements
+  - Password reset tokens expire after 1 hour
+  - Rate limiting on password reset attempts
+
+- **Two-Factor Authentication (2FA)**
+  - TOTP-based two-factor authentication (RFC 6238)
+  - Secure backup codes for account recovery
+  - Rate limiting on 2FA verification attempts
+  - 2FA secrets are encrypted at rest
+
+- **OAuth 2.0 Implementation**
+  - Secure client registration with hashed client secrets
+  - Authorization codes expire after 10 minutes
+  - Refresh tokens are rotated on use
+  - Scope-based access control
+  - PKCE support for mobile clients
+
+### API Security
+- **Rate Limiting**
+  - API-wide rate limiting to prevent abuse
+  - Separate limits for authentication endpoints
+  - IP-based and token-based rate limiting
+
+- **Input Validation & Sanitization**
+  - All user input is validated and sanitized
+  - SQL injection prevention via prepared statements
+  - XSS protection through proper output encoding
+  - CSRF protection for session-based routes
+
+- **Transport Security**
+  - HTTPS required for all API endpoints
+  - Strict Transport Security (HSTS) enabled
+  - Secure cookie attributes (HttpOnly, Secure, SameSite)
+  - TLS 1.2+ required
+
+- **Data Protection**
+  - Sensitive data is encrypted at rest
+  - PII (Personally Identifiable Information) is properly handled
+  - Logs are sanitized to prevent sensitive data exposure
+  - Regular data cleanup for expired/inactive records
+
+### Infrastructure Security
+- **Environment Configuration**
+  - Secure environment variable handling
+  - Production configuration hardening
+  - Separate configurations for development/staging/production
+
+- **Error Handling**
+  - Custom error handling to prevent information leakage
+  - Detailed logging for security events
+  - Proper exception handling throughout the application
+
+### Security Headers
+```php
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Content-Security-Policy: default-src 'self'
+Referrer-Policy: strict-origin-when-cross-origin
+```
+
+### Monitoring & Auditing
+- Security event logging
+- Failed authentication attempts tracking
+- Suspicious activity monitoring
+- Regular security audits
+
+### Compliance
+- GDPR compliance measures
+- Data retention policies
+- User consent management
+- Privacy policy implementation
+
+## Security Testing
+- Regular vulnerability scanning
+- Penetration testing procedures
+- Automated security testing in CI/CD
+- Dependencies security scanning
+
+For reporting security vulnerabilities, please email security@example.com or refer to our security policy at SECURITY.md.
