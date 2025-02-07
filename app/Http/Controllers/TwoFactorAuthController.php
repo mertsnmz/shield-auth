@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\TwoFactorAuthService;
+use App\Http\Requests\TwoFactorAuth\EnableRequest;
+use App\Http\Requests\TwoFactorAuth\VerifyRequest;
+use App\Http\Requests\TwoFactorAuth\DisableRequest;
+use App\Services\TwoFactorAuth\TwoFactorAuthService;
+use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -16,6 +18,8 @@ use Illuminate\Support\Facades\Log;
  */
 class TwoFactorAuthController extends Controller
 {
+    use ApiResponse;
+
     public function __construct(
         private readonly TwoFactorAuthService $twoFactorAuth
     ) {}
@@ -25,27 +29,17 @@ class TwoFactorAuthController extends Controller
      * 
      * Start the 2FA setup process.
      *
-     * @authenticated
-     *
-     * @response 200 {
-     *   "secret": "KRSXG5CTMVRXEZLU",
-     *   "qr_code": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgA...",
-     *   "recovery_codes": ["code1", "code2", "code3", ...]
-     * }
+     * @param EnableRequest $request
+     * @return JsonResponse
      */
-    public function enable(): JsonResponse
+    public function enable(EnableRequest $request): JsonResponse
     {
-        $user = Auth::user();
-
-        if ($this->twoFactorAuth->isEnabled($user)) {
-            return response()->json([
-                'message' => '2FA is already enabled'
-            ], 400);
+        try {
+            $result = $this->twoFactorAuth->enable(Auth::user());
+            return $this->successResponse($result);
+        } catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage(), $e->getCode());
         }
-
-        $result = $this->twoFactorAuth->enable2FA($user);
-
-        return response()->json($result);
     }
 
     /**
@@ -53,43 +47,17 @@ class TwoFactorAuthController extends Controller
      * 
      * Verify and complete the 2FA setup.
      *
-     * @authenticated
-     * 
-     * @bodyParam code string required The verification code. Example: 123456
-     *
-     * @response 200 {
-     *   "message": "2FA enabled successfully"
-     * }
-     * @response 400 {
-     *   "message": "Invalid verification code"
-     * }
+     * @param VerifyRequest $request
+     * @return JsonResponse
      */
-    public function verify(Request $request): JsonResponse
+    public function verify(VerifyRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'code' => ['required', 'string', 'size:6']
-        ]);
-
-        $user = Auth::user();
-
-        if (!$user->two_factor_secret) {
-            return response()->json([
-                'message' => '2FA is not enabled'
-            ], 400);
+        try {
+            $this->twoFactorAuth->verify(Auth::user(), $request->code);
+            return $this->successResponse(message: '2FA enabled successfully');
+        } catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage(), $e->getCode());
         }
-
-        if ($this->twoFactorAuth->verifyCode($user->two_factor_secret, $validated['code'])) {
-            $user->two_factor_confirmed_at = now();
-            $user->save();
-
-            return response()->json([
-                'message' => '2FA enabled successfully'
-            ]);
-        }
-
-        return response()->json([
-            'message' => 'Invalid verification code'
-        ], 400);
     }
 
     /**
@@ -97,25 +65,16 @@ class TwoFactorAuthController extends Controller
      * 
      * Get the list of backup codes.
      *
-     * @authenticated
-     *
-     * @response 200 {
-     *   "recovery_codes": ["code1", "code2", "code3", ...]
-     * }
+     * @return JsonResponse
      */
     public function getBackupCodes(): JsonResponse
     {
-        $user = Auth::user();
-
-        if (!$this->twoFactorAuth->isEnabled($user)) {
-            return response()->json([
-                'message' => '2FA is not enabled'
-            ], 400);
+        try {
+            $codes = $this->twoFactorAuth->getBackupCodes(Auth::user());
+            return $this->successResponse(['recovery_codes' => $codes]);
+        } catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage(), $e->getCode());
         }
-
-        return response()->json([
-            'recovery_codes' => json_decode($user->two_factor_recovery_codes, true)
-        ]);
     }
 
     /**
@@ -123,96 +82,45 @@ class TwoFactorAuthController extends Controller
      * 
      * Generate new backup codes.
      *
-     * @authenticated
-     *
-     * @response 200 {
-     *   "recovery_codes": ["code1", "code2", "code3", ...]
-     * }
+     * @return JsonResponse
      */
     public function regenerateBackupCodes(): JsonResponse
     {
-        $user = Auth::user();
-
-        if (!$this->twoFactorAuth->isEnabled($user)) {
-            return response()->json([
-                'message' => '2FA is not enabled'
-            ], 400);
+        try {
+            $codes = $this->twoFactorAuth->regenerateBackupCodes(Auth::user());
+            return $this->successResponse(['recovery_codes' => $codes]);
+        } catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage(), $e->getCode());
         }
-
-        $recoveryCodes = $this->twoFactorAuth->generateRecoveryCodes();
-        $user->two_factor_recovery_codes = json_encode($recoveryCodes);
-        $user->save();
-
-        return response()->json([
-            'recovery_codes' => $recoveryCodes
-        ]);
     }
 
     /**
      * Disable 2FA
      * 
      * Disable two-factor authentication for the user.
-     * Requires current password and 2FA code for security.
      *
-     * @authenticated
-     * 
-     * @bodyParam current_password string required The user's current password. Example: MyPassword123
-     * @bodyParam code string required Current 2FA code. Example: 123456
-     *
-     * @response 200 {
-     *   "message": "2FA disabled successfully"
-     * }
-     * @response 400 {
-     *   "message": "2FA is not enabled"
-     * }
-     * @response 401 {
-     *   "message": "Invalid password"
-     * }
-     * @response 401 {
-     *   "message": "Invalid 2FA code"
-     * }
+     * @param DisableRequest $request
+     * @return JsonResponse
      */
-    public function disable(Request $request): JsonResponse
+    public function disable(DisableRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'current_password' => ['required', 'string'],
-            'code' => ['required', 'string', 'size:6']
-        ]);
+        try {
+            $this->twoFactorAuth->disable(
+                Auth::user(),
+                $request->current_password,
+                $request->code
+            );
 
-        $user = Auth::user();
+            Log::warning('2FA Disabled', [
+                'user_id' => Auth::id(),
+                'email' => Auth::user()->email,
+                'ip_address' => request()->ip(),
+                'user_agent' => request()->userAgent()
+            ]);
 
-        if (!$this->twoFactorAuth->isEnabled($user)) {
-            return response()->json([
-                'message' => '2FA is not enabled'
-            ], 400);
+            return $this->successResponse(message: '2FA disabled successfully');
+        } catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage(), $e->getCode());
         }
-
-        // Şifre kontrolü
-        if (!Hash::check($validated['current_password'], $user->password_hash)) {
-            return response()->json([
-                'message' => 'Invalid password'
-            ], 401);
-        }
-
-        // 2FA kodu kontrolü
-        if (!$this->twoFactorAuth->verifyCode($user->two_factor_secret, $validated['code'])) {
-            return response()->json([
-                'message' => 'Invalid 2FA code'
-            ], 401);
-        }
-
-        $this->twoFactorAuth->disable2FA($user);
-
-        // Log the action for security audit
-        Log::warning('2FA Disabled', [
-            'user_id' => $user->id,
-            'email' => $user->email,
-            'ip_address' => request()->ip(),
-            'user_agent' => request()->userAgent()
-        ]);
-
-        return response()->json([
-            'message' => '2FA disabled successfully'
-        ]);
     }
 }

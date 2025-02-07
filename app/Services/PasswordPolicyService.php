@@ -19,6 +19,8 @@ class PasswordPolicyService
     public const PASSWORD_EXPIRY_DAYS = 90;
     public const PASSWORD_EXPIRY_WARNING_DAYS = 15;
 
+    private const MAX_PASSWORD_HISTORY = 5;
+
     public function getValidationRules(): Password
     {
         $rules = Password::min(self::MIN_LENGTH);
@@ -38,15 +40,12 @@ class PasswordPolicyService
         return $rules->uncompromised();
     }
 
-    public function wasUsedBefore(User $user, string $password): bool
+    public function wasUsedBefore(User $user, string $newPassword): bool
     {
-        $recentPasswords = $user->passwordHistory()
-            ->latest()
-            ->take(self::HISTORY_COUNT)
-            ->get();
+        $passwordHistory = json_decode($user->password_history ?? '[]', true);
 
-        foreach ($recentPasswords as $historicPassword) {
-            if (Hash::check($password, $historicPassword->password)) {
+        foreach ($passwordHistory as $oldPassword) {
+            if (Hash::check($newPassword, $oldPassword)) {
                 return true;
             }
         }
@@ -56,8 +55,14 @@ class PasswordPolicyService
 
     public function recordPassword(User $user, string $hashedPassword): void
     {
-        $user->passwordHistory()->create([
-            'password' => $hashedPassword
+        $passwordHistory = json_decode($user->password_history ?? '[]', true);
+        array_unshift($passwordHistory, $hashedPassword);
+        
+        // Keep only the last MAX_PASSWORD_HISTORY passwords
+        $passwordHistory = array_slice($passwordHistory, 0, self::MAX_PASSWORD_HISTORY);
+
+        $user->update([
+            'password_history' => json_encode($passwordHistory)
         ]);
     }
 

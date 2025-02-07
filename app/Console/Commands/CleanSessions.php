@@ -14,7 +14,7 @@ class CleanSessions extends Command
     {
         $this->info('Cleaning old sessions...');
 
-        // 30 günden eski oturumları temizle
+        // Clean sessions older than 30 days
         $oldSessions = DB::table('sessions')
             ->where('last_activity', '<', now()->subDays(30)->timestamp)
             ->delete();
