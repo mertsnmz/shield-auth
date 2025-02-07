@@ -23,7 +23,7 @@ class UserController extends Controller
 
     /**
      * Get Current User
-     * 
+     *
      * Get the authenticated user's profile information.
      *
      * @authenticated
@@ -45,7 +45,7 @@ class UserController extends Controller
     public function me(): JsonResponse
     {
         $user = Auth::user();
-        
+
         return response()->json([
             'user' => [
                 'id' => $user->id,
@@ -59,11 +59,11 @@ class UserController extends Controller
 
     /**
      * Update Profile
-     * 
+     *
      * Update the authenticated user's profile information.
      *
      * @authenticated
-     * 
+     *
      * @bodyParam email string The new email address. Example: newuser@example.com
      *
      * @response 200 {
@@ -102,60 +102,4 @@ class UserController extends Controller
             ]
         ]);
     }
-
-    /**
-     * Update Password
-     * 
-     * Update the authenticated user's password.
-     *
-     * @authenticated
-     * 
-     * @bodyParam current_password string required The current password. Example: CurrentPass123!
-     * @bodyParam password string required The new password. Example: NewStrongPass123!
-     * @bodyParam password_confirmation string required The new password confirmation. Example: NewStrongPass123!
-     *
-     * @response 200 {
-     *   "message": "Password updated successfully"
-     * }
-     * @response 400 {
-     *   "message": "Current password is incorrect"
-     * }
-     * @response 400 {
-     *   "message": "Password was used before"
-     * }
-     */
-    public function updatePassword(Request $request): JsonResponse
-    {
-        $user = Auth::user();
-
-        $validated = $request->validate([
-            'current_password' => ['required'],
-            'password' => array_merge(
-                ['required', 'confirmed'],
-                [$this->passwordPolicy->getValidationRules()]
-            )
-        ]);
-
-        if (!Hash::check($validated['current_password'], $user->password_hash)) {
-            return response()->json([
-                'message' => 'Current password is incorrect'
-            ], 400);
-        }
-
-        if ($this->passwordPolicy->wasUsedBefore($user, $validated['password'])) {
-            return response()->json([
-                'message' => 'Password was used before'
-            ], 400);
-        }
-
-        $user->password_hash = Hash::make($validated['password']);
-        $user->password_changed_at = now();
-        $user->save();
-
-        $this->passwordPolicy->recordPassword($user, $user->password_hash);
-
-        return response()->json([
-            'message' => 'Password updated successfully'
-        ]);
-    }
-} 
+}

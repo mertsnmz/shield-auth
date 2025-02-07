@@ -3,9 +3,9 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Models\PasswordHistory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
-use Illuminate\Support\Facades\DB;
 
 class PasswordPolicyService
 {
@@ -42,10 +42,13 @@ class PasswordPolicyService
 
     public function wasUsedBefore(User $user, string $newPassword): bool
     {
-        $passwordHistory = json_decode($user->password_history ?? '[]', true);
+        $passwordHistory = $user->passwordHistory()
+            ->latest()
+            ->take(self::MAX_PASSWORD_HISTORY)
+            ->get();
 
-        foreach ($passwordHistory as $oldPassword) {
-            if (Hash::check($newPassword, $oldPassword)) {
+        foreach ($passwordHistory as $history) {
+            if (Hash::check($newPassword, $history->password)) {
                 return true;
             }
         }
@@ -55,15 +58,22 @@ class PasswordPolicyService
 
     public function recordPassword(User $user, string $hashedPassword): void
     {
-        $passwordHistory = json_decode($user->password_history ?? '[]', true);
-        array_unshift($passwordHistory, $hashedPassword);
-        
-        // Keep only the last MAX_PASSWORD_HISTORY passwords
-        $passwordHistory = array_slice($passwordHistory, 0, self::MAX_PASSWORD_HISTORY);
-
-        $user->update([
-            'password_history' => json_encode($passwordHistory)
+        // Create new password history record
+        PasswordHistory::create([
+            'user_id' => $user->id,
+            'password' => $hashedPassword
         ]);
+
+        // Keep only the last MAX_PASSWORD_HISTORY passwords
+        $oldPasswords = $user->passwordHistory()
+            ->latest()
+            ->skip(self::MAX_PASSWORD_HISTORY)
+            ->take(100)  // Limit the number of records to delete at once
+            ->get();
+
+        foreach ($oldPasswords as $old) {
+            $old->delete();
+        }
     }
 
     public function handleFailedLogin(User $user): bool
