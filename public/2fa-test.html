@@ -123,18 +123,24 @@
                 }
             });
             
-            const data = await response.json();
+            const responseData = await response.json();
             if (response.ok) {
+                // API response'u data property'si içinde olabilir
+                const data = responseData.data || responseData;
+                
+                // QR kodu görüntüleme
                 document.getElementById('qrCode').src = data.qr_code;
                 document.getElementById('qrCode').style.display = 'block';
                 
+                // Recovery kodları görüntüleme
                 const recoveryCodes = data.recovery_codes.join('\n');
                 document.getElementById('recoveryCodes').textContent = recoveryCodes;
                 document.getElementById('recoveryCodes').style.display = 'block';
                 
                 document.getElementById('twoFactorVerify').classList.remove('hidden');
             } else {
-                alert('Failed to enable 2FA: ' + data.message);
+                alert('Failed to enable 2FA: ' + (responseData.message || 'Unknown error'));
+                console.error('2FA Enable Response:', responseData);
             }
         }
 
@@ -176,7 +182,7 @@
             if (response.ok) {
                 document.getElementById('twoFactorDisable').classList.add('hidden');
                 document.getElementById('twoFactorSetup').classList.remove('hidden');
-                // Clear sensitive fields
+            
                 document.getElementById('disablePassword').value = '';
                 document.getElementById('disable2FACode').value = '';
                 alert('2FA disabled successfully!');
