@@ -46,8 +46,8 @@ A comprehensive authentication and authorization system built with Laravel, feat
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/auth-project.git
-cd auth-project
+git clone https://github.com/yourusername/shield-auth.git
+cd shield-auth
 ```
 
 2. Set up environment:
