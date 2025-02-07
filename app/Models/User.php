@@ -24,6 +24,8 @@ class User extends Authenticatable
         'password_hash',
         'two_factor_secret',
         'two_factor_enabled',
+        'two_factor_confirmed_at',
+        'two_factor_recovery_codes',
         'failed_login_attempts',
         'last_login_at',
         'password_changed_at'
@@ -48,6 +50,7 @@ class User extends Authenticatable
     {
         return [
             'two_factor_enabled' => 'boolean',
+            'two_factor_confirmed_at' => 'datetime',
             'failed_login_attempts' => 'integer',
             'last_login_at' => 'datetime',
             'password_changed_at' => 'datetime',

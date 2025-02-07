@@ -30,83 +30,51 @@ endpoints:
     bodyParameters:
       email:
         name: email
-        description: 'The email of the user.'
+        description: 'Must be a valid email address.'
         required: true
-        example: user@example.com
+        example: bauch.nestor@example.net
         type: string
         enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
         nullable: false
         custom: []
       password:
         name: password
-        description: 'The password of the user.'
+        description: ''
         required: true
-        example: password123
+        example: 'N:+b/"v*Tv'
         type: string
         enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
         nullable: false
         custom: []
       remember_me:
         name: remember_me
-        description: 'optional Remember me option.'
+        description: ''
         required: false
         example: true
         type: boolean
         enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      2fa_code:
+        name: 2fa_code
+        description: 'Must be 6 characters.'
+        required: false
+        example: xboyza
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
         nullable: false
         custom: []
     cleanBodyParameters:
-      email: user@example.com
-      password: password123
+      email: bauch.nestor@example.net
+      password: 'N:+b/"v*Tv'
       remember_me: true
+      2fa_code: xboyza
     fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-            "message": "Logged in successfully",
-            "session_id": "abc123",
-            "password_status": {
-              "expired": false,
-              "days_left": 45,
-              "status": "valid"
-            }
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 401
-        content: |-
-          {
-            "message": "Invalid credentials"
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 401
-        content: |-
-          {
-            "message": "Account is locked due to too many failed attempts"
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 403
-        content: |-
-          {
-            "message": "Password change required",
-            "password_expired": true
-          }
-        headers: []
-        description: ''
-        custom: []
+    responses: []
     responseFields: []
     auth: []
     controller: null
@@ -138,62 +106,29 @@ endpoints:
     bodyParameters:
       email:
         name: email
-        description: 'The email address.'
+        description: 'Must be a valid email address. Must not be greater than 255 characters.'
         required: true
-        example: user@example.com
+        example: dante92@example.org
         type: string
         enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
         nullable: false
         custom: []
       password:
         name: password
-        description: 'The password (must meet password policy requirements).'
+        description: ''
         required: true
-        example: StrongPass123!
+        example: '?{rTBcFFG|IXt'
         type: string
         enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      password_confirmation:
-        name: password_confirmation
-        description: 'The password confirmation.'
-        required: true
-        example: StrongPass123!
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
         nullable: false
         custom: []
     cleanBodyParameters:
-      email: user@example.com
-      password: StrongPass123!
-      password_confirmation: StrongPass123!
+      email: dante92@example.org
+      password: '?{rTBcFFG|IXt'
     fileParameters: []
-    responses:
-      -
-        status: 201
-        content: |-
-          {
-            "message": "User registered successfully"
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 422
-        content: |-
-          {
-            "message": "The given data was invalid.",
-            "errors": {
-              "email": ["The email has already been taken."],
-              "password": ["The password must be at least 8 characters."]
-            }
-          }
-        headers: []
-        description: ''
-        custom: []
+    responses: []
     responseFields: []
     auth: []
     controller: null
@@ -213,7 +148,7 @@ endpoints:
       subgroupDescription: ''
       title: Logout
       description: 'Invalidate the current session.'
-      authenticated: true
+      authenticated: false
       custom: []
     headers:
       Content-Type: application/json
@@ -225,16 +160,7 @@ endpoints:
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-            "message": "Logged out successfully"
-          }
-        headers: []
-        description: ''
-        custom: []
+    responses: []
     responseFields: []
     auth: []
     controller: null

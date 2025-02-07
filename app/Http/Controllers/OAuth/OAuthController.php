@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 
 /**
  * @group OAuth2 Authentication
@@ -34,7 +35,7 @@ class OAuthController extends Controller
      *
      * @bodyParam grant_type string required The grant type. Example: authorization_code
      * @bodyParam client_id string required The client ID. Example: test-client
-     * @bodyParam client_secret string required The client secret. Example: test-secret
+     * @bodyParam client_secret string required The client secret (raw value, will be hashed internally). Example: test-secret
      * @bodyParam code string required for authorization_code The authorization code. Example: def50200...
      * @bodyParam refresh_token string required for refresh_token The refresh token. Example: def50200...
      * @bodyParam redirect_uri string required for authorization_code The redirect URI. Example: https://client.example.com/callback
@@ -192,12 +193,9 @@ class OAuthController extends Controller
      * @bodyParam scope string The approved scope. Example: profile email
      * @bodyParam state string The state from the authorization request. Example: xyz123
      *
-     * @response 200 {
-     *   "code": "def50200...",
-     *   "state": "xyz123"
-     * }
+     * @response 302 Redirects to client's redirect_uri with authorization code
      */
-    public function approveAuthorization(Request $request): JsonResponse
+    public function approveAuthorization(Request $request): RedirectResponse
     {
         $validator = Validator::make($request->all(), [
             'client_id' => ['required', 'string'],
@@ -207,10 +205,10 @@ class OAuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
+            return redirect($request->redirect_uri . '?' . http_build_query([
                 'error' => 'invalid_request',
                 'error_description' => 'The request is missing a required parameter'
-            ], 400);
+            ]));
         }
 
         // Get client
@@ -219,10 +217,10 @@ class OAuthController extends Controller
             ->first();
 
         if (!$client) {
-            return response()->json([
+            return redirect($request->redirect_uri . '?' . http_build_query([
                 'error' => 'invalid_client',
                 'error_description' => 'Client not found or redirect URI mismatch'
-            ], 400);
+            ]));
         }
 
         // Create authorization code
@@ -236,10 +234,10 @@ class OAuthController extends Controller
             'redirect_uri' => $request->redirect_uri
         ]);
 
-        return response()->json([
+        return redirect($request->redirect_uri . '?' . http_build_query([
             'code' => $authCode->id,
             'state' => $request->state
-        ]);
+        ]));
     }
 
     private function handleAuthorizationCode(Request $request, OAuthClient $client): JsonResponse
@@ -413,7 +411,7 @@ class OAuthController extends Controller
      *
      * @bodyParam token string required The access token to revoke. Example: eyJ0eXAiOiJKV1QiLCJhbG...
      * @bodyParam client_id string required The client ID. Example: test-client
-     * @bodyParam client_secret string required The client secret. Example: test-secret
+     * @bodyParam client_secret string required The client secret (raw value, will be hashed internally). Example: test-secret
      *
      * @response 200 {
      *   "message": "Token revoked successfully"
