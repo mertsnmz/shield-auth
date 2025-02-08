@@ -346,7 +346,7 @@ endpoints:
         name: client_id
         description: ''
         required: true
-        example: vitae
+        example: et
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -356,7 +356,7 @@ endpoints:
         name: redirect_uri
         description: 'Must be a valid URL.'
         required: true
-        example: 'http://wilderman.com/architecto-laborum-porro-minus-laborum-nisi-rerum-quos'
+        example: 'http://www.schulist.org/id-cumque-enim-autem-et'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -377,7 +377,7 @@ endpoints:
         name: scope
         description: ''
         required: false
-        example: aperiam
+        example: quo
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -387,18 +387,18 @@ endpoints:
         name: state
         description: ''
         required: false
-        example: ea
+        example: voluptas
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         custom: []
     cleanBodyParameters:
-      client_id: vitae
-      redirect_uri: 'http://wilderman.com/architecto-laborum-porro-minus-laborum-nisi-rerum-quos'
+      client_id: et
+      redirect_uri: 'http://www.schulist.org/id-cumque-enim-autem-et'
       response_type: code
-      scope: aperiam
-      state: ea
+      scope: quo
+      state: voluptas
     fileParameters: []
     responses:
       -

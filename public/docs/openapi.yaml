@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Laravel
+  title: 'Shield Auth'
   description: ''
   version: 1.0.0
 servers:
@@ -524,12 +524,12 @@ paths:
                 client_id:
                   type: string
                   description: ''
-                  example: vitae
+                  example: et
                   nullable: false
                 redirect_uri:
                   type: string
                   description: 'Must be a valid URL.'
-                  example: 'http://wilderman.com/architecto-laborum-porro-minus-laborum-nisi-rerum-quos'
+                  example: 'http://www.schulist.org/id-cumque-enim-autem-et'
                   nullable: false
                 response_type:
                   type: string
@@ -541,12 +541,12 @@ paths:
                 scope:
                   type: string
                   description: ''
-                  example: aperiam
+                  example: quo
                   nullable: false
                 state:
                   type: string
                   description: ''
-                  example: ea
+                  example: voluptas
                   nullable: false
               required:
                 - client_id
@@ -824,7 +824,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the session.'
-        example: sint
+        example: corporis
         required: true
         schema:
           type: string
@@ -857,7 +857,7 @@ paths:
                 code:
                   type: string
                   description: 'Must be 6 characters.'
-                  example: joasoe
+                  example: vwhfrg
                   nullable: false
               required:
                 - code
@@ -881,12 +881,12 @@ paths:
                 current_password:
                   type: string
                   description: ''
-                  example: praesentium
+                  example: unde
                   nullable: false
                 code:
                   type: string
                   description: 'Must be 6 characters.'
-                  example: cgnnuw
+                  example: mpftxw
                   nullable: false
               required:
                 - current_password

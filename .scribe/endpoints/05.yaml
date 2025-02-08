@@ -62,14 +62,14 @@ endpoints:
         name: code
         description: 'Must be 6 characters.'
         required: true
-        example: joasoe
+        example: vwhfrg
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         custom: []
     cleanBodyParameters:
-      code: joasoe
+      code: vwhfrg
     fileParameters: []
     responses: []
     responseFields: []
@@ -105,7 +105,7 @@ endpoints:
         name: current_password
         description: ''
         required: true
-        example: praesentium
+        example: unde
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -115,15 +115,15 @@ endpoints:
         name: code
         description: 'Must be 6 characters.'
         required: true
-        example: cgnnuw
+        example: mpftxw
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         custom: []
     cleanBodyParameters:
-      current_password: praesentium
-      code: cgnnuw
+      current_password: unde
+      code: mpftxw
     fileParameters: []
     responses: []
     responseFields: []

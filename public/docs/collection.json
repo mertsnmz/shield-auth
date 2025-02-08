@@ -9,8 +9,8 @@
         }
     ],
     "info": {
-        "name": "Laravel",
-        "_postman_id": "23537c16-112b-4a5a-a088-4e6eff31c983",
+        "name": "Shield Auth",
+        "_postman_id": "5133071a-a798-4a34-83b8-e1cd2033b25e",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -286,7 +286,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"client_id\":\"vitae\",\"redirect_uri\":\"http:\\\/\\\/wilderman.com\\\/architecto-laborum-porro-minus-laborum-nisi-rerum-quos\",\"response_type\":\"code\",\"scope\":\"aperiam\",\"state\":\"ea\"}"
+                            "raw": "{\"client_id\":\"et\",\"redirect_uri\":\"http:\\\/\\\/www.schulist.org\\\/id-cumque-enim-autem-et\",\"response_type\":\"code\",\"scope\":\"quo\",\"state\":\"voluptas\"}"
                         },
                         "description": "First step of Authorization Code flow. Shows authorization form to the user.",
                         "auth": {
@@ -613,7 +613,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "sint",
+                                    "value": "corporis",
                                     "description": "The ID of the session."
                                 }
                             ]
@@ -693,7 +693,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"code\":\"joasoe\"}"
+                            "raw": "{\"code\":\"vwhfrg\"}"
                         },
                         "description": "Verify and complete the 2FA setup.",
                         "auth": {
@@ -724,7 +724,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"current_password\":\"praesentium\",\"code\":\"cgnnuw\"}"
+                            "raw": "{\"current_password\":\"unde\",\"code\":\"mpftxw\"}"
                         },
                         "description": "Disable two-factor authentication for the user.",
                         "auth": {
