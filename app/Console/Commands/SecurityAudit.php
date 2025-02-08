@@ -53,11 +53,10 @@ class SecurityAudit extends Command
         }
     }
 
-    private function checkDatabase()
+    private function checkDatabase(): void
     {
         $this->info('Checking Database Security...');
 
-        // Check for expired tokens
         $expiredTokens = DB::table('oauth_access_tokens')
             ->where('revoked', false)
             ->where('expires', '<', now())
@@ -67,7 +66,6 @@ class SecurityAudit extends Command
             $this->warn("⚠️ Found {$expiredTokens} expired but not revoked tokens");
         }
 
-        // Check for old sessions
         $oldSessions = DB::table('sessions')
             ->where('last_activity', '<', now()->subDays(30)->timestamp)
             ->count();
@@ -77,7 +75,7 @@ class SecurityAudit extends Command
         }
     }
 
-    private function checkFilePermissions()
+    private function checkFilePermissions(): void
     {
         $this->info('Checking File Permissions...');
 
@@ -113,7 +111,10 @@ class SecurityAudit extends Command
         ];
 
         $middleware = app(\App\Http\Middleware\SecurityHeaders::class);
-        $headers = $middleware->headers ?? [];
+        $reflection = new \ReflectionClass($middleware);
+        $property = $reflection->getProperty('headers');
+        $property->setAccessible(true);
+        $headers = $property->getValue($middleware);
 
         foreach ($requiredHeaders as $header) {
             if (!isset($headers[$header])) {
@@ -128,13 +129,11 @@ class SecurityAudit extends Command
     {
         $this->info('Checking OAuth Configuration...');
 
-        // Token expiration checks
         $accessTokenLifetime = config('oauth.access_token_lifetime', 3600);
         if ($accessTokenLifetime > 3600) {
             $this->warn("⚠️ Access token lifetime ({$accessTokenLifetime}s) is longer than recommended");
         }
 
-        // Client checks
         $clients = DB::table('oauth_clients')->get();
         foreach ($clients as $client) {
             if (empty($client->redirect_uri)) {

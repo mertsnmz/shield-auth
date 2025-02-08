@@ -6,6 +6,7 @@ use App\Models\OAuthClient;
 use App\Models\OAuthScope;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class OAuthSeeder extends Seeder
 {
@@ -19,14 +20,20 @@ class OAuthSeeder extends Seeder
         DB::table('oauth_scopes')->delete();
         DB::table('oauth_clients')->delete();
 
+        // Generate a strong client secret
+        $clientSecret = Str::random(64);
+
         // Create test client
         $client = OAuthClient::create([
             'client_id' => 'test-client',
-            'client_secret' => 'test-secret',
+            'client_secret' => hash('sha256', $clientSecret),
             'name' => 'Test Client',
-            'redirect_uri' => 'http://localhost:3000/callback',
+            'redirect_uri' => 'http://localhost:8000/oauth/callback',
             'grant_types' => 'authorization_code client_credentials refresh_token',
         ]);
+
+        // Output the client secret for initial setup
+        $this->command->info('Client Secret: ' . $clientSecret);
 
         // Create scopes
         $scopes = [
