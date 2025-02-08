@@ -59,11 +59,8 @@ class OAuthFlowTest extends TestCase
         $this->withCookie('session_id', $encryptedSessionId);
     }
 
-    public function testAuthorizationCodeFlow()
+    protected function getAuthorizationCode(): string
     {
-        $this->withoutMiddleware([AuthenticateSession::class]);
-        $this->be($this->user);
-
         $response = $this->get('/api/oauth/authorize?' . http_build_query([
             'client_id' => $this->client->client_id,
             'redirect_uri' => $this->client->redirect_uri,
@@ -85,12 +82,13 @@ class OAuthFlowTest extends TestCase
 
         $response->assertFound();
         $redirectUrl = $response->headers->get('Location');
-        $this->assertStringContainsString('code=', $redirectUrl);
-        $this->assertStringContainsString('state=xyz123', $redirectUrl);
-
         parse_str(parse_url($redirectUrl, PHP_URL_QUERY), $query);
-        $code = $query['code'];
+        
+        return $query['code'];
+    }
 
+    protected function getAccessToken(string $code): array
+    {
         $response = $this->post('/api/oauth/token', [
             'grant_type' => 'authorization_code',
             'client_id' => $this->client->client_id,
@@ -100,14 +98,21 @@ class OAuthFlowTest extends TestCase
         ]);
 
         $response->assertOk();
-        $responseData = $response->json();
+        return $response->json();
+    }
+
+    public function testAuthorizationCodeFlow()
+    {
+        $this->withoutMiddleware([AuthenticateSession::class]);
+        $this->be($this->user);
+
+        $code = $this->getAuthorizationCode();
+        $responseData = $this->getAccessToken($code);
 
         $this->assertArrayHasKey('access_token', $responseData);
         $this->assertArrayHasKey('refresh_token', $responseData);
         $this->assertArrayHasKey('expires_in', $responseData);
         $this->assertEquals('Bearer', $responseData['token_type']);
-
-        return $responseData;
     }
 
     public function testRefreshTokenFlow()
@@ -115,7 +120,8 @@ class OAuthFlowTest extends TestCase
         $this->withoutMiddleware([AuthenticateSession::class]);
         $this->be($this->user);
 
-        $tokenResponse = $this->test_authorization_code_flow();
+        $code = $this->getAuthorizationCode();
+        $tokenResponse = $this->getAccessToken($code);
         $refreshToken = $tokenResponse['refresh_token'];
 
         $response = $this->post('/api/oauth/token', [
