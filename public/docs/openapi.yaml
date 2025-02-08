@@ -9,7 +9,7 @@ servers:
 paths:
   /api/auth/login:
     post:
-      summary: Login
+      summary: Login.
       operationId: login
       description: 'Authenticate a user and create a new session.'
       parameters: []
@@ -25,31 +25,32 @@ paths:
               properties:
                 email:
                   type: string
-                  description: 'Must be a valid email address.'
-                  example: bauch.nestor@example.net
+                  description: 'The email address.'
+                  example: test@example.com
                   nullable: false
                 password:
                   type: string
-                  description: ''
-                  example: 'N:+b/"v*Tv'
+                  description: 'The password (must be at least 8 characters and contain uppercase, lowercase, numbers and special characters).'
+                  example: 'Test123!@#$%^&*'
                   nullable: false
                 remember_me:
                   type: boolean
-                  description: ''
-                  example: true
+                  description: 'Remember the session for 30 days.'
+                  example: false
                   nullable: false
                 2fa_code:
                   type: string
-                  description: 'Must be 6 characters.'
-                  example: xboyza
+                  description: 'only if 2FA is enabled The 2FA verification code.'
+                  example: '123456'
                   nullable: false
               required:
                 - email
                 - password
+                - 2fa_code
       security: []
   /api/auth/register:
     post:
-      summary: Register
+      summary: Register.
       operationId: register
       description: 'Register a new user account.'
       parameters: []
@@ -65,21 +66,27 @@ paths:
               properties:
                 email:
                   type: string
-                  description: 'Must be a valid email address. Must not be greater than 255 characters.'
-                  example: dante92@example.org
+                  description: 'The email address.'
+                  example: test@example.com
                   nullable: false
                 password:
                   type: string
-                  description: ''
-                  example: '?{rTBcFFG|IXt'
+                  description: 'The password (must be at least 8 characters and contain uppercase, lowercase, numbers and special characters).'
+                  example: 'Test123!@#$%^&*'
+                  nullable: false
+                password_confirmation:
+                  type: string
+                  description: 'Must match the password field.'
+                  example: 'Test123!@#$%^&*'
                   nullable: false
               required:
                 - email
                 - password
+                - password_confirmation
       security: []
   /api/auth/logout:
     post:
-      summary: Logout
+      summary: Logout.
       operationId: logout
       description: 'Invalidate the current session.'
       parameters: []
@@ -89,7 +96,7 @@ paths:
       security: []
   /api/oauth/token:
     post:
-      summary: 'Issue Token'
+      summary: 'Issue Token.'
       operationId: issueToken
       description: "Issue an access token using one of the supported grant types:\n- authorization_code\n- client_credentials\n- refresh_token"
       parameters: []
@@ -99,29 +106,53 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                example:
-                  token_type: Bearer
-                  expires_in: 3600
-                  access_token: eyJ0eXAiOiJKV1QiLCJhbG...
-                  refresh_token: def50200841d3e9ad...
-                  scope: 'profile email'
-                properties:
-                  token_type:
-                    type: string
-                    example: Bearer
-                  expires_in:
-                    type: integer
-                    example: 3600
-                  access_token:
-                    type: string
-                    example: eyJ0eXAiOiJKV1QiLCJhbG...
-                  refresh_token:
-                    type: string
-                    example: def50200841d3e9ad...
-                  scope:
-                    type: string
-                    example: 'profile email'
+                oneOf:
+                  -
+                    description: 'Authorization Code Grant'
+                    type: object
+                    example:
+                      token_type: Bearer
+                      expires_in: 3600
+                      access_token: eyJ0eXAiOiJKV1QiLCJhbG...
+                      refresh_token: def50200841d3e9ad...
+                      scope: 'profile email'
+                    properties:
+                      token_type:
+                        type: string
+                        example: Bearer
+                      expires_in:
+                        type: integer
+                        example: 3600
+                      access_token:
+                        type: string
+                        example: eyJ0eXAiOiJKV1QiLCJhbG...
+                      refresh_token:
+                        type: string
+                        example: def50200841d3e9ad...
+                      scope:
+                        type: string
+                        example: 'profile email'
+                  -
+                    description: 'Client Credentials Grant'
+                    type: object
+                    example:
+                      token_type: Bearer
+                      expires_in: 3600
+                      access_token: eyJ0eXAiOiJKV1QiLCJhbG...
+                      scope: api.read
+                    properties:
+                      token_type:
+                        type: string
+                        example: Bearer
+                      expires_in:
+                        type: integer
+                        example: 3600
+                      access_token:
+                        type: string
+                        example: eyJ0eXAiOiJKV1QiLCJhbG...
+                      scope:
+                        type: string
+                        example: api.read
         400:
           description: ''
           content:
@@ -129,7 +160,7 @@ paths:
               schema:
                 oneOf:
                   -
-                    description: ''
+                    description: 'Invalid Request'
                     type: object
                     example:
                       error: invalid_request
@@ -142,7 +173,7 @@ paths:
                         type: string
                         example: 'The request is missing a required parameter'
                   -
-                    description: ''
+                    description: 'Invalid Grant'
                     type: object
                     example:
                       error: invalid_grant
@@ -155,7 +186,7 @@ paths:
                         type: string
                         example: 'The authorization code is invalid'
         401:
-          description: ''
+          description: 'Invalid Client'
           content:
             application/json:
               schema:
@@ -191,23 +222,18 @@ paths:
                   nullable: false
                 client_secret:
                   type: string
-                  description: 'The client secret (raw value, will be hashed internally).'
-                  example: test-secret
+                  description: 'The client secret.'
+                  example: client-secret
                   nullable: false
                 code:
                   type: string
                   description: 'for authorization_code The authorization code.'
                   example: def50200...
                   nullable: false
-                refresh_token:
-                  type: string
-                  description: 'for refresh_token The refresh token.'
-                  example: def50200...
-                  nullable: false
                 redirect_uri:
                   type: string
                   description: 'for authorization_code The redirect URI.'
-                  example: 'https://client.example.com/callback'
+                  example: 'http://localhost:3000/callback'
                   nullable: false
                 scope:
                   type: string
@@ -219,12 +245,11 @@ paths:
                 - client_id
                 - client_secret
                 - code
-                - refresh_token
                 - redirect_uri
       security: []
   /api/oauth/token/revoke:
     post:
-      summary: 'Revoke Token'
+      summary: 'Revoke Token.'
       operationId: revokeToken
       description: 'Revoke an access token and its associated refresh token.'
       parameters: []
@@ -311,7 +336,7 @@ paths:
                 client_secret:
                   type: string
                   description: 'The client secret (raw value, will be hashed internally).'
-                  example: test-secret
+                  example: client-secret
                   nullable: false
               required:
                 - token
@@ -320,7 +345,7 @@ paths:
       security: []
   /api/oauth/authorize:
     get:
-      summary: Authorize
+      summary: Authorize.
       operationId: authorize
       description: 'First step of Authorization Code flow. Shows authorization form to the user.'
       parameters:
@@ -339,12 +364,12 @@ paths:
           in: query
           name: redirect_uri
           description: 'The redirect URI.'
-          example: 'https://client.example.com/callback'
+          example: 'http://localhost:3000/callback'
           required: true
           schema:
             type: string
             description: 'The redirect URI.'
-            example: 'https://client.example.com/callback'
+            example: 'http://localhost:3000/callback'
             nullable: false
         -
           in: query
@@ -385,40 +410,64 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                example:
-                  client:
-                    name: 'Test Client'
-                    redirect_uri: 'https://client.example.com/callback'
-                  scopes:
-                    -
-                      name: profile
-                      description: 'Access user profile information'
-                properties:
-                  client:
+                oneOf:
+                  -
+                    description: ''
                     type: object
+                    example:
+                      client:
+                        name: 'Test Client'
+                        redirect_uri: 'http://localhost:3000/callback'
+                      scopes:
+                        -
+                          name: profile
+                          description: 'Access user profile information'
                     properties:
-                      name:
+                      client:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            example: 'Test Client'
+                          redirect_uri:
+                            type: string
+                            example: 'http://localhost:3000/callback'
+                      scopes:
+                        type: array
+                        example:
+                          -
+                            name: profile
+                            description: 'Access user profile information'
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              example: profile
+                            description:
+                              type: string
+                              example: 'Access user profile information'
+                  -
+                    description: 'Example Request'
+                    type: object
+                    example:
+                      client_id: test-client
+                      redirect_uri: 'http://localhost:3000/callback'
+                      scope: 'profile email'
+                      state: xyz123
+                    properties:
+                      client_id:
                         type: string
-                        example: 'Test Client'
+                        example: test-client
                       redirect_uri:
                         type: string
-                        example: 'https://client.example.com/callback'
-                  scopes:
-                    type: array
-                    example:
-                      -
-                        name: profile
-                        description: 'Access user profile information'
-                    items:
-                      type: object
-                      properties:
-                        name:
-                          type: string
-                          example: profile
-                        description:
-                          type: string
-                          example: 'Access user profile information'
+                        example: 'http://localhost:3000/callback'
+                      scope:
+                        type: string
+                        example: 'profile email'
+                      state:
+                        type: string
+                        example: xyz123
         400:
           description: ''
           content:
@@ -426,7 +475,7 @@ paths:
               schema:
                 oneOf:
                   -
-                    description: ''
+                    description: 'Invalid Request'
                     type: object
                     example:
                       error: invalid_request
@@ -439,7 +488,7 @@ paths:
                         type: string
                         example: 'The request is missing a required parameter'
                   -
-                    description: ''
+                    description: 'Invalid Client'
                     type: object
                     example:
                       error: invalid_client
@@ -452,7 +501,7 @@ paths:
                         type: string
                         example: 'Client not found or redirect URI mismatch'
         401:
-          description: ''
+          description: Unauthenticated
           content:
             application/json:
               schema:
@@ -475,12 +524,12 @@ paths:
                 client_id:
                   type: string
                   description: ''
-                  example: numquam
+                  example: vitae
                   nullable: false
                 redirect_uri:
                   type: string
                   description: 'Must be a valid URL.'
-                  example: 'http://www.fay.com/'
+                  example: 'http://wilderman.com/architecto-laborum-porro-minus-laborum-nisi-rerum-quos'
                   nullable: false
                 response_type:
                   type: string
@@ -492,12 +541,12 @@ paths:
                 scope:
                   type: string
                   description: ''
-                  example: voluptatibus
+                  example: aperiam
                   nullable: false
                 state:
                   type: string
                   description: ''
-                  example: ducimus
+                  example: ea
                   nullable: false
               required:
                 - client_id
@@ -505,7 +554,7 @@ paths:
                 - response_type
       security: []
     post:
-      summary: 'Approve Authorization'
+      summary: 'Approve Authorization.'
       operationId: approveAuthorization
       description: 'Second step of Authorization Code flow. Creates authorization code after user approval.'
       parameters: []
@@ -534,7 +583,7 @@ paths:
                 redirect_uri:
                   type: string
                   description: 'The redirect URI.'
-                  example: 'https://client.example.com/callback'
+                  example: 'http://localhost:3000/callback'
                   nullable: false
                 scope:
                   type: string
@@ -552,9 +601,9 @@ paths:
       security: []
   /api/auth/password/forgot:
     post:
-      summary: 'Forgot Password'
+      summary: 'Forgot Password.'
       operationId: forgotPassword
-      description: 'Send a password reset link to the given email.'
+      description: 'Request a password reset for a user.'
       parameters: []
       responses:
         200:
@@ -564,23 +613,11 @@ paths:
               schema:
                 type: object
                 example:
-                  message: 'Password reset link sent'
+                  message: 'If the email exists in our system, a password reset link will be sent'
                 properties:
                   message:
                     type: string
-                    example: 'Password reset link sent'
-        400:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Unable to send reset link'
-                properties:
-                  message:
-                    type: string
-                    example: 'Unable to send reset link'
+                    example: 'If the email exists in our system, a password reset link will be sent'
       tags:
         - 'Password Management'
       requestBody:
@@ -600,9 +637,9 @@ paths:
       security: []
   /api/auth/password/reset:
     post:
-      summary: 'Reset Password'
+      summary: 'Reset Password.'
       operationId: resetPassword
-      description: 'Reset the password using the reset token.'
+      description: "Reset a user's password."
       parameters: []
       responses:
         200:
@@ -622,25 +659,13 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  -
-                    description: ''
-                    type: object
-                    example:
-                      message: 'Password was used before'
-                    properties:
-                      message:
-                        type: string
-                        example: 'Password was used before'
-                  -
-                    description: ''
-                    type: object
-                    example:
-                      message: 'Unable to reset password'
-                    properties:
-                      message:
-                        type: string
-                        example: 'Unable to reset password'
+                type: object
+                example:
+                  message: 'Password was used before'
+                properties:
+                  message:
+                    type: string
+                    example: 'Password was used before'
         404:
           description: ''
           content:
@@ -662,11 +687,6 @@ paths:
             schema:
               type: object
               properties:
-                token:
-                  type: string
-                  description: 'The reset token.'
-                  example: '1234567890'
-                  nullable: false
                 email:
                   type: string
                   description: 'The email address.'
@@ -683,14 +703,93 @@ paths:
                   example: NewStrongPass123!
                   nullable: false
               required:
-                - token
                 - email
                 - password
                 - password_confirmation
       security: []
+  /api/users/me/password:
+    put:
+      summary: 'Update Password.'
+      operationId: updatePassword
+      description: "Update the authenticated user's password."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Password updated successfully'
+                properties:
+                  message:
+                    type: string
+                    example: 'Password updated successfully'
+        400:
+          description: ''
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  -
+                    description: ''
+                    type: object
+                    example:
+                      message: 'Current password is incorrect'
+                    properties:
+                      message:
+                        type: string
+                        example: 'Current password is incorrect'
+                  -
+                    description: ''
+                    type: object
+                    example:
+                      message: 'Password was used before'
+                    properties:
+                      message:
+                        type: string
+                        example: 'Password was used before'
+                  -
+                    description: ''
+                    type: object
+                    example:
+                      message: 'Password has expired'
+                    properties:
+                      message:
+                        type: string
+                        example: 'Password has expired'
+      tags:
+        - 'Password Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                current_password:
+                  type: string
+                  description: 'The current password.'
+                  example: CurrentPass123!
+                  nullable: false
+                password:
+                  type: string
+                  description: 'The new password.'
+                  example: NewStrongPass123!
+                  nullable: false
+                password_confirmation:
+                  type: string
+                  description: 'The new password confirmation.'
+                  example: NewStrongPass123!
+                  nullable: false
+              required:
+                - current_password
+                - password
+                - password_confirmation
   /api/users/me/sessions:
     get:
-      summary: 'List Sessions'
+      summary: 'List Sessions.'
       operationId: listSessions
       description: 'Get all active sessions for the authenticated user.'
       parameters: []
@@ -712,7 +811,7 @@ paths:
       security: []
   '/api/users/me/sessions/{id}':
     delete:
-      summary: 'Delete Session'
+      summary: 'Delete Session.'
       operationId: deleteSession
       description: 'Terminate a specific session.'
       parameters: []
@@ -725,13 +824,13 @@ paths:
         in: path
         name: id
         description: 'The ID of the session.'
-        example: soluta
+        example: sint
         required: true
         schema:
           type: string
   /api/auth/2fa/enable:
     post:
-      summary: 'Enable 2FA'
+      summary: 'Enable 2FA.'
       operationId: enable2FA
       description: 'Start the 2FA setup process.'
       parameters: []
@@ -741,7 +840,7 @@ paths:
       security: []
   /api/auth/2fa/verify:
     post:
-      summary: 'Verify 2FA'
+      summary: 'Verify 2FA.'
       operationId: verify2FA
       description: 'Verify and complete the 2FA setup.'
       parameters: []
@@ -758,14 +857,14 @@ paths:
                 code:
                   type: string
                   description: 'Must be 6 characters.'
-                  example: kyxpns
+                  example: joasoe
                   nullable: false
               required:
                 - code
       security: []
   /api/auth/2fa/disable:
     post:
-      summary: 'Disable 2FA'
+      summary: 'Disable 2FA.'
       operationId: disable2FA
       description: 'Disable two-factor authentication for the user.'
       parameters: []
@@ -782,12 +881,12 @@ paths:
                 current_password:
                   type: string
                   description: ''
-                  example: doloremque
+                  example: praesentium
                   nullable: false
                 code:
                   type: string
                   description: 'Must be 6 characters.'
-                  example: iaerhp
+                  example: cgnnuw
                   nullable: false
               required:
                 - current_password
@@ -795,7 +894,7 @@ paths:
       security: []
   /api/auth/2fa/backup-codes:
     get:
-      summary: 'Get Backup Codes'
+      summary: 'Get Backup Codes.'
       operationId: getBackupCodes
       description: 'Get the list of backup codes.'
       parameters: []
@@ -817,7 +916,7 @@ paths:
       security: []
   /api/auth/2fa/regenerate-backup-codes:
     post:
-      summary: 'Regenerate Backup Codes'
+      summary: 'Regenerate Backup Codes.'
       operationId: regenerateBackupCodes
       description: 'Generate new backup codes.'
       parameters: []
@@ -827,7 +926,7 @@ paths:
       security: []
   /api/users/me:
     get:
-      summary: 'Get Current User'
+      summary: 'Get Current User.'
       operationId: getCurrentUser
       description: "Get the authenticated user's profile information."
       parameters: []
@@ -879,7 +978,7 @@ paths:
       tags:
         - 'User Management'
     put:
-      summary: 'Update Profile'
+      summary: 'Update Profile.'
       operationId: updateProfile
       description: "Update the authenticated user's profile information."
       parameters: []
@@ -946,77 +1045,6 @@ paths:
                   description: 'The new email address.'
                   example: newuser@example.com
                   nullable: false
-  /api/users/me/password:
-    put:
-      summary: 'Update Password'
-      operationId: updatePassword
-      description: "Update the authenticated user's password."
-      parameters: []
-      responses:
-        200:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Password updated successfully'
-                properties:
-                  message:
-                    type: string
-                    example: 'Password updated successfully'
-        400:
-          description: ''
-          content:
-            application/json:
-              schema:
-                oneOf:
-                  -
-                    description: ''
-                    type: object
-                    example:
-                      message: 'Current password is incorrect'
-                    properties:
-                      message:
-                        type: string
-                        example: 'Current password is incorrect'
-                  -
-                    description: ''
-                    type: object
-                    example:
-                      message: 'Password was used before'
-                    properties:
-                      message:
-                        type: string
-                        example: 'Password was used before'
-      tags:
-        - 'User Management'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                current_password:
-                  type: string
-                  description: 'The current password.'
-                  example: CurrentPass123!
-                  nullable: false
-                password:
-                  type: string
-                  description: 'The new password.'
-                  example: NewStrongPass123!
-                  nullable: false
-                password_confirmation:
-                  type: string
-                  description: 'The new password confirmation.'
-                  example: NewStrongPass123!
-                  nullable: false
-              required:
-                - current_password
-                - password
-                - password_confirmation
 tags:
   -
     name: Authentication

@@ -45,7 +45,7 @@ class OAuthFlowTest extends TestCase
             'last_activity' => time(),
         ]);
 
-        $this->clientSecret = Str::random(40);
+        $this->clientSecret = 'client-secret';
         $this->client = OAuthClient::create([
             'name' => 'Test Client',
             'client_id' => 'test-client-' . Str::random(32),
@@ -92,7 +92,7 @@ class OAuthFlowTest extends TestCase
         $response = $this->post('/api/oauth/token', [
             'grant_type' => 'authorization_code',
             'client_id' => $this->client->client_id,
-            'client_secret' => hash('sha256', $this->clientSecret),
+            'client_secret' => $this->clientSecret,
             'redirect_uri' => $this->client->redirect_uri,
             'code' => $code,
         ]);
@@ -128,7 +128,7 @@ class OAuthFlowTest extends TestCase
             'grant_type' => 'refresh_token',
             'refresh_token' => $refreshToken,
             'client_id' => $this->client->client_id,
-            'client_secret' => hash('sha256', $this->clientSecret),
+            'client_secret' => $this->clientSecret,
             'scope' => 'read write',
         ]);
 

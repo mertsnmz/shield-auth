@@ -16,7 +16,7 @@ endpoints:
         APIs for managing authentication
       subgroup: ''
       subgroupDescription: ''
-      title: Login
+      title: Login.
       description: 'Authenticate a user and create a new session.'
       authenticated: false
       custom: []
@@ -30,49 +30,49 @@ endpoints:
     bodyParameters:
       email:
         name: email
-        description: 'Must be a valid email address.'
+        description: 'The email address.'
         required: true
-        example: bauch.nestor@example.net
+        example: test@example.com
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         custom: []
       password:
         name: password
-        description: ''
+        description: 'The password (must be at least 8 characters and contain uppercase, lowercase, numbers and special characters).'
         required: true
-        example: 'N:+b/"v*Tv'
+        example: 'Test123!@#$%^&*'
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         custom: []
       remember_me:
         name: remember_me
-        description: ''
+        description: 'Remember the session for 30 days.'
         required: false
-        example: true
+        example: false
         type: boolean
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         custom: []
       2fa_code:
         name: 2fa_code
-        description: 'Must be 6 characters.'
-        required: false
-        example: xboyza
+        description: 'only if 2FA is enabled The 2FA verification code.'
+        required: true
+        example: '123456'
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         custom: []
     cleanBodyParameters:
-      email: bauch.nestor@example.net
-      password: 'N:+b/"v*Tv'
-      remember_me: true
-      2fa_code: xboyza
+      email: test@example.com
+      password: 'Test123!@#$%^&*'
+      remember_me: false
+      2fa_code: '123456'
     fileParameters: []
     responses: []
     responseFields: []
@@ -92,7 +92,7 @@ endpoints:
         APIs for managing authentication
       subgroup: ''
       subgroupDescription: ''
-      title: Register
+      title: Register.
       description: 'Register a new user account.'
       authenticated: false
       custom: []
@@ -106,27 +106,38 @@ endpoints:
     bodyParameters:
       email:
         name: email
-        description: 'Must be a valid email address. Must not be greater than 255 characters.'
+        description: 'The email address.'
         required: true
-        example: dante92@example.org
+        example: test@example.com
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         custom: []
       password:
         name: password
-        description: ''
+        description: 'The password (must be at least 8 characters and contain uppercase, lowercase, numbers and special characters).'
         required: true
-        example: '?{rTBcFFG|IXt'
+        example: 'Test123!@#$%^&*'
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      password_confirmation:
+        name: password_confirmation
+        description: 'Must match the password field.'
+        required: true
+        example: 'Test123!@#$%^&*'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
         nullable: false
         custom: []
     cleanBodyParameters:
-      email: dante92@example.org
-      password: '?{rTBcFFG|IXt'
+      email: test@example.com
+      password: 'Test123!@#$%^&*'
+      password_confirmation: 'Test123!@#$%^&*'
     fileParameters: []
     responses: []
     responseFields: []
@@ -146,7 +157,7 @@ endpoints:
         APIs for managing authentication
       subgroup: ''
       subgroupDescription: ''
-      title: Logout
+      title: Logout.
       description: 'Invalidate the current session.'
       authenticated: false
       custom: []

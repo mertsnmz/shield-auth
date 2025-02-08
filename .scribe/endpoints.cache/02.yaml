@@ -16,7 +16,7 @@ endpoints:
         APIs for OAuth2 authentication flows
       subgroup: ''
       subgroupDescription: ''
-      title: 'Issue Token'
+      title: 'Issue Token.'
       description: |-
         Issue an access token using one of the supported grant types:
         - authorization_code
@@ -54,9 +54,9 @@ endpoints:
         custom: []
       client_secret:
         name: client_secret
-        description: 'The client secret (raw value, will be hashed internally).'
+        description: 'The client secret.'
         required: true
-        example: test-secret
+        example: client-secret
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -72,21 +72,11 @@ endpoints:
         exampleWasSpecified: true
         nullable: false
         custom: []
-      refresh_token:
-        name: refresh_token
-        description: 'for refresh_token The refresh token.'
-        required: true
-        example: def50200...
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
       redirect_uri:
         name: redirect_uri
         description: 'for authorization_code The redirect URI.'
         required: true
-        example: 'https://client.example.com/callback'
+        example: 'http://localhost:3000/callback'
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -105,10 +95,9 @@ endpoints:
     cleanBodyParameters:
       grant_type: authorization_code
       client_id: test-client
-      client_secret: test-secret
+      client_secret: client-secret
       code: def50200...
-      refresh_token: def50200...
-      redirect_uri: 'https://client.example.com/callback'
+      redirect_uri: 'http://localhost:3000/callback'
       scope: 'profile email'
     fileParameters: []
     responses:
@@ -123,7 +112,19 @@ endpoints:
             "scope": "profile email"
           }
         headers: []
-        description: ''
+        description: 'Authorization Code Grant'
+        custom: []
+      -
+        status: 200
+        content: |-
+          {
+            "token_type": "Bearer",
+            "expires_in": 3600,
+            "access_token": "eyJ0eXAiOiJKV1QiLCJhbG...",
+            "scope": "api.read"
+          }
+        headers: []
+        description: 'Client Credentials Grant'
         custom: []
       -
         status: 400
@@ -133,7 +134,7 @@ endpoints:
             "error_description": "The request is missing a required parameter"
           }
         headers: []
-        description: ''
+        description: 'Invalid Request'
         custom: []
       -
         status: 400
@@ -143,7 +144,7 @@ endpoints:
             "error_description": "The authorization code is invalid"
           }
         headers: []
-        description: ''
+        description: 'Invalid Grant'
         custom: []
       -
         status: 401
@@ -153,7 +154,7 @@ endpoints:
             "error_description": "Client authentication failed"
           }
         headers: []
-        description: ''
+        description: 'Invalid Client'
         custom: []
     responseFields: []
     auth: []
@@ -172,7 +173,7 @@ endpoints:
         APIs for OAuth2 authentication flows
       subgroup: ''
       subgroupDescription: ''
-      title: 'Revoke Token'
+      title: 'Revoke Token.'
       description: 'Revoke an access token and its associated refresh token.'
       authenticated: false
       custom: []
@@ -208,7 +209,7 @@ endpoints:
         name: client_secret
         description: 'The client secret (raw value, will be hashed internally).'
         required: true
-        example: test-secret
+        example: client-secret
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -217,7 +218,7 @@ endpoints:
     cleanBodyParameters:
       token: eyJ0eXAiOiJKV1QiLCJhbG...
       client_id: test-client
-      client_secret: test-secret
+      client_secret: client-secret
     fileParameters: []
     responses:
       -
@@ -276,7 +277,7 @@ endpoints:
         APIs for OAuth2 authentication flows
       subgroup: ''
       subgroupDescription: ''
-      title: Authorize
+      title: Authorize.
       description: 'First step of Authorization Code flow. Shows authorization form to the user.'
       authenticated: false
       custom: []
@@ -300,7 +301,7 @@ endpoints:
         name: redirect_uri
         description: 'The redirect URI.'
         required: true
-        example: 'https://client.example.com/callback'
+        example: 'http://localhost:3000/callback'
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -338,7 +339,7 @@ endpoints:
         custom: []
     cleanQueryParameters:
       client_id: test-client
-      redirect_uri: 'https://client.example.com/callback'
+      redirect_uri: 'http://localhost:3000/callback'
       response_type: code
       scope: 'profile email'
       state: xyz123
@@ -347,7 +348,7 @@ endpoints:
         name: client_id
         description: ''
         required: true
-        example: numquam
+        example: vitae
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -357,7 +358,7 @@ endpoints:
         name: redirect_uri
         description: 'Must be a valid URL.'
         required: true
-        example: 'http://www.fay.com/'
+        example: 'http://wilderman.com/architecto-laborum-porro-minus-laborum-nisi-rerum-quos'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -378,7 +379,7 @@ endpoints:
         name: scope
         description: ''
         required: false
-        example: voluptatibus
+        example: aperiam
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -388,18 +389,18 @@ endpoints:
         name: state
         description: ''
         required: false
-        example: ducimus
+        example: ea
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         custom: []
     cleanBodyParameters:
-      client_id: numquam
-      redirect_uri: 'http://www.fay.com/'
+      client_id: vitae
+      redirect_uri: 'http://wilderman.com/architecto-laborum-porro-minus-laborum-nisi-rerum-quos'
       response_type: code
-      scope: voluptatibus
-      state: ducimus
+      scope: aperiam
+      state: ea
     fileParameters: []
     responses:
       -
@@ -408,7 +409,7 @@ endpoints:
           {
             "client": {
               "name": "Test Client",
-              "redirect_uri": "https://client.example.com/callback"
+              "redirect_uri": "http://localhost:3000/callback"
             },
             "scopes": [
               {
@@ -421,6 +422,18 @@ endpoints:
         description: ''
         custom: []
       -
+        status: 200
+        content: |-
+          {
+            "client_id": "test-client",
+            "redirect_uri": "http://localhost:3000/callback",
+            "scope": "profile email",
+            "state": "xyz123"
+          }
+        headers: []
+        description: 'Example Request'
+        custom: []
+      -
         status: 400
         content: |-
           {
@@ -428,7 +441,7 @@ endpoints:
             "error_description": "The request is missing a required parameter"
           }
         headers: []
-        description: ''
+        description: 'Invalid Request'
         custom: []
       -
         status: 400
@@ -438,7 +451,7 @@ endpoints:
             "error_description": "Client not found or redirect URI mismatch"
           }
         headers: []
-        description: ''
+        description: 'Invalid Client'
         custom: []
       -
         status: 401
@@ -447,7 +460,7 @@ endpoints:
             "message": "Unauthenticated"
           }
         headers: []
-        description: ''
+        description: Unauthenticated
         custom: []
     responseFields: []
     auth: []
@@ -466,7 +479,7 @@ endpoints:
         APIs for OAuth2 authentication flows
       subgroup: ''
       subgroupDescription: ''
-      title: 'Approve Authorization'
+      title: 'Approve Authorization.'
       description: 'Second step of Authorization Code flow. Creates authorization code after user approval.'
       authenticated: false
       custom: []
@@ -492,7 +505,7 @@ endpoints:
         name: redirect_uri
         description: 'The redirect URI.'
         required: true
-        example: 'https://client.example.com/callback'
+        example: 'http://localhost:3000/callback'
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -520,7 +533,7 @@ endpoints:
         custom: []
     cleanBodyParameters:
       client_id: test-client
-      redirect_uri: 'https://client.example.com/callback'
+      redirect_uri: 'http://localhost:3000/callback'
       scope: 'profile email'
       state: xyz123
     fileParameters: []
