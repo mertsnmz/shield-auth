@@ -10,14 +10,12 @@ class SecurityHeaders
 {
     private array $headers = [
         'X-Content-Type-Options' => 'nosniff',
-        'X-Frame-Options' => 'SAMEORIGIN',
+        'X-Frame-Options' => 'DENY',
         'X-XSS-Protection' => '1; mode=block',
-        'Strict-Transport-Security' => 'max-age=31536000; includeSubDomains',
-        'Content-Security-Policy' => "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';",
-        'Referrer-Policy' => 'no-referrer-when-downgrade',
+        'Strict-Transport-Security' => 'max-age=31536000; includeSubDomains; preload',
+        'Content-Security-Policy' => "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self';",
+        'Referrer-Policy' => 'strict-origin-when-cross-origin',
         'Permissions-Policy' => 'camera=(), microphone=(), geolocation=(), payment=()',
-        'Access-Control-Allow-Origin' => '*',
-        'Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE, OPTIONS',
     ];
 
     public function handle(Request $request, Closure $next): Response
@@ -25,7 +23,9 @@ class SecurityHeaders
         $response = $next($request);
 
         foreach ($this->headers as $key => $value) {
-            $response->headers->set($key, $value);
+            if ($value !== null) {
+                $response->headers->set($key, $value, true);
+            }
         }
 
         return $response;
