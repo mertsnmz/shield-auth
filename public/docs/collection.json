@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "96b4a82c-ce10-44c3-9fba-1107f65218f0",
+        "_postman_id": "23537c16-112b-4a5a-a088-4e6eff31c983",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -20,7 +20,7 @@
             "description": "\nAPIs for managing authentication",
             "item": [
                 {
-                    "name": "Login",
+                    "name": "Login.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -41,7 +41,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"bauch.nestor@example.net\",\"password\":\"N:+b\\\/\\\"v*Tv\",\"remember_me\":true,\"2fa_code\":\"xboyza\"}"
+                            "raw": "{\"email\":\"test@example.com\",\"password\":\"Test123!@#$%^&*\",\"remember_me\":false,\"2fa_code\":\"123456\"}"
                         },
                         "description": "Authenticate a user and create a new session.",
                         "auth": {
@@ -51,7 +51,7 @@
                     "response": []
                 },
                 {
-                    "name": "Register",
+                    "name": "Register.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -72,7 +72,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"dante92@example.org\",\"password\":\"?{rTBcFFG|IXt\"}"
+                            "raw": "{\"email\":\"test@example.com\",\"password\":\"Test123!@#$%^&*\",\"password_confirmation\":\"Test123!@#$%^&*\"}"
                         },
                         "description": "Register a new user account.",
                         "auth": {
@@ -82,7 +82,7 @@
                     "response": []
                 },
                 {
-                    "name": "Logout",
+                    "name": "Logout.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -116,7 +116,7 @@
             "description": "\nAPIs for OAuth2 authentication flows",
             "item": [
                 {
-                    "name": "Issue Token",
+                    "name": "Issue Token.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -137,7 +137,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"grant_type\":\"authorization_code\",\"client_id\":\"test-client\",\"client_secret\":\"test-secret\",\"code\":\"def50200...\",\"refresh_token\":\"def50200...\",\"redirect_uri\":\"https:\\\/\\\/client.example.com\\\/callback\",\"scope\":\"profile email\"}"
+                            "raw": "{\"grant_type\":\"authorization_code\",\"client_id\":\"test-client\",\"client_secret\":\"client-secret\",\"code\":\"def50200...\",\"redirect_uri\":\"http:\\\/\\\/localhost:3000\\\/callback\",\"scope\":\"profile email\"}"
                         },
                         "description": "Issue an access token using one of the supported grant types:\n- authorization_code\n- client_credentials\n- refresh_token",
                         "auth": {
@@ -149,30 +149,36 @@
                             "header": [],
                             "code": 200,
                             "body": "{\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 3600,\n  \"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbG...\",\n  \"refresh_token\": \"def50200841d3e9ad...\",\n  \"scope\": \"profile email\"\n}",
-                            "name": ""
+                            "name": "Authorization Code Grant"
+                        },
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 3600,\n  \"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbG...\",\n  \"scope\": \"api.read\"\n}",
+                            "name": "Client Credentials Grant"
                         },
                         {
                             "header": [],
                             "code": 400,
                             "body": "{\n  \"error\": \"invalid_request\",\n  \"error_description\": \"The request is missing a required parameter\"\n}",
-                            "name": ""
+                            "name": "Invalid Request"
                         },
                         {
                             "header": [],
                             "code": 400,
                             "body": "{\n  \"error\": \"invalid_grant\",\n  \"error_description\": \"The authorization code is invalid\"\n}",
-                            "name": ""
+                            "name": "Invalid Grant"
                         },
                         {
                             "header": [],
                             "code": 401,
                             "body": "{\n  \"error\": \"invalid_client\",\n  \"error_description\": \"Client authentication failed\"\n}",
-                            "name": ""
+                            "name": "Invalid Client"
                         }
                     ]
                 },
                 {
-                    "name": "Revoke Token",
+                    "name": "Revoke Token.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -193,7 +199,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"token\":\"eyJ0eXAiOiJKV1QiLCJhbG...\",\"client_id\":\"test-client\",\"client_secret\":\"test-secret\"}"
+                            "raw": "{\"token\":\"eyJ0eXAiOiJKV1QiLCJhbG...\",\"client_id\":\"test-client\",\"client_secret\":\"client-secret\"}"
                         },
                         "description": "Revoke an access token and its associated refresh token.",
                         "auth": {
@@ -228,7 +234,7 @@
                     ]
                 },
                 {
-                    "name": "Authorize",
+                    "name": "Authorize.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -242,7 +248,7 @@
                                 },
                                 {
                                     "key": "redirect_uri",
-                                    "value": "https%3A%2F%2Fclient.example.com%2Fcallback",
+                                    "value": "http%3A%2F%2Flocalhost%3A3000%2Fcallback",
                                     "description": "The redirect URI.",
                                     "disabled": false
                                 },
@@ -265,7 +271,7 @@
                                     "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/api\/oauth\/authorize?client_id=test-client&redirect_uri=https%3A%2F%2Fclient.example.com%2Fcallback&response_type=code&scope=profile+email&state=xyz123"
+                            "raw": "{{baseUrl}}\/api\/oauth\/authorize?client_id=test-client&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback&response_type=code&scope=profile+email&state=xyz123"
                         },
                         "method": "GET",
                         "header": [
@@ -280,7 +286,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"client_id\":\"numquam\",\"redirect_uri\":\"http:\\\/\\\/www.fay.com\\\/\",\"response_type\":\"code\",\"scope\":\"voluptatibus\",\"state\":\"ducimus\"}"
+                            "raw": "{\"client_id\":\"vitae\",\"redirect_uri\":\"http:\\\/\\\/wilderman.com\\\/architecto-laborum-porro-minus-laborum-nisi-rerum-quos\",\"response_type\":\"code\",\"scope\":\"aperiam\",\"state\":\"ea\"}"
                         },
                         "description": "First step of Authorization Code flow. Shows authorization form to the user.",
                         "auth": {
@@ -291,31 +297,37 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\n  \"client\": {\n    \"name\": \"Test Client\",\n    \"redirect_uri\": \"https:\/\/client.example.com\/callback\"\n  },\n  \"scopes\": [\n    {\n      \"name\": \"profile\",\n      \"description\": \"Access user profile information\"\n    }\n  ]\n}",
+                            "body": "{\n  \"client\": {\n    \"name\": \"Test Client\",\n    \"redirect_uri\": \"http:\/\/localhost:3000\/callback\"\n  },\n  \"scopes\": [\n    {\n      \"name\": \"profile\",\n      \"description\": \"Access user profile information\"\n    }\n  ]\n}",
                             "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"client_id\": \"test-client\",\n  \"redirect_uri\": \"http:\/\/localhost:3000\/callback\",\n  \"scope\": \"profile email\",\n  \"state\": \"xyz123\"\n}",
+                            "name": "Example Request"
                         },
                         {
                             "header": [],
                             "code": 400,
                             "body": "{\n  \"error\": \"invalid_request\",\n  \"error_description\": \"The request is missing a required parameter\"\n}",
-                            "name": ""
+                            "name": "Invalid Request"
                         },
                         {
                             "header": [],
                             "code": 400,
                             "body": "{\n  \"error\": \"invalid_client\",\n  \"error_description\": \"Client not found or redirect URI mismatch\"\n}",
-                            "name": ""
+                            "name": "Invalid Client"
                         },
                         {
                             "header": [],
                             "code": 401,
                             "body": "{\n  \"message\": \"Unauthenticated\"\n}",
-                            "name": ""
+                            "name": "Unauthenticated"
                         }
                     ]
                 },
                 {
-                    "name": "Approve Authorization",
+                    "name": "Approve Authorization.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -336,7 +348,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"client_id\":\"test-client\",\"redirect_uri\":\"https:\\\/\\\/client.example.com\\\/callback\",\"scope\":\"profile email\",\"state\":\"xyz123\"}"
+                            "raw": "{\"client_id\":\"test-client\",\"redirect_uri\":\"http:\\\/\\\/localhost:3000\\\/callback\",\"scope\":\"profile email\",\"state\":\"xyz123\"}"
                         },
                         "description": "Second step of Authorization Code flow. Creates authorization code after user approval.",
                         "auth": {
@@ -359,7 +371,7 @@
             "description": "\nAPIs for managing passwords",
             "item": [
                 {
-                    "name": "Forgot Password",
+                    "name": "Forgot Password.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -382,7 +394,7 @@
                             "mode": "raw",
                             "raw": "{\"email\":\"user@example.com\"}"
                         },
-                        "description": "Send a password reset link to the given email.",
+                        "description": "Request a password reset for a user.",
                         "auth": {
                             "type": "noauth"
                         }
@@ -391,19 +403,13 @@
                         {
                             "header": [],
                             "code": 200,
-                            "body": "{\n  \"message\": \"Password reset link sent\"\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 400,
-                            "body": "{\n  \"message\": \"Unable to send reset link\"\n}",
+                            "body": "{\n  \"message\": \"If the email exists in our system, a password reset link will be sent\"\n}",
                             "name": ""
                         }
                     ]
                 },
                 {
-                    "name": "Reset Password",
+                    "name": "Reset Password.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -424,9 +430,9 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"token\":\"1234567890\",\"email\":\"user@example.com\",\"password\":\"NewStrongPass123!\",\"password_confirmation\":\"NewStrongPass123!\"}"
+                            "raw": "{\"email\":\"user@example.com\",\"password\":\"NewStrongPass123!\",\"password_confirmation\":\"NewStrongPass123!\"}"
                         },
-                        "description": "Reset the password using the reset token.",
+                        "description": "Reset a user's password.",
                         "auth": {
                             "type": "noauth"
                         }
@@ -446,14 +452,61 @@
                         },
                         {
                             "header": [],
-                            "code": 400,
-                            "body": "{\n  \"message\": \"Unable to reset password\"\n}",
+                            "code": 404,
+                            "body": "{\n  \"message\": \"User not found\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Update Password.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/users\/me\/password",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/users\/me\/password"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"current_password\":\"CurrentPass123!\",\"password\":\"NewStrongPass123!\",\"password_confirmation\":\"NewStrongPass123!\"}"
+                        },
+                        "description": "Update the authenticated user's password."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"Password updated successfully\"\n}",
                             "name": ""
                         },
                         {
                             "header": [],
-                            "code": 404,
-                            "body": "{\n  \"message\": \"User not found\"\n}",
+                            "code": 400,
+                            "body": "{\n  \"message\": \"Current password is incorrect\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\n  \"message\": \"Password was used before\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\n  \"message\": \"Password has expired\"\n}",
                             "name": ""
                         }
                     ]
@@ -465,7 +518,7 @@
             "description": "\nAPIs for managing user sessions",
             "item": [
                 {
-                    "name": "List Sessions",
+                    "name": "List Sessions.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -519,7 +572,7 @@
                                 },
                                 {
                                     "key": "x-frame-options",
-                                    "value": "SAMEORIGIN"
+                                    "value": "DENY"
                                 },
                                 {
                                     "key": "x-xss-protection",
@@ -527,23 +580,19 @@
                                 },
                                 {
                                     "key": "strict-transport-security",
-                                    "value": "max-age=31536000; includeSubDomains"
+                                    "value": "max-age=31536000; includeSubDomains; preload"
                                 },
                                 {
                                     "key": "content-security-policy",
-                                    "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';"
+                                    "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self';"
                                 },
                                 {
                                     "key": "referrer-policy",
-                                    "value": "no-referrer-when-downgrade"
+                                    "value": "strict-origin-when-cross-origin"
                                 },
                                 {
                                     "key": "permissions-policy",
                                     "value": "camera=(), microphone=(), geolocation=(), payment=()"
-                                },
-                                {
-                                    "key": "access-control-allow-methods",
-                                    "value": "GET, POST, PUT, DELETE, OPTIONS"
                                 }
                             ],
                             "code": 401,
@@ -553,7 +602,7 @@
                     ]
                 },
                 {
-                    "name": "Delete Session",
+                    "name": "Delete Session.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -564,7 +613,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "soluta",
+                                    "value": "sint",
                                     "description": "The ID of the session."
                                 }
                             ]
@@ -595,7 +644,7 @@
             "description": "\nAPIs for managing 2FA",
             "item": [
                 {
-                    "name": "Enable 2FA",
+                    "name": "Enable 2FA.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -623,7 +672,7 @@
                     "response": []
                 },
                 {
-                    "name": "Verify 2FA",
+                    "name": "Verify 2FA.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -644,7 +693,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"code\":\"kyxpns\"}"
+                            "raw": "{\"code\":\"joasoe\"}"
                         },
                         "description": "Verify and complete the 2FA setup.",
                         "auth": {
@@ -654,7 +703,7 @@
                     "response": []
                 },
                 {
-                    "name": "Disable 2FA",
+                    "name": "Disable 2FA.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -675,7 +724,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"current_password\":\"doloremque\",\"code\":\"iaerhp\"}"
+                            "raw": "{\"current_password\":\"praesentium\",\"code\":\"cgnnuw\"}"
                         },
                         "description": "Disable two-factor authentication for the user.",
                         "auth": {
@@ -685,7 +734,7 @@
                     "response": []
                 },
                 {
-                    "name": "Get Backup Codes",
+                    "name": "Get Backup Codes.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -739,7 +788,7 @@
                                 },
                                 {
                                     "key": "x-frame-options",
-                                    "value": "SAMEORIGIN"
+                                    "value": "DENY"
                                 },
                                 {
                                     "key": "x-xss-protection",
@@ -747,23 +796,19 @@
                                 },
                                 {
                                     "key": "strict-transport-security",
-                                    "value": "max-age=31536000; includeSubDomains"
+                                    "value": "max-age=31536000; includeSubDomains; preload"
                                 },
                                 {
                                     "key": "content-security-policy",
-                                    "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';"
+                                    "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self';"
                                 },
                                 {
                                     "key": "referrer-policy",
-                                    "value": "no-referrer-when-downgrade"
+                                    "value": "strict-origin-when-cross-origin"
                                 },
                                 {
                                     "key": "permissions-policy",
                                     "value": "camera=(), microphone=(), geolocation=(), payment=()"
-                                },
-                                {
-                                    "key": "access-control-allow-methods",
-                                    "value": "GET, POST, PUT, DELETE, OPTIONS"
                                 }
                             ],
                             "code": 401,
@@ -773,7 +818,7 @@
                     ]
                 },
                 {
-                    "name": "Regenerate Backup Codes",
+                    "name": "Regenerate Backup Codes.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -807,7 +852,7 @@
             "description": "\nAPIs for managing user profile",
             "item": [
                 {
-                    "name": "Get Current User",
+                    "name": "Get Current User.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -839,7 +884,7 @@
                     ]
                 },
                 {
-                    "name": "Update Profile",
+                    "name": "Update Profile.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -875,53 +920,6 @@
                             "header": [],
                             "code": 422,
                             "body": "{\n  \"message\": \"The given data was invalid.\",\n  \"errors\": {\n    \"email\": [\"The email has already been taken.\"]\n  }\n}",
-                            "name": ""
-                        }
-                    ]
-                },
-                {
-                    "name": "Update Password",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/users\/me\/password",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/users\/me\/password"
-                        },
-                        "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"current_password\":\"CurrentPass123!\",\"password\":\"NewStrongPass123!\",\"password_confirmation\":\"NewStrongPass123!\"}"
-                        },
-                        "description": "Update the authenticated user's password."
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n  \"message\": \"Password updated successfully\"\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 400,
-                            "body": "{\n  \"message\": \"Current password is incorrect\"\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 400,
-                            "body": "{\n  \"message\": \"Password was used before\"\n}",
                             "name": ""
                         }
                     ]

@@ -35,28 +35,37 @@ class OAuthController extends Controller
      *
      * @bodyParam grant_type string required The grant type. Example: authorization_code
      * @bodyParam client_id string required The client ID. Example: test-client
-     * @bodyParam client_secret string required The client secret (raw value, will be hashed internally). Example: test-secret
+     * @bodyParam client_secret string required The client secret. Example: client-secret
      * @bodyParam code string required for authorization_code The authorization code. Example: def50200...
-     * @bodyParam refresh_token string required for refresh_token The refresh token. Example: def50200...
-     * @bodyParam redirect_uri string required for authorization_code The redirect URI. Example: https://client.example.com/callback
+     * @bodyParam redirect_uri string required for authorization_code The redirect URI. Example: http://localhost:3000/callback
      * @bodyParam scope string The requested scope. Example: profile email
      *
-     * @response 200 {
+     * @response 200 scenario="Authorization Code Grant" {
      *   "token_type": "Bearer",
      *   "expires_in": 3600,
      *   "access_token": "eyJ0eXAiOiJKV1QiLCJhbG...",
      *   "refresh_token": "def50200841d3e9ad...",
      *   "scope": "profile email"
      * }
-     * @response 400 {
+     * 
+     * @response 200 scenario="Client Credentials Grant" {
+     *   "token_type": "Bearer",
+     *   "expires_in": 3600,
+     *   "access_token": "eyJ0eXAiOiJKV1QiLCJhbG...",
+     *   "scope": "api.read"
+     * }
+     * 
+     * @response 400 scenario="Invalid Request" {
      *   "error": "invalid_request",
      *   "error_description": "The request is missing a required parameter"
      * }
-     * @response 401 {
+     * 
+     * @response 401 scenario="Invalid Client" {
      *   "error": "invalid_client",
      *   "error_description": "Client authentication failed"
      * }
-     * @response 400 {
+     * 
+     * @response 400 scenario="Invalid Grant" {
      *   "error": "invalid_grant",
      *   "error_description": "The authorization code is invalid"
      * }
@@ -79,7 +88,7 @@ class OAuthController extends Controller
 
         // Validate client credentials
         $client = OAuthClient::where('client_id', $request->client_id)
-            ->where('client_secret', $request->client_secret)
+            ->where('client_secret', hash('sha256', $request->client_secret))
             ->first();
 
         if (!$client) {
@@ -107,7 +116,7 @@ class OAuthController extends Controller
      * First step of Authorization Code flow. Shows authorization form to the user.
      *
      * @queryParam client_id string required The client ID. Example: test-client
-     * @queryParam redirect_uri string required The redirect URI. Example: https://client.example.com/callback
+     * @queryParam redirect_uri string required The redirect URI. Example: http://localhost:3000/callback
      * @queryParam response_type string required Must be "code". Example: code
      * @queryParam scope string The requested scope. Example: profile email
      * @queryParam state string A random string to prevent CSRF. Example: xyz123
@@ -115,7 +124,7 @@ class OAuthController extends Controller
      * @response 200 {
      *   "client": {
      *     "name": "Test Client",
-     *     "redirect_uri": "https://client.example.com/callback"
+     *     "redirect_uri": "http://localhost:3000/callback"
      *   },
      *   "scopes": [
      *     {
@@ -124,16 +133,26 @@ class OAuthController extends Controller
      *     }
      *   ]
      * }
-     * @response 400 {
+     * 
+     * @response 400 scenario="Invalid Request" {
      *   "error": "invalid_request",
      *   "error_description": "The request is missing a required parameter"
      * }
-     * @response 400 {
+     * 
+     * @response 400 scenario="Invalid Client" {
      *   "error": "invalid_client",
      *   "error_description": "Client not found or redirect URI mismatch"
      * }
-     * @response 401 {
+     * 
+     * @response 401 scenario="Unauthenticated" {
      *   "message": "Unauthenticated"
+     * }
+     * 
+     * @response 200 scenario="Example Request" {
+     *   "client_id": "test-client",
+     *   "redirect_uri": "http://localhost:3000/callback",
+     *   "scope": "profile email",
+     *   "state": "xyz123"
      * }
      */
     public function authorize(Request $request): JsonResponse
@@ -189,7 +208,7 @@ class OAuthController extends Controller
      * Second step of Authorization Code flow. Creates authorization code after user approval.
      *
      * @bodyParam client_id string required The client ID. Example: test-client
-     * @bodyParam redirect_uri string required The redirect URI. Example: https://client.example.com/callback
+     * @bodyParam redirect_uri string required The redirect URI. Example: http://localhost:3000/callback
      * @bodyParam scope string The approved scope. Example: profile email
      * @bodyParam state string The state from the authorization request. Example: xyz123
      *
@@ -411,7 +430,7 @@ class OAuthController extends Controller
      *
      * @bodyParam token string required The access token to revoke. Example: eyJ0eXAiOiJKV1QiLCJhbG...
      * @bodyParam client_id string required The client ID. Example: test-client
-     * @bodyParam client_secret string required The client secret (raw value, will be hashed internally). Example: test-secret
+     * @bodyParam client_secret string required The client secret (raw value, will be hashed internally). Example: client-secret
      *
      * @response 200 {
      *   "message": "Token revoked successfully"
@@ -447,7 +466,7 @@ class OAuthController extends Controller
 
         // Validate client credentials
         $client = OAuthClient::where('client_id', $request->client_id)
-            ->where('client_secret', $request->client_secret)
+            ->where('client_secret', hash('sha256', $request->client_secret))
             ->first();
 
         if (!$client) {

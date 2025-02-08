@@ -29,6 +29,11 @@ class AuthController extends Controller
      * Authenticate a user and create a new session.
      *
      * @param LoginRequest $request
+     * 
+     * @bodyParam email string required The email address. Example: test@example.com
+     * @bodyParam password string required The password (must be at least 8 characters and contain uppercase, lowercase, numbers and special characters). Example: Test123!@#$%^&*
+     * @bodyParam remember_me boolean Remember the session for 30 days. Example: false
+     * @bodyParam 2fa_code string required only if 2FA is enabled The 2FA verification code. Example: 123456
      *
      * @return JsonResponse
      */
@@ -70,9 +75,9 @@ class AuthController extends Controller
      *
      * @param RegisterRequest $request
      *
-     * @bodyParam email string required The email address. Example: user@example.com
-     * @bodyParam password string required The password. Example: muNp.wD^
-     * @bodyParam password_confirmation string required The password confirmation. Example: muNp.wD^
+     * @bodyParam email string required The email address. Example: test@example.com
+     * @bodyParam password string required The password (must be at least 8 characters and contain uppercase, lowercase, numbers and special characters). Example: Test123!@#$%^&*
+     * @bodyParam password_confirmation string required Must match the password field. Example: Test123!@#$%^&*
      *
      * @return JsonResponse
      */

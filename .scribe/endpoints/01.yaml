@@ -14,8 +14,8 @@ endpoints:
         APIs for managing passwords
       subgroup: ''
       subgroupDescription: ''
-      title: 'Forgot Password'
-      description: 'Send a password reset link to the given email.'
+      title: 'Forgot Password.'
+      description: 'Request a password reset for a user.'
       authenticated: false
       custom: []
     headers:
@@ -44,16 +44,7 @@ endpoints:
         status: 200
         content: |-
           {
-            "message": "Password reset link sent"
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 400
-        content: |-
-          {
-            "message": "Unable to send reset link"
+            "message": "If the email exists in our system, a password reset link will be sent"
           }
         headers: []
         description: ''
@@ -75,8 +66,8 @@ endpoints:
         APIs for managing passwords
       subgroup: ''
       subgroupDescription: ''
-      title: 'Reset Password'
-      description: 'Reset the password using the reset token.'
+      title: 'Reset Password.'
+      description: "Reset a user's password."
       authenticated: false
       custom: []
     headers:
@@ -87,16 +78,6 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      token:
-        name: token
-        description: 'The reset token.'
-        required: true
-        example: '1234567890'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
       email:
         name: email
         description: 'The email address.'
@@ -128,7 +109,6 @@ endpoints:
         nullable: false
         custom: []
     cleanBodyParameters:
-      token: '1234567890'
       email: user@example.com
       password: NewStrongPass123!
       password_confirmation: NewStrongPass123!
@@ -153,19 +133,111 @@ endpoints:
         description: ''
         custom: []
       -
-        status: 400
+        status: 404
         content: |-
           {
-            "message": "Unable to reset password"
+            "message": "User not found"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: api/users/me/password
+    metadata:
+      groupName: 'Password Management'
+      groupDescription: |-
+
+        APIs for managing passwords
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update Password.'
+      description: "Update the authenticated user's password."
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      current_password:
+        name: current_password
+        description: 'The current password.'
+        required: true
+        example: CurrentPass123!
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      password:
+        name: password
+        description: 'The new password.'
+        required: true
+        example: NewStrongPass123!
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      password_confirmation:
+        name: password_confirmation
+        description: 'The new password confirmation.'
+        required: true
+        example: NewStrongPass123!
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      current_password: CurrentPass123!
+      password: NewStrongPass123!
+      password_confirmation: NewStrongPass123!
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "message": "Password updated successfully"
           }
         headers: []
         description: ''
         custom: []
       -
-        status: 404
+        status: 400
         content: |-
           {
-            "message": "User not found"
+            "message": "Current password is incorrect"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+            "message": "Password was used before"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+            "message": "Password has expired"
           }
         headers: []
         description: ''

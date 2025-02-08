@@ -20,19 +20,18 @@ class OAuthSeeder extends Seeder
         DB::table('oauth_scopes')->delete();
         DB::table('oauth_clients')->delete();
 
-        // Generate a strong client secret
-        $clientSecret = Str::random(64);
+        // Use a fixed client secret for testing
+        $clientSecret = 'client-secret';
 
         // Create test client
         $client = OAuthClient::create([
             'client_id' => 'test-client',
             'client_secret' => hash('sha256', $clientSecret),
             'name' => 'Test Client',
-            'redirect_uri' => 'http://localhost:8000/oauth/callback',
+            'redirect_uri' => 'http://localhost:3000/callback',
             'grant_types' => 'authorization_code client_credentials refresh_token',
         ]);
 
-        // Output the client secret for initial setup
         $this->command->info('Client Secret: ' . $clientSecret);
 
         // Create scopes
