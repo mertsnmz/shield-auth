@@ -18,12 +18,12 @@ Route::prefix('auth')->group(function () {
 
     Route::middleware('throttle:password-reset')->group(function () {
         Route::post('password/forgot', [PasswordController::class, 'forgot']);
-        Route::post('password/reset', [PasswordController::class, 'reset']);
     });
 
     // Protected routes
     Route::middleware('auth.session')->group(function () {
         Route::post('logout', [AuthController::class, 'logout']);
+        Route::post('password/reset', [PasswordController::class, 'reset']);
     });
 });
 

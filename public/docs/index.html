@@ -101,22 +101,6 @@
                             </li>
                                                                         </ul>
                             </ul>
-                    <ul id="tocify-header-password-management" class="tocify-header">
-                <li class="tocify-item level-1" data-unique="password-management">
-                    <a href="#password-management">Password Management</a>
-                </li>
-                                    <ul id="tocify-subheader-password-management" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="password-management-POSTapi-auth-password-forgot">
-                                <a href="#password-management-POSTapi-auth-password-forgot">Forgot Password.</a>
-                            </li>
-                                                                                <li class="tocify-item level-2" data-unique="password-management-POSTapi-auth-password-reset">
-                                <a href="#password-management-POSTapi-auth-password-reset">Reset Password.</a>
-                            </li>
-                                                                                <li class="tocify-item level-2" data-unique="password-management-PUTapi-users-me-password">
-                                <a href="#password-management-PUTapi-users-me-password">Update Password.</a>
-                            </li>
-                                                                        </ul>
-                            </ul>
                     <ul id="tocify-header-session-management" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="session-management">
                     <a href="#session-management">Session Management</a>
@@ -157,11 +141,20 @@
                     <a href="#user-management">User Management</a>
                 </li>
                                     <ul id="tocify-subheader-user-management" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="user-management-GETapi-users-me">
+                                                    <li class="tocify-item level-2" data-unique="user-management-POSTapi-auth-password-forgot">
+                                <a href="#user-management-POSTapi-auth-password-forgot">Forgot Password.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="user-management-POSTapi-auth-password-reset">
+                                <a href="#user-management-POSTapi-auth-password-reset">Reset Password.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="user-management-GETapi-users-me">
                                 <a href="#user-management-GETapi-users-me">Get Current User.</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="user-management-PUTapi-users-me">
                                 <a href="#user-management-PUTapi-users-me">Update Profile.</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="user-management-PUTapi-users-me-password">
+                                <a href="#user-management-PUTapi-users-me-password">Update Password.</a>
                             </li>
                                                                         </ul>
                             </ul>
@@ -1106,11 +1099,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"client_id\": \"et\",
-    \"redirect_uri\": \"http:\\/\\/www.schulist.org\\/id-cumque-enim-autem-et\",
+    \"client_id\": \"non\",
+    \"redirect_uri\": \"http:\\/\\/kautzer.com\\/\",
     \"response_type\": \"code\",
-    \"scope\": \"quo\",
-    \"state\": \"voluptas\"
+    \"scope\": \"adipisci\",
+    \"state\": \"aliquam\"
 }"
 </code></pre></div>
 
@@ -1136,11 +1129,11 @@ const headers = {
 };
 
 let body = {
-    "client_id": "et",
-    "redirect_uri": "http:\/\/www.schulist.org\/id-cumque-enim-autem-et",
+    "client_id": "non",
+    "redirect_uri": "http:\/\/kautzer.com\/",
     "response_type": "code",
-    "scope": "quo",
-    "state": "voluptas"
+    "scope": "adipisci",
+    "state": "aliquam"
 };
 
 fetch(url, {
@@ -1344,10 +1337,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="client_id"                data-endpoint="GETapi-oauth-authorize"
-               value="et"
+               value="non"
                data-component="body">
     <br>
-<p>Example: <code>et</code></p>
+<p>Example: <code>non</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>redirect_uri</code></b>&nbsp;&nbsp;
@@ -1355,10 +1348,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="redirect_uri"                data-endpoint="GETapi-oauth-authorize"
-               value="http://www.schulist.org/id-cumque-enim-autem-et"
+               value="http://kautzer.com/"
                data-component="body">
     <br>
-<p>Must be a valid URL. Example: <code>http://www.schulist.org/id-cumque-enim-autem-et</code></p>
+<p>Must be a valid URL. Example: <code>http://kautzer.com/</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>response_type</code></b>&nbsp;&nbsp;
@@ -1379,10 +1372,10 @@ Must be one of:
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="scope"                data-endpoint="GETapi-oauth-authorize"
-               value="quo"
+               value="adipisci"
                data-component="body">
     <br>
-<p>Example: <code>quo</code></p>
+<p>Example: <code>adipisci</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>state</code></b>&nbsp;&nbsp;
@@ -1390,10 +1383,10 @@ Must be one of:
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="state"                data-endpoint="GETapi-oauth-authorize"
-               value="voluptas"
+               value="aliquam"
                data-component="body">
     <br>
-<p>Example: <code>voluptas</code></p>
+<p>Example: <code>aliquam</code></p>
         </div>
         </form>
 
@@ -1572,522 +1565,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
         </div>
         </form>
 
-                <h1 id="password-management">Password Management</h1>
-
-    <p>APIs for managing passwords</p>
-
-                                <h2 id="password-management-POSTapi-auth-password-forgot">Forgot Password.</h2>
-
-<p>
-</p>
-
-<p>Request a password reset for a user.</p>
-
-<span id="example-requests-POSTapi-auth-password-forgot">
-<blockquote>Example request:</blockquote>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request POST \
-    "http://localhost:8000/api/auth/password/forgot" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json" \
-    --data "{
-    \"email\": \"user@example.com\"
-}"
-</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/auth/password/forgot"
-);
-
-const headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "email": "user@example.com"
-};
-
-fetch(url, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(body),
-}).then(response =&gt; response.json());</code></pre></div>
-
-</span>
-
-<span id="example-responses-POSTapi-auth-password-forgot">
-            <blockquote>
-            <p>Example response (200):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;If the email exists in our system, a password reset link will be sent&quot;
-}</code>
- </pre>
-    </span>
-<span id="execution-results-POSTapi-auth-password-forgot" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-POSTapi-auth-password-forgot"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-POSTapi-auth-password-forgot"
-      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
-</span>
-<span id="execution-error-POSTapi-auth-password-forgot" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTapi-auth-password-forgot">
-
-Tip: Check that you&#039;re properly connected to the network.
-If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
-You can check the Dev Tools console for debugging information.</code></pre>
-</span>
-<form id="form-POSTapi-auth-password-forgot" data-method="POST"
-      data-path="api/auth/password/forgot"
-      data-authed="0"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('POSTapi-auth-password-forgot', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-POSTapi-auth-password-forgot"
-                    onclick="tryItOut('POSTapi-auth-password-forgot');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-POSTapi-auth-password-forgot"
-                    onclick="cancelTryOut('POSTapi-auth-password-forgot');" hidden>Cancel 🛑
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-POSTapi-auth-password-forgot"
-                    data-initial-text="Send Request 💥"
-                    data-loading-text="⏱ Sending..."
-                    hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-black">POST</small>
-            <b><code>api/auth/password/forgot</code></b>
-        </p>
-                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="POSTapi-auth-password-forgot"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="POSTapi-auth-password-forgot"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-        <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="email"                data-endpoint="POSTapi-auth-password-forgot"
-               value="user@example.com"
-               data-component="body">
-    <br>
-<p>The email address. Example: <code>user@example.com</code></p>
-        </div>
-        </form>
-
-                    <h2 id="password-management-POSTapi-auth-password-reset">Reset Password.</h2>
-
-<p>
-</p>
-
-<p>Reset a user's password.</p>
-
-<span id="example-requests-POSTapi-auth-password-reset">
-<blockquote>Example request:</blockquote>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request POST \
-    "http://localhost:8000/api/auth/password/reset" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json" \
-    --data "{
-    \"email\": \"user@example.com\",
-    \"password\": \"NewStrongPass123!\",
-    \"password_confirmation\": \"NewStrongPass123!\"
-}"
-</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/auth/password/reset"
-);
-
-const headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "email": "user@example.com",
-    "password": "NewStrongPass123!",
-    "password_confirmation": "NewStrongPass123!"
-};
-
-fetch(url, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(body),
-}).then(response =&gt; response.json());</code></pre></div>
-
-</span>
-
-<span id="example-responses-POSTapi-auth-password-reset">
-            <blockquote>
-            <p>Example response (200):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Password has been reset&quot;
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (400):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Password was used before&quot;
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (404):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;User not found&quot;
-}</code>
- </pre>
-    </span>
-<span id="execution-results-POSTapi-auth-password-reset" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-POSTapi-auth-password-reset"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-POSTapi-auth-password-reset"
-      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
-</span>
-<span id="execution-error-POSTapi-auth-password-reset" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTapi-auth-password-reset">
-
-Tip: Check that you&#039;re properly connected to the network.
-If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
-You can check the Dev Tools console for debugging information.</code></pre>
-</span>
-<form id="form-POSTapi-auth-password-reset" data-method="POST"
-      data-path="api/auth/password/reset"
-      data-authed="0"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('POSTapi-auth-password-reset', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-POSTapi-auth-password-reset"
-                    onclick="tryItOut('POSTapi-auth-password-reset');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-POSTapi-auth-password-reset"
-                    onclick="cancelTryOut('POSTapi-auth-password-reset');" hidden>Cancel 🛑
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-POSTapi-auth-password-reset"
-                    data-initial-text="Send Request 💥"
-                    data-loading-text="⏱ Sending..."
-                    hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-black">POST</small>
-            <b><code>api/auth/password/reset</code></b>
-        </p>
-                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="POSTapi-auth-password-reset"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="POSTapi-auth-password-reset"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-        <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="email"                data-endpoint="POSTapi-auth-password-reset"
-               value="user@example.com"
-               data-component="body">
-    <br>
-<p>The email address. Example: <code>user@example.com</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="password"                data-endpoint="POSTapi-auth-password-reset"
-               value="NewStrongPass123!"
-               data-component="body">
-    <br>
-<p>The new password. Example: <code>NewStrongPass123!</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>password_confirmation</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="password_confirmation"                data-endpoint="POSTapi-auth-password-reset"
-               value="NewStrongPass123!"
-               data-component="body">
-    <br>
-<p>The password confirmation. Example: <code>NewStrongPass123!</code></p>
-        </div>
-        </form>
-
-                    <h2 id="password-management-PUTapi-users-me-password">Update Password.</h2>
-
-<p>
-<small class="badge badge-darkred">requires authentication</small>
-</p>
-
-<p>Update the authenticated user's password.</p>
-
-<span id="example-requests-PUTapi-users-me-password">
-<blockquote>Example request:</blockquote>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request PUT \
-    "http://localhost:8000/api/users/me/password" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json" \
-    --data "{
-    \"current_password\": \"CurrentPass123!\",
-    \"password\": \"NewStrongPass123!\",
-    \"password_confirmation\": \"NewStrongPass123!\"
-}"
-</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/users/me/password"
-);
-
-const headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "current_password": "CurrentPass123!",
-    "password": "NewStrongPass123!",
-    "password_confirmation": "NewStrongPass123!"
-};
-
-fetch(url, {
-    method: "PUT",
-    headers,
-    body: JSON.stringify(body),
-}).then(response =&gt; response.json());</code></pre></div>
-
-</span>
-
-<span id="example-responses-PUTapi-users-me-password">
-            <blockquote>
-            <p>Example response (200):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Password updated successfully&quot;
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (400):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Current password is incorrect&quot;
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (400):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Password was used before&quot;
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (400):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Password has expired&quot;
-}</code>
- </pre>
-    </span>
-<span id="execution-results-PUTapi-users-me-password" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-PUTapi-users-me-password"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-PUTapi-users-me-password"
-      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
-</span>
-<span id="execution-error-PUTapi-users-me-password" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-PUTapi-users-me-password">
-
-Tip: Check that you&#039;re properly connected to the network.
-If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
-You can check the Dev Tools console for debugging information.</code></pre>
-</span>
-<form id="form-PUTapi-users-me-password" data-method="PUT"
-      data-path="api/users/me/password"
-      data-authed="1"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('PUTapi-users-me-password', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-PUTapi-users-me-password"
-                    onclick="tryItOut('PUTapi-users-me-password');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-PUTapi-users-me-password"
-                    onclick="cancelTryOut('PUTapi-users-me-password');" hidden>Cancel 🛑
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-PUTapi-users-me-password"
-                    data-initial-text="Send Request 💥"
-                    data-loading-text="⏱ Sending..."
-                    hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-darkblue">PUT</small>
-            <b><code>api/users/me/password</code></b>
-        </p>
-                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="PUTapi-users-me-password"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="PUTapi-users-me-password"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-        <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>current_password</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="current_password"                data-endpoint="PUTapi-users-me-password"
-               value="CurrentPass123!"
-               data-component="body">
-    <br>
-<p>The current password. Example: <code>CurrentPass123!</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="password"                data-endpoint="PUTapi-users-me-password"
-               value="NewStrongPass123!"
-               data-component="body">
-    <br>
-<p>The new password. Example: <code>NewStrongPass123!</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>password_confirmation</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="password_confirmation"                data-endpoint="PUTapi-users-me-password"
-               value="NewStrongPass123!"
-               data-component="body">
-    <br>
-<p>The new password confirmation. Example: <code>NewStrongPass123!</code></p>
-        </div>
-        </form>
-
                 <h1 id="session-management">Session Management</h1>
 
     <p>APIs for managing user sessions</p>
@@ -2238,14 +1715,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost:8000/api/users/me/sessions/corporis" \
+    "http://localhost:8000/api/users/me/sessions/harum" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/users/me/sessions/corporis"
+    "http://localhost:8000/api/users/me/sessions/harum"
 );
 
 const headers = {
@@ -2338,10 +1815,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-users-me-sessions--id-"
-               value="corporis"
+               value="harum"
                data-component="url">
     <br>
-<p>The ID of the session. Example: <code>corporis</code></p>
+<p>The ID of the session. Example: <code>harum</code></p>
             </div>
                     </form>
 
@@ -2474,7 +1951,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"code\": \"vwhfrg\"
+    \"code\": \"yfitvk\"
 }"
 </code></pre></div>
 
@@ -2490,7 +1967,7 @@ const headers = {
 };
 
 let body = {
-    "code": "vwhfrg"
+    "code": "yfitvk"
 };
 
 fetch(url, {
@@ -2579,10 +2056,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="code"                data-endpoint="POSTapi-auth-2fa-verify"
-               value="vwhfrg"
+               value="yfitvk"
                data-component="body">
     <br>
-<p>Must be 6 characters. Example: <code>vwhfrg</code></p>
+<p>Must be 6 characters. Example: <code>yfitvk</code></p>
         </div>
         </form>
 
@@ -2603,8 +2080,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"current_password\": \"unde\",
-    \"code\": \"mpftxw\"
+    \"current_password\": \"dolorem\",
+    \"code\": \"eirsps\"
 }"
 </code></pre></div>
 
@@ -2620,8 +2097,8 @@ const headers = {
 };
 
 let body = {
-    "current_password": "unde",
-    "code": "mpftxw"
+    "current_password": "dolorem",
+    "code": "eirsps"
 };
 
 fetch(url, {
@@ -2710,10 +2187,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="current_password"                data-endpoint="POSTapi-auth-2fa-disable"
-               value="unde"
+               value="dolorem"
                data-component="body">
     <br>
-<p>Example: <code>unde</code></p>
+<p>Example: <code>dolorem</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>code</code></b>&nbsp;&nbsp;
@@ -2721,10 +2198,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="code"                data-endpoint="POSTapi-auth-2fa-disable"
-               value="mpftxw"
+               value="eirsps"
                data-component="body">
     <br>
-<p>Must be 6 characters. Example: <code>mpftxw</code></p>
+<p>Must be 6 characters. Example: <code>eirsps</code></p>
         </div>
         </form>
 
@@ -2971,9 +2448,335 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
                 <h1 id="user-management">User Management</h1>
 
-    <p>APIs for managing user profile</p>
+    <p>APIs for managing user passwords</p>
 
-                                <h2 id="user-management-GETapi-users-me">Get Current User.</h2>
+                                <h2 id="user-management-POSTapi-auth-password-forgot">Forgot Password.</h2>
+
+<p>
+</p>
+
+<p>Request a password reset for a user.</p>
+
+<span id="example-requests-POSTapi-auth-password-forgot">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost:8000/api/auth/password/forgot" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"email\": \"user@example.com\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/api/auth/password/forgot"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "email": "user@example.com"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-auth-password-forgot">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;If the email exists in our system, a password reset link will be sent&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-auth-password-forgot" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-auth-password-forgot"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-auth-password-forgot"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-auth-password-forgot" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-auth-password-forgot">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-auth-password-forgot" data-method="POST"
+      data-path="api/auth/password/forgot"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-auth-password-forgot', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-auth-password-forgot"
+                    onclick="tryItOut('POSTapi-auth-password-forgot');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-auth-password-forgot"
+                    onclick="cancelTryOut('POSTapi-auth-password-forgot');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-auth-password-forgot"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/auth/password/forgot</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-auth-password-forgot"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-auth-password-forgot"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="email"                data-endpoint="POSTapi-auth-password-forgot"
+               value="user@example.com"
+               data-component="body">
+    <br>
+<p>The email address. Example: <code>user@example.com</code></p>
+        </div>
+        </form>
+
+                    <h2 id="user-management-POSTapi-auth-password-reset">Reset Password.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Reset a user's password. Requires authentication.</p>
+
+<span id="example-requests-POSTapi-auth-password-reset">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost:8000/api/auth/password/reset" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"current_password\": \"CurrentPass123!\",
+    \"password\": \"NewStrongPass123!\",
+    \"password_confirmation\": \"NewStrongPass123!\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/api/auth/password/reset"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "current_password": "CurrentPass123!",
+    "password": "NewStrongPass123!",
+    "password_confirmation": "NewStrongPass123!"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-auth-password-reset">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Password has been reset&quot;,
+    &quot;status&quot;: {
+        &quot;expired&quot;: false,
+        &quot;days_left&quot;: 90,
+        &quot;status&quot;: &quot;valid&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (400):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Current password is incorrect&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (400):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Password was used before&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-auth-password-reset" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-auth-password-reset"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-auth-password-reset"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-auth-password-reset" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-auth-password-reset">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-auth-password-reset" data-method="POST"
+      data-path="api/auth/password/reset"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-auth-password-reset', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-auth-password-reset"
+                    onclick="tryItOut('POSTapi-auth-password-reset');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-auth-password-reset"
+                    onclick="cancelTryOut('POSTapi-auth-password-reset');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-auth-password-reset"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/auth/password/reset</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-auth-password-reset"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-auth-password-reset"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>current_password</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="current_password"                data-endpoint="POSTapi-auth-password-reset"
+               value="CurrentPass123!"
+               data-component="body">
+    <br>
+<p>The current password. Example: <code>CurrentPass123!</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="password"                data-endpoint="POSTapi-auth-password-reset"
+               value="NewStrongPass123!"
+               data-component="body">
+    <br>
+<p>The new password. Example: <code>NewStrongPass123!</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>password_confirmation</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="password_confirmation"                data-endpoint="POSTapi-auth-password-reset"
+               value="NewStrongPass123!"
+               data-component="body">
+    <br>
+<p>The password confirmation. Example: <code>NewStrongPass123!</code></p>
+        </div>
+        </form>
+
+                    <h2 id="user-management-GETapi-users-me">Get Current User.</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -3255,6 +3058,198 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="body">
     <br>
 <p>The new email address. Example: <code>newuser@example.com</code></p>
+        </div>
+        </form>
+
+                    <h2 id="user-management-PUTapi-users-me-password">Update Password.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Update the authenticated user's password.</p>
+
+<span id="example-requests-PUTapi-users-me-password">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost:8000/api/users/me/password" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"current_password\": \"CurrentPass123!\",
+    \"password\": \"NewStrongPass123!\",
+    \"password_confirmation\": \"NewStrongPass123!\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/api/users/me/password"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "current_password": "CurrentPass123!",
+    "password": "NewStrongPass123!",
+    "password_confirmation": "NewStrongPass123!"
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-users-me-password">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Password updated successfully&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (400):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Current password is incorrect&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (400):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Password was used before&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (400):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;message&quot;: &quot;Password has expired&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PUTapi-users-me-password" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-users-me-password"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-users-me-password"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-users-me-password" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-users-me-password">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PUTapi-users-me-password" data-method="PUT"
+      data-path="api/users/me/password"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-users-me-password', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-users-me-password"
+                    onclick="tryItOut('PUTapi-users-me-password');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-users-me-password"
+                    onclick="cancelTryOut('PUTapi-users-me-password');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-users-me-password"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/users/me/password</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PUTapi-users-me-password"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PUTapi-users-me-password"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>current_password</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="current_password"                data-endpoint="PUTapi-users-me-password"
+               value="CurrentPass123!"
+               data-component="body">
+    <br>
+<p>The current password. Example: <code>CurrentPass123!</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="password"                data-endpoint="PUTapi-users-me-password"
+               value="NewStrongPass123!"
+               data-component="body">
+    <br>
+<p>The new password. Example: <code>NewStrongPass123!</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>password_confirmation</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="password_confirmation"                data-endpoint="PUTapi-users-me-password"
+               value="NewStrongPass123!"
+               data-component="body">
+    <br>
+<p>The new password confirmation. Example: <code>NewStrongPass123!</code></p>
         </div>
         </form>
 
