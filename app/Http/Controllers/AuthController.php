@@ -70,6 +70,10 @@ class AuthController extends Controller
      *
      * @param RegisterRequest $request
      *
+     * @bodyParam email string required The email address. Example: user@example.com
+     * @bodyParam password string required The password. Example: muNp.wD^
+     * @bodyParam password_confirmation string required The password confirmation. Example: muNp.wD^
+     *
      * @return JsonResponse
      */
     public function register(RegisterRequest $request): JsonResponse
