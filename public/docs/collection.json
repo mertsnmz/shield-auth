@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Shield Auth",
-        "_postman_id": "5133071a-a798-4a34-83b8-e1cd2033b25e",
+        "_postman_id": "9c46aa38-1c56-4020-88f7-55d8fcba3de9",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -286,7 +286,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"client_id\":\"et\",\"redirect_uri\":\"http:\\\/\\\/www.schulist.org\\\/id-cumque-enim-autem-et\",\"response_type\":\"code\",\"scope\":\"quo\",\"state\":\"voluptas\"}"
+                            "raw": "{\"client_id\":\"non\",\"redirect_uri\":\"http:\\\/\\\/kautzer.com\\\/\",\"response_type\":\"code\",\"scope\":\"adipisci\",\"state\":\"aliquam\"}"
                         },
                         "description": "First step of Authorization Code flow. Shows authorization form to the user.",
                         "auth": {
@@ -360,153 +360,6 @@
                             "header": [],
                             "code": 302,
                             "body": "Redirects to client's redirect_uri with authorization code",
-                            "name": ""
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "Password Management",
-            "description": "\nAPIs for managing passwords",
-            "item": [
-                {
-                    "name": "Forgot Password.",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/auth\/password\/forgot",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/auth\/password\/forgot"
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"email\":\"user@example.com\"}"
-                        },
-                        "description": "Request a password reset for a user.",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n  \"message\": \"If the email exists in our system, a password reset link will be sent\"\n}",
-                            "name": ""
-                        }
-                    ]
-                },
-                {
-                    "name": "Reset Password.",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/auth\/password\/reset",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/auth\/password\/reset"
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"email\":\"user@example.com\",\"password\":\"NewStrongPass123!\",\"password_confirmation\":\"NewStrongPass123!\"}"
-                        },
-                        "description": "Reset a user's password.",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n  \"message\": \"Password has been reset\"\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 400,
-                            "body": "{\n  \"message\": \"Password was used before\"\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 404,
-                            "body": "{\n  \"message\": \"User not found\"\n}",
-                            "name": ""
-                        }
-                    ]
-                },
-                {
-                    "name": "Update Password.",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/users\/me\/password",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/users\/me\/password"
-                        },
-                        "method": "PUT",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"current_password\":\"CurrentPass123!\",\"password\":\"NewStrongPass123!\",\"password_confirmation\":\"NewStrongPass123!\"}"
-                        },
-                        "description": "Update the authenticated user's password."
-                    },
-                    "response": [
-                        {
-                            "header": [],
-                            "code": 200,
-                            "body": "{\n  \"message\": \"Password updated successfully\"\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 400,
-                            "body": "{\n  \"message\": \"Current password is incorrect\"\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 400,
-                            "body": "{\n  \"message\": \"Password was used before\"\n}",
-                            "name": ""
-                        },
-                        {
-                            "header": [],
-                            "code": 400,
-                            "body": "{\n  \"message\": \"Password has expired\"\n}",
                             "name": ""
                         }
                     ]
@@ -613,7 +466,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "corporis",
+                                    "value": "harum",
                                     "description": "The ID of the session."
                                 }
                             ]
@@ -693,7 +546,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"code\":\"vwhfrg\"}"
+                            "raw": "{\"code\":\"yfitvk\"}"
                         },
                         "description": "Verify and complete the 2FA setup.",
                         "auth": {
@@ -724,7 +577,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"current_password\":\"unde\",\"code\":\"mpftxw\"}"
+                            "raw": "{\"current_password\":\"dolorem\",\"code\":\"eirsps\"}"
                         },
                         "description": "Disable two-factor authentication for the user.",
                         "auth": {
@@ -849,8 +702,93 @@
         },
         {
             "name": "User Management",
-            "description": "\nAPIs for managing user profile",
+            "description": "\nAPIs for managing user passwords",
             "item": [
+                {
+                    "name": "Forgot Password.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/password\/forgot",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/password\/forgot"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\":\"user@example.com\"}"
+                        },
+                        "description": "Request a password reset for a user.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"If the email exists in our system, a password reset link will be sent\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Reset Password.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/password\/reset",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/password\/reset"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"current_password\":\"CurrentPass123!\",\"password\":\"NewStrongPass123!\",\"password_confirmation\":\"NewStrongPass123!\"}"
+                        },
+                        "description": "Reset a user's password. Requires authentication."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"Password has been reset\",\n  \"status\": {\n    \"expired\": false,\n    \"days_left\": 90,\n    \"status\": \"valid\"\n  }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\n  \"message\": \"Current password is incorrect\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\n  \"message\": \"Password was used before\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
                 {
                     "name": "Get Current User.",
                     "request": {
@@ -920,6 +858,59 @@
                             "header": [],
                             "code": 422,
                             "body": "{\n  \"message\": \"The given data was invalid.\",\n  \"errors\": {\n    \"email\": [\"The email has already been taken.\"]\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Update Password.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/users\/me\/password",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/users\/me\/password"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"current_password\":\"CurrentPass123!\",\"password\":\"NewStrongPass123!\",\"password_confirmation\":\"NewStrongPass123!\"}"
+                        },
+                        "description": "Update the authenticated user's password."
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"Password updated successfully\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\n  \"message\": \"Current password is incorrect\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\n  \"message\": \"Password was used before\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\n  \"message\": \"Password has expired\"\n}",
                             "name": ""
                         }
                     ]

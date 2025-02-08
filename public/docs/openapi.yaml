@@ -524,12 +524,12 @@ paths:
                 client_id:
                   type: string
                   description: ''
-                  example: et
+                  example: non
                   nullable: false
                 redirect_uri:
                   type: string
                   description: 'Must be a valid URL.'
-                  example: 'http://www.schulist.org/id-cumque-enim-autem-et'
+                  example: 'http://kautzer.com/'
                   nullable: false
                 response_type:
                   type: string
@@ -541,12 +541,12 @@ paths:
                 scope:
                   type: string
                   description: ''
-                  example: quo
+                  example: adipisci
                   nullable: false
                 state:
                   type: string
                   description: ''
-                  example: voluptas
+                  example: aliquam
                   nullable: false
               required:
                 - client_id
@@ -599,194 +599,6 @@ paths:
                 - client_id
                 - redirect_uri
       security: []
-  /api/auth/password/forgot:
-    post:
-      summary: 'Forgot Password.'
-      operationId: forgotPassword
-      description: 'Request a password reset for a user.'
-      parameters: []
-      responses:
-        200:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'If the email exists in our system, a password reset link will be sent'
-                properties:
-                  message:
-                    type: string
-                    example: 'If the email exists in our system, a password reset link will be sent'
-      tags:
-        - 'Password Management'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  description: 'The email address.'
-                  example: user@example.com
-                  nullable: false
-              required:
-                - email
-      security: []
-  /api/auth/password/reset:
-    post:
-      summary: 'Reset Password.'
-      operationId: resetPassword
-      description: "Reset a user's password."
-      parameters: []
-      responses:
-        200:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Password has been reset'
-                properties:
-                  message:
-                    type: string
-                    example: 'Password has been reset'
-        400:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Password was used before'
-                properties:
-                  message:
-                    type: string
-                    example: 'Password was used before'
-        404:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'User not found'
-                properties:
-                  message:
-                    type: string
-                    example: 'User not found'
-      tags:
-        - 'Password Management'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  description: 'The email address.'
-                  example: user@example.com
-                  nullable: false
-                password:
-                  type: string
-                  description: 'The new password.'
-                  example: NewStrongPass123!
-                  nullable: false
-                password_confirmation:
-                  type: string
-                  description: 'The password confirmation.'
-                  example: NewStrongPass123!
-                  nullable: false
-              required:
-                - email
-                - password
-                - password_confirmation
-      security: []
-  /api/users/me/password:
-    put:
-      summary: 'Update Password.'
-      operationId: updatePassword
-      description: "Update the authenticated user's password."
-      parameters: []
-      responses:
-        200:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Password updated successfully'
-                properties:
-                  message:
-                    type: string
-                    example: 'Password updated successfully'
-        400:
-          description: ''
-          content:
-            application/json:
-              schema:
-                oneOf:
-                  -
-                    description: ''
-                    type: object
-                    example:
-                      message: 'Current password is incorrect'
-                    properties:
-                      message:
-                        type: string
-                        example: 'Current password is incorrect'
-                  -
-                    description: ''
-                    type: object
-                    example:
-                      message: 'Password was used before'
-                    properties:
-                      message:
-                        type: string
-                        example: 'Password was used before'
-                  -
-                    description: ''
-                    type: object
-                    example:
-                      message: 'Password has expired'
-                    properties:
-                      message:
-                        type: string
-                        example: 'Password has expired'
-      tags:
-        - 'Password Management'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                current_password:
-                  type: string
-                  description: 'The current password.'
-                  example: CurrentPass123!
-                  nullable: false
-                password:
-                  type: string
-                  description: 'The new password.'
-                  example: NewStrongPass123!
-                  nullable: false
-                password_confirmation:
-                  type: string
-                  description: 'The new password confirmation.'
-                  example: NewStrongPass123!
-                  nullable: false
-              required:
-                - current_password
-                - password
-                - password_confirmation
   /api/users/me/sessions:
     get:
       summary: 'List Sessions.'
@@ -824,7 +636,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the session.'
-        example: corporis
+        example: harum
         required: true
         schema:
           type: string
@@ -857,7 +669,7 @@ paths:
                 code:
                   type: string
                   description: 'Must be 6 characters.'
-                  example: vwhfrg
+                  example: yfitvk
                   nullable: false
               required:
                 - code
@@ -881,12 +693,12 @@ paths:
                 current_password:
                   type: string
                   description: ''
-                  example: unde
+                  example: dolorem
                   nullable: false
                 code:
                   type: string
                   description: 'Must be 6 characters.'
-                  example: mpftxw
+                  example: eirsps
                   nullable: false
               required:
                 - current_password
@@ -924,6 +736,129 @@ paths:
       tags:
         - 'Two Factor Authentication'
       security: []
+  /api/auth/password/forgot:
+    post:
+      summary: 'Forgot Password.'
+      operationId: forgotPassword
+      description: 'Request a password reset for a user.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'If the email exists in our system, a password reset link will be sent'
+                properties:
+                  message:
+                    type: string
+                    example: 'If the email exists in our system, a password reset link will be sent'
+      tags:
+        - 'User Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'The email address.'
+                  example: user@example.com
+                  nullable: false
+              required:
+                - email
+      security: []
+  /api/auth/password/reset:
+    post:
+      summary: 'Reset Password.'
+      operationId: resetPassword
+      description: "Reset a user's password. Requires authentication."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Password has been reset'
+                  status:
+                    expired: false
+                    days_left: 90
+                    status: valid
+                properties:
+                  message:
+                    type: string
+                    example: 'Password has been reset'
+                  status:
+                    type: object
+                    properties:
+                      expired:
+                        type: boolean
+                        example: false
+                      days_left:
+                        type: integer
+                        example: 90
+                      status:
+                        type: string
+                        example: valid
+        400:
+          description: ''
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  -
+                    description: ''
+                    type: object
+                    example:
+                      message: 'Current password is incorrect'
+                    properties:
+                      message:
+                        type: string
+                        example: 'Current password is incorrect'
+                  -
+                    description: ''
+                    type: object
+                    example:
+                      message: 'Password was used before'
+                    properties:
+                      message:
+                        type: string
+                        example: 'Password was used before'
+      tags:
+        - 'User Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                current_password:
+                  type: string
+                  description: 'The current password.'
+                  example: CurrentPass123!
+                  nullable: false
+                password:
+                  type: string
+                  description: 'The new password.'
+                  example: NewStrongPass123!
+                  nullable: false
+                password_confirmation:
+                  type: string
+                  description: 'The password confirmation.'
+                  example: NewStrongPass123!
+                  nullable: false
+              required:
+                - current_password
+                - password
+                - password_confirmation
   /api/users/me:
     get:
       summary: 'Get Current User.'
@@ -1045,6 +980,86 @@ paths:
                   description: 'The new email address.'
                   example: newuser@example.com
                   nullable: false
+  /api/users/me/password:
+    put:
+      summary: 'Update Password.'
+      operationId: updatePassword
+      description: "Update the authenticated user's password."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Password updated successfully'
+                properties:
+                  message:
+                    type: string
+                    example: 'Password updated successfully'
+        400:
+          description: ''
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  -
+                    description: ''
+                    type: object
+                    example:
+                      message: 'Current password is incorrect'
+                    properties:
+                      message:
+                        type: string
+                        example: 'Current password is incorrect'
+                  -
+                    description: ''
+                    type: object
+                    example:
+                      message: 'Password was used before'
+                    properties:
+                      message:
+                        type: string
+                        example: 'Password was used before'
+                  -
+                    description: ''
+                    type: object
+                    example:
+                      message: 'Password has expired'
+                    properties:
+                      message:
+                        type: string
+                        example: 'Password has expired'
+      tags:
+        - 'User Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                current_password:
+                  type: string
+                  description: 'The current password.'
+                  example: CurrentPass123!
+                  nullable: false
+                password:
+                  type: string
+                  description: 'The new password.'
+                  example: NewStrongPass123!
+                  nullable: false
+                password_confirmation:
+                  type: string
+                  description: 'The new password confirmation.'
+                  example: NewStrongPass123!
+                  nullable: false
+              required:
+                - current_password
+                - password
+                - password_confirmation
 tags:
   -
     name: Authentication
@@ -1053,9 +1068,6 @@ tags:
     name: 'OAuth2 Authentication'
     description: "\nAPIs for OAuth2 authentication flows"
   -
-    name: 'Password Management'
-    description: "\nAPIs for managing passwords"
-  -
     name: 'Session Management'
     description: "\nAPIs for managing user sessions"
   -
@@ -1063,4 +1075,4 @@ tags:
     description: "\nAPIs for managing 2FA"
   -
     name: 'User Management'
-    description: "\nAPIs for managing user profile"
+    description: "\nAPIs for managing user passwords"

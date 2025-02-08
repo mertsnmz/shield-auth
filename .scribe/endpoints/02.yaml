@@ -346,7 +346,7 @@ endpoints:
         name: client_id
         description: ''
         required: true
-        example: et
+        example: non
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -356,7 +356,7 @@ endpoints:
         name: redirect_uri
         description: 'Must be a valid URL.'
         required: true
-        example: 'http://www.schulist.org/id-cumque-enim-autem-et'
+        example: 'http://kautzer.com/'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -377,7 +377,7 @@ endpoints:
         name: scope
         description: ''
         required: false
-        example: quo
+        example: adipisci
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -387,18 +387,18 @@ endpoints:
         name: state
         description: ''
         required: false
-        example: voluptas
+        example: aliquam
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         custom: []
     cleanBodyParameters:
-      client_id: et
-      redirect_uri: 'http://www.schulist.org/id-cumque-enim-autem-et'
+      client_id: non
+      redirect_uri: 'http://kautzer.com/'
       response_type: code
-      scope: quo
-      state: voluptas
+      scope: adipisci
+      state: aliquam
     fileParameters: []
     responses:
       -

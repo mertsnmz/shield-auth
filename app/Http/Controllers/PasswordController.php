@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\JsonResponse;
 
 /**
- * @group Password Management
+ * @group User Management
  *
- * APIs for managing passwords
+ * APIs for managing user passwords
  */
 class PasswordController extends Controller
 {
@@ -118,47 +118,54 @@ class PasswordController extends Controller
     /**
      * Reset Password.
      *
-     * Reset a user's password.
+     * Reset a user's password. Requires authentication.
      *
-     * @bodyParam email string required The email address. Example: user@example.com
+     * @authenticated
+     *
+     * @bodyParam current_password string required The current password. Example: CurrentPass123!
      * @bodyParam password string required The new password. Example: NewStrongPass123!
      * @bodyParam password_confirmation string required The password confirmation. Example: NewStrongPass123!
      *
      * @response 200 {
-     *   "message": "Password has been reset"
+     *   "message": "Password has been reset",
+     *   "status": {
+     *     "expired": false,
+     *     "days_left": 90,
+     *     "status": "valid"
+     *   }
+     * }
+     * @response 400 {
+     *   "message": "Current password is incorrect"
      * }
      * @response 400 {
      *   "message": "Password was used before"
      * }
-     * @response 404 {
-     *   "message": "User not found"
-     * }
      */
     public function reset(Request $request): JsonResponse
     {
-        $request->validate([
-            'email' => ['required', 'email'],
+        $user = auth()->user();
+
+        $validated = $request->validate([
+            'current_password' => ['required'],
             'password' => array_merge(
                 ['required', 'confirmed'],
                 [$this->passwordPolicy->getValidationRules()]
             ),
         ]);
 
-        $user = User::where('email', $request->email)->first();
-
-        if (!$user) {
+        if (!Hash::check($validated['current_password'], $user->password_hash)) {
             return response()->json([
-                'message' => 'User not found',
-            ], 404);
+                'message' => 'Current password is incorrect',
+            ], 400);
         }
 
-        if ($this->passwordPolicy->wasUsedBefore($user, $request->password)) {
+        if ($this->passwordPolicy->wasUsedBefore($user, $validated['password'])) {
             return response()->json([
                 'message' => 'Password was used before',
             ], 400);
         }
 
-        $newPasswordHash = Hash::make($request->password);
+        $newPasswordHash = Hash::make($validated['password']);
 
         $user->password_hash = $newPasswordHash;
         $user->password_changed_at = now();
