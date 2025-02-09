@@ -4,7 +4,8 @@ namespace App\Services\Auth;
 
 use App\Models\User;
 use App\Models\Session;
-use App\Repositories\Auth\AuthRepository;
+use App\Interfaces\Auth\IAuthService;
+use App\Interfaces\Auth\IAuthRepository;
 use App\Services\PasswordPolicyService;
 use App\Services\TwoFactorAuthService;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ use Illuminate\Support\Str;
 use Illuminate\Auth\Events\Registered;
 use Exception;
 
-class AuthService
+class AuthService implements IAuthService
 {
     private const MAX_ACTIVE_SESSIONS = 4;
     private const ABSOLUTE_TIMEOUT = 86400; // 24 saat (saniye cinsinden)
@@ -22,7 +23,7 @@ class AuthService
     public function __construct(
         private readonly PasswordPolicyService $passwordPolicy,
         private readonly TwoFactorAuthService $twoFactorAuth,
-        private readonly AuthRepository $authRepository
+        private readonly IAuthRepository $authRepository
     ) {
     }
 
