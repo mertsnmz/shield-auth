@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build:
@@ -8,6 +6,7 @@ services:
     container_name: auth-app
     restart: unless-stopped
     working_dir: /var/www/
+    command: bash -c "php artisan scribe:generate && php-fpm"
     volumes:
       - ./:/var/www
     networks:
