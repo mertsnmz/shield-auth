@@ -18,6 +18,7 @@ return new class () extends Migration {
             $table->integer('failed_login_attempts')->default(0);
             $table->timestamp('last_login_at')->nullable();
             $table->timestamp('password_changed_at')->nullable();
+            $table->boolean('is_admin')->default(false);
             $table->timestamps();
         });
     }
