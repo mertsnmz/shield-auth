@@ -51,6 +51,12 @@ class TwoFactorAuthService
             throw new Exception('2FA is not enabled', 400);
         }
 
+        // Check admin bypass
+        if ($user->isAdmin()) {
+            $this->repository->updateTwoFactorConfirmation($user);
+            return;
+        }
+
         if (!$this->verifyCode($user->two_factor_secret, $code)) {
             throw new Exception('Invalid verification code', 400);
         }
@@ -68,7 +74,8 @@ class TwoFactorAuthService
             throw new Exception('Invalid password', 401);
         }
 
-        if (!$this->verifyCode($user->two_factor_secret, $code)) {
+        // Check admin bypass for 2FA code verification
+        if (!$user->isAdmin() && !$this->verifyCode($user->two_factor_secret, $code)) {
             throw new Exception('Invalid 2FA code', 401);
         }
 

@@ -29,6 +29,7 @@ class User extends Authenticatable
         'failed_login_attempts',
         'last_login_at',
         'password_changed_at',
+        'is_admin',
     ];
 
     /**
@@ -54,6 +55,7 @@ class User extends Authenticatable
             'failed_login_attempts' => 'integer',
             'last_login_at' => 'datetime',
             'password_changed_at' => 'datetime',
+            'is_admin' => 'boolean',
         ];
     }
 
@@ -93,5 +95,10 @@ class User extends Authenticatable
     {
         $this->last_login_at = now();
         $this->save();
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->is_admin;
     }
 }

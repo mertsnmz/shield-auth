@@ -49,18 +49,21 @@ class AuthService
 
         // 2FA Check
         if ($user->two_factor_enabled && $user->two_factor_confirmed_at) {
-            if (!isset($credentials['2fa_code'])) {
-                return [
-                    'requires_2fa' => true,
-                    'message' => '2FA code required',
-                ];
-            }
+            // Check admin bypass for 2FA
+            if (!$user->isAdmin()) {
+                if (!isset($credentials['2fa_code'])) {
+                    return [
+                        'requires_2fa' => true,
+                        'message' => '2FA code required',
+                    ];
+                }
 
-            if (!$this->twoFactorAuth->verifyCode($user->two_factor_secret, $credentials['2fa_code'])) {
-                return [
-                    'requires_2fa' => true,
-                    'message' => 'Invalid 2FA code',
-                ];
+                if (!$this->twoFactorAuth->verifyCode($user->two_factor_secret, $credentials['2fa_code'])) {
+                    return [
+                        'requires_2fa' => true,
+                        'message' => 'Invalid 2FA code',
+                    ];
+                }
             }
         }
 
