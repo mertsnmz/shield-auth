@@ -524,12 +524,12 @@ paths:
                 client_id:
                   type: string
                   description: ''
-                  example: non
+                  example: occaecati
                   nullable: false
                 redirect_uri:
                   type: string
                   description: 'Must be a valid URL.'
-                  example: 'http://kautzer.com/'
+                  example: 'http://bergnaum.com/et-assumenda-cumque-aut'
                   nullable: false
                 response_type:
                   type: string
@@ -541,12 +541,12 @@ paths:
                 scope:
                   type: string
                   description: ''
-                  example: adipisci
+                  example: eum
                   nullable: false
                 state:
                   type: string
                   description: ''
-                  example: aliquam
+                  example: nisi
                   nullable: false
               required:
                 - client_id
@@ -636,7 +636,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the session.'
-        example: harum
+        example: magni
         required: true
         schema:
           type: string
@@ -669,7 +669,7 @@ paths:
                 code:
                   type: string
                   description: 'Must be 6 characters.'
-                  example: yfitvk
+                  example: mfbnup
                   nullable: false
               required:
                 - code
@@ -693,12 +693,12 @@ paths:
                 current_password:
                   type: string
                   description: ''
-                  example: dolorem
+                  example: voluptatem
                   nullable: false
                 code:
                   type: string
                   description: 'Must be 6 characters.'
-                  example: eirsps
+                  example: gaqseu
                   nullable: false
               required:
                 - current_password

@@ -348,7 +348,7 @@ endpoints:
         name: client_id
         description: ''
         required: true
-        example: non
+        example: occaecati
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -358,7 +358,7 @@ endpoints:
         name: redirect_uri
         description: 'Must be a valid URL.'
         required: true
-        example: 'http://kautzer.com/'
+        example: 'http://bergnaum.com/et-assumenda-cumque-aut'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -379,7 +379,7 @@ endpoints:
         name: scope
         description: ''
         required: false
-        example: adipisci
+        example: eum
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -389,18 +389,18 @@ endpoints:
         name: state
         description: ''
         required: false
-        example: aliquam
+        example: nisi
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         custom: []
     cleanBodyParameters:
-      client_id: non
-      redirect_uri: 'http://kautzer.com/'
+      client_id: occaecati
+      redirect_uri: 'http://bergnaum.com/et-assumenda-cumque-aut'
       response_type: code
-      scope: adipisci
-      state: aliquam
+      scope: eum
+      state: nisi
     fileParameters: []
     responses:
       -
