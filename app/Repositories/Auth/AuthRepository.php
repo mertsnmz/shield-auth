@@ -57,4 +57,9 @@ class AuthRepository
     {
         return Session::where('user_id', $userId)->count();
     }
+
+    public function getAllSessions(int $userId): Collection
+    {
+        return Session::where('user_id', $userId)->get();
+    }
 }

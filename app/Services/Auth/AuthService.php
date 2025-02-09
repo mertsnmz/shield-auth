@@ -16,12 +16,39 @@ use Exception;
 class AuthService
 {
     private const MAX_ACTIVE_SESSIONS = 4;
+    private const ABSOLUTE_TIMEOUT = 86400; // 24 saat (saniye cinsinden)
+    private const SLIDING_TIMEOUT = 1800; // 30 dakika (saniye cinsinden)
 
     public function __construct(
         private readonly PasswordPolicyService $passwordPolicy,
         private readonly TwoFactorAuthService $twoFactorAuth,
         private readonly AuthRepository $authRepository
     ) {
+    }
+
+    private function isSessionValid(Session $session): bool
+    {
+        $now = time();
+        $lastActivity = $session->last_activity;
+        $createdAt = strtotime($session->created_at);
+
+        // Absolute timeout kontrolü - session oluşturulduğundan beri geçen süre
+        if (($now - $createdAt) > self::ABSOLUTE_TIMEOUT) {
+            return false;
+        }
+
+        // Sliding timeout kontrolü - son aktiviteden beri geçen süre
+        if (($now - $lastActivity) > self::SLIDING_TIMEOUT) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function updateSessionActivity(Session $session): void
+    {
+        $session->last_activity = time();
+        $session->save();
     }
 
     public function login(array $credentials, bool $remember = false): array
@@ -70,6 +97,9 @@ class AuthService
         // Handle session management
         $session = $this->createSession($user, $remember);
 
+        // Update session activity
+        $this->updateSessionActivity($session);
+
         return [
             'message' => 'Logged in successfully',
             'session_id' => $session->id,
@@ -102,6 +132,9 @@ class AuthService
     private function createSession(User $user, bool $remember): Session
     {
         $activeSessions = $this->authRepository->countActiveSessions($user->id);
+
+        // Delete expired sessions
+        $this->cleanExpiredSessions($user->id);
 
         // Delete current device session if exists
         $currentDeviceSession = $this->authRepository->findSessionByDeviceInfo(
@@ -137,6 +170,16 @@ class AuthService
             ]),
             'last_activity' => time(),
         ]);
+    }
+
+    private function cleanExpiredSessions(int $userId): void
+    {
+        $sessions = $this->authRepository->getAllSessions($userId);
+        foreach ($sessions as $session) {
+            if (!$this->isSessionValid($session)) {
+                $this->authRepository->deleteSession($session);
+            }
+        }
     }
 
     public function logout(string $sessionId): void
