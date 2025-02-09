@@ -5,7 +5,7 @@ namespace App\Http\Requests\Password;
 use App\Services\PasswordPolicyService;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ResetPasswordRequest extends FormRequest
+class UpdatePasswordRequest extends FormRequest
 {
     public function __construct(
         private readonly PasswordPolicyService $passwordPolicy
@@ -28,15 +28,4 @@ class ResetPasswordRequest extends FormRequest
             ),
         ];
     }
-
-    public function messages(): array
-    {
-        return [
-            'token.required' => 'Reset token is required',
-            'email.required' => 'Email address is required',
-            'email.email' => 'Please enter a valid email address',
-            'password.required' => 'Password is required',
-            'password.confirmed' => 'Password confirmation does not match',
-        ];
-    }
-}
+} 
