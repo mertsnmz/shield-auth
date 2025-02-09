@@ -116,7 +116,7 @@
                             </ul>
                     <ul id="tocify-header-two-factor-authentication" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="two-factor-authentication">
-                    <a href="#two-factor-authentication">Two Factor Authentication</a>
+                    <a href="#two-factor-authentication">Two-Factor Authentication</a>
                 </li>
                                     <ul id="tocify-subheader-two-factor-authentication" class="tocify-subheader">
                                                     <li class="tocify-item level-2" data-unique="two-factor-authentication-POSTapi-auth-2fa-enable">
@@ -1099,11 +1099,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"client_id\": \"occaecati\",
-    \"redirect_uri\": \"http:\\/\\/bergnaum.com\\/et-assumenda-cumque-aut\",
+    \"client_id\": \"consectetur\",
+    \"redirect_uri\": \"http:\\/\\/www.rutherford.com\\/voluptatem-voluptatem-reprehenderit-autem-amet\",
     \"response_type\": \"code\",
-    \"scope\": \"eum\",
-    \"state\": \"nisi\"
+    \"scope\": \"deserunt\",
+    \"state\": \"quia\"
 }"
 </code></pre></div>
 
@@ -1129,11 +1129,11 @@ const headers = {
 };
 
 let body = {
-    "client_id": "occaecati",
-    "redirect_uri": "http:\/\/bergnaum.com\/et-assumenda-cumque-aut",
+    "client_id": "consectetur",
+    "redirect_uri": "http:\/\/www.rutherford.com\/voluptatem-voluptatem-reprehenderit-autem-amet",
     "response_type": "code",
-    "scope": "eum",
-    "state": "nisi"
+    "scope": "deserunt",
+    "state": "quia"
 };
 
 fetch(url, {
@@ -1337,10 +1337,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="client_id"                data-endpoint="GETapi-oauth-authorize"
-               value="occaecati"
+               value="consectetur"
                data-component="body">
     <br>
-<p>Example: <code>occaecati</code></p>
+<p>Example: <code>consectetur</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>redirect_uri</code></b>&nbsp;&nbsp;
@@ -1348,10 +1348,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="redirect_uri"                data-endpoint="GETapi-oauth-authorize"
-               value="http://bergnaum.com/et-assumenda-cumque-aut"
+               value="http://www.rutherford.com/voluptatem-voluptatem-reprehenderit-autem-amet"
                data-component="body">
     <br>
-<p>Must be a valid URL. Example: <code>http://bergnaum.com/et-assumenda-cumque-aut</code></p>
+<p>Must be a valid URL. Example: <code>http://www.rutherford.com/voluptatem-voluptatem-reprehenderit-autem-amet</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>response_type</code></b>&nbsp;&nbsp;
@@ -1372,10 +1372,10 @@ Must be one of:
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="scope"                data-endpoint="GETapi-oauth-authorize"
-               value="eum"
+               value="deserunt"
                data-component="body">
     <br>
-<p>Example: <code>eum</code></p>
+<p>Example: <code>deserunt</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>state</code></b>&nbsp;&nbsp;
@@ -1383,10 +1383,10 @@ Must be one of:
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="state"                data-endpoint="GETapi-oauth-authorize"
-               value="nisi"
+               value="quia"
                data-component="body">
     <br>
-<p>Example: <code>nisi</code></p>
+<p>Example: <code>quia</code></p>
         </div>
         </form>
 
@@ -1715,14 +1715,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost:8000/api/users/me/sessions/magni" \
+    "http://localhost:8000/api/users/me/sessions/officiis" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/users/me/sessions/magni"
+    "http://localhost:8000/api/users/me/sessions/officiis"
 );
 
 const headers = {
@@ -1815,14 +1815,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="id"                data-endpoint="DELETEapi-users-me-sessions--id-"
-               value="magni"
+               value="officiis"
                data-component="url">
     <br>
-<p>The ID of the session. Example: <code>magni</code></p>
+<p>The ID of the session. Example: <code>officiis</code></p>
             </div>
                     </form>
 
-                <h1 id="two-factor-authentication">Two Factor Authentication</h1>
+                <h1 id="two-factor-authentication">Two-Factor Authentication</h1>
 
     <p>APIs for managing 2FA</p>
 
@@ -1831,7 +1831,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>
 </p>
 
-<p>Start the 2FA setup process.</p>
+<p>Start the 2FA setup process. Returns a QR code and backup codes.</p>
 
 <span id="example-requests-POSTapi-auth-2fa-enable">
 <blockquote>Example request:</blockquote>
@@ -1862,7 +1862,26 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-auth-2fa-enable">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: null,
+  &quot;data&quot;: {
+    &quot;secret&quot;: &quot;4MTR3GAUEBK2MHDN&quot;,
+    &quot;qr_code&quot;: &quot;data:image/svg+xml;base64,...&quot;,
+    &quot;recovery_codes&quot;: [
+      &quot;8c32180b485b674cd980&quot;,
+      &quot;8cdb2b3d6912b995db41&quot;,
+      ...
+    ]
+  }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-auth-2fa-enable" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-auth-2fa-enable"></span>:
@@ -1939,7 +1958,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>
 </p>
 
-<p>Verify and complete the 2FA setup.</p>
+<p>Verify and complete the 2FA setup by confirming the verification code.</p>
 
 <span id="example-requests-POSTapi-auth-2fa-verify">
 <blockquote>Example request:</blockquote>
@@ -1951,7 +1970,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"code\": \"mfbnup\"
+    \"code\": \"123456\"
 }"
 </code></pre></div>
 
@@ -1967,7 +1986,7 @@ const headers = {
 };
 
 let body = {
-    "code": "mfbnup"
+    "code": "123456"
 };
 
 fetch(url, {
@@ -1979,7 +1998,18 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-auth-2fa-verify">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;message&quot;: &quot;2FA enabled successfully&quot;,
+    &quot;data&quot;: null
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-auth-2fa-verify" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-auth-2fa-verify"></span>:
@@ -2056,10 +2086,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="code"                data-endpoint="POSTapi-auth-2fa-verify"
-               value="mfbnup"
+               value="123456"
                data-component="body">
     <br>
-<p>Must be 6 characters. Example: <code>mfbnup</code></p>
+<p>The 6-digit verification code from your authenticator app. Example: <code>123456</code></p>
         </div>
         </form>
 
@@ -2068,7 +2098,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>
 </p>
 
-<p>Disable two-factor authentication for the user.</p>
+<p>Disable two-factor authentication for the authenticated user.</p>
 
 <span id="example-requests-POSTapi-auth-2fa-disable">
 <blockquote>Example request:</blockquote>
@@ -2080,8 +2110,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"current_password\": \"voluptatem\",
-    \"code\": \"gaqseu\"
+    \"password\": \"Test123!@#$%^&amp;*\",
+    \"code\": \"123456\"
 }"
 </code></pre></div>
 
@@ -2097,8 +2127,8 @@ const headers = {
 };
 
 let body = {
-    "current_password": "voluptatem",
-    "code": "gaqseu"
+    "password": "Test123!@#$%^&amp;*",
+    "code": "123456"
 };
 
 fetch(url, {
@@ -2110,7 +2140,18 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-auth-2fa-disable">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;message&quot;: &quot;2FA disabled successfully&quot;,
+    &quot;data&quot;: null
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-auth-2fa-disable" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-auth-2fa-disable"></span>:
@@ -2182,15 +2223,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                                 <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>current_password</code></b>&nbsp;&nbsp;
+            <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="current_password"                data-endpoint="POSTapi-auth-2fa-disable"
-               value="voluptatem"
+                              name="password"                data-endpoint="POSTapi-auth-2fa-disable"
+               value="Test123!@#$%^&*"
                data-component="body">
     <br>
-<p>Example: <code>voluptatem</code></p>
+<p>The current password of the user. Example: <code>Test123!@#$%^&amp;*</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>code</code></b>&nbsp;&nbsp;
@@ -2198,10 +2239,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="code"                data-endpoint="POSTapi-auth-2fa-disable"
-               value="gaqseu"
+               value="123456"
                data-component="body">
     <br>
-<p>Must be 6 characters. Example: <code>gaqseu</code></p>
+<p>The 6-digit verification code from your authenticator app. Example: <code>123456</code></p>
         </div>
         </form>
 
@@ -2210,7 +2251,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>
 </p>
 
-<p>Get the list of backup codes.</p>
+<p>Get the list of backup codes for the authenticated user.</p>
 
 <span id="example-requests-GETapi-auth-2fa-backup-codes">
 <blockquote>Example request:</blockquote>
@@ -2242,28 +2283,20 @@ fetch(url, {
 
 <span id="example-responses-GETapi-auth-2fa-backup-codes">
             <blockquote>
-            <p>Example response (401):</p>
+            <p>Example response (200):</p>
         </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-x-ratelimit-limit: 60
-x-ratelimit-remaining: 58
-access-control-allow-origin: *
-x-content-type-options: nosniff
-x-frame-options: DENY
-x-xss-protection: 1; mode=block
-strict-transport-security: max-age=31536000; includeSubDomains; preload
-content-security-policy: default-src &#039;self&#039;; script-src &#039;self&#039; &#039;unsafe-inline&#039; &#039;unsafe-eval&#039;; style-src &#039;self&#039; &#039;unsafe-inline&#039;; img-src &#039;self&#039; data:; font-src &#039;self&#039; data:; connect-src &#039;self&#039;;
-referrer-policy: strict-origin-when-cross-origin
-permissions-policy: camera=(), microphone=(), geolocation=(), payment=()
- </code></pre></details>         <pre>
+                <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Unauthenticated&quot;
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: null,
+  &quot;data&quot;: {
+    &quot;codes&quot;: [
+      &quot;8c32180b485b674cd980&quot;,
+      &quot;8cdb2b3d6912b995db41&quot;,
+      ...
+    ]
+  }
 }</code>
  </pre>
     </span>
@@ -2343,7 +2376,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>
 </p>
 
-<p>Generate new backup codes.</p>
+<p>Generate new backup codes for the authenticated user. Previous backup codes will be invalidated.</p>
 
 <span id="example-requests-POSTapi-auth-2fa-regenerate-backup-codes">
 <blockquote>Example request:</blockquote>
@@ -2374,7 +2407,24 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-auth-2fa-regenerate-backup-codes">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;message&quot;: null,
+  &quot;data&quot;: {
+    &quot;codes&quot;: [
+      &quot;8c32180b485b674cd980&quot;,
+      &quot;8cdb2b3d6912b995db41&quot;,
+      ...
+    ]
+  }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-auth-2fa-regenerate-backup-codes" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-auth-2fa-regenerate-backup-codes"></span>:

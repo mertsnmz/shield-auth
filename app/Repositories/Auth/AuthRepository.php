@@ -4,9 +4,10 @@ namespace App\Repositories\Auth;
 
 use App\Models\User;
 use App\Models\Session;
+use App\Interfaces\Auth\IAuthRepository;
 use Illuminate\Support\Collection;
 
-class AuthRepository
+class AuthRepository implements IAuthRepository
 {
     public function findUserByEmail(string $email): ?User
     {

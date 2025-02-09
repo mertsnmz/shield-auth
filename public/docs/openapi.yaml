@@ -524,12 +524,12 @@ paths:
                 client_id:
                   type: string
                   description: ''
-                  example: occaecati
+                  example: consectetur
                   nullable: false
                 redirect_uri:
                   type: string
                   description: 'Must be a valid URL.'
-                  example: 'http://bergnaum.com/et-assumenda-cumque-aut'
+                  example: 'http://www.rutherford.com/voluptatem-voluptatem-reprehenderit-autem-amet'
                   nullable: false
                 response_type:
                   type: string
@@ -541,12 +541,12 @@ paths:
                 scope:
                   type: string
                   description: ''
-                  example: eum
+                  example: deserunt
                   nullable: false
                 state:
                   type: string
                   description: ''
-                  example: nisi
+                  example: quia
                   nullable: false
               required:
                 - client_id
@@ -636,7 +636,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the session.'
-        example: magni
+        example: officiis
         required: true
         schema:
           type: string
@@ -644,21 +644,48 @@ paths:
     post:
       summary: 'Enable 2FA.'
       operationId: enable2FA
-      description: 'Start the 2FA setup process.'
+      description: 'Start the 2FA setup process. Returns a QR code and backup codes.'
       parameters: []
-      responses: {  }
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\n  \"status\": \"success\",\n  \"message\": null,\n  \"data\": {\n    \"secret\": \"4MTR3GAUEBK2MHDN\",\n    \"qr_code\": \"data:image/svg+xml;base64,...\",\n    \"recovery_codes\": [\n      \"8c32180b485b674cd980\",\n      \"8cdb2b3d6912b995db41\",\n      ...\n    ]\n  }\n}"
       tags:
-        - 'Two Factor Authentication'
+        - 'Two-Factor Authentication'
       security: []
   /api/auth/2fa/verify:
     post:
       summary: 'Verify 2FA.'
       operationId: verify2FA
-      description: 'Verify and complete the 2FA setup.'
+      description: 'Verify and complete the 2FA setup by confirming the verification code.'
       parameters: []
-      responses: {  }
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  message: '2FA enabled successfully'
+                  data: null
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: '2FA enabled successfully'
+                  data:
+                    type: string
+                    example: null
       tags:
-        - 'Two Factor Authentication'
+        - 'Two-Factor Authentication'
       requestBody:
         required: true
         content:
@@ -668,8 +695,8 @@ paths:
               properties:
                 code:
                   type: string
-                  description: 'Must be 6 characters.'
-                  example: mfbnup
+                  description: 'The 6-digit verification code from your authenticator app.'
+                  example: '123456'
                   nullable: false
               required:
                 - code
@@ -678,11 +705,31 @@ paths:
     post:
       summary: 'Disable 2FA.'
       operationId: disable2FA
-      description: 'Disable two-factor authentication for the user.'
+      description: 'Disable two-factor authentication for the authenticated user.'
       parameters: []
-      responses: {  }
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: success
+                  message: '2FA disabled successfully'
+                  data: null
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: '2FA disabled successfully'
+                  data:
+                    type: string
+                    example: null
       tags:
-        - 'Two Factor Authentication'
+        - 'Two-Factor Authentication'
       requestBody:
         required: true
         content:
@@ -690,51 +737,53 @@ paths:
             schema:
               type: object
               properties:
-                current_password:
+                password:
                   type: string
-                  description: ''
-                  example: voluptatem
+                  description: 'The current password of the user.'
+                  example: 'Test123!@#$%^&*'
                   nullable: false
                 code:
                   type: string
-                  description: 'Must be 6 characters.'
-                  example: gaqseu
+                  description: 'The 6-digit verification code from your authenticator app.'
+                  example: '123456'
                   nullable: false
               required:
-                - current_password
+                - password
                 - code
       security: []
   /api/auth/2fa/backup-codes:
     get:
       summary: 'Get Backup Codes.'
       operationId: getBackupCodes
-      description: 'Get the list of backup codes.'
+      description: 'Get the list of backup codes for the authenticated user.'
       parameters: []
       responses:
-        401:
+        200:
           description: ''
           content:
-            application/json:
+            text/plain:
               schema:
-                type: object
-                example:
-                  message: Unauthenticated
-                properties:
-                  message:
-                    type: string
-                    example: Unauthenticated
+                type: string
+                example: "{\n  \"status\": \"success\",\n  \"message\": null,\n  \"data\": {\n    \"codes\": [\n      \"8c32180b485b674cd980\",\n      \"8cdb2b3d6912b995db41\",\n      ...\n    ]\n  }\n}"
       tags:
-        - 'Two Factor Authentication'
+        - 'Two-Factor Authentication'
       security: []
   /api/auth/2fa/regenerate-backup-codes:
     post:
       summary: 'Regenerate Backup Codes.'
       operationId: regenerateBackupCodes
-      description: 'Generate new backup codes.'
+      description: 'Generate new backup codes for the authenticated user. Previous backup codes will be invalidated.'
       parameters: []
-      responses: {  }
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "{\n  \"status\": \"success\",\n  \"message\": null,\n  \"data\": {\n    \"codes\": [\n      \"8c32180b485b674cd980\",\n      \"8cdb2b3d6912b995db41\",\n      ...\n    ]\n  }\n}"
       tags:
-        - 'Two Factor Authentication'
+        - 'Two-Factor Authentication'
       security: []
   /api/auth/password/forgot:
     post:
@@ -1071,7 +1120,7 @@ tags:
     name: 'Session Management'
     description: "\nAPIs for managing user sessions"
   -
-    name: 'Two Factor Authentication'
+    name: 'Two-Factor Authentication'
     description: "\nAPIs for managing 2FA"
   -
     name: 'User Management'

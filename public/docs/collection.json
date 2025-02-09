@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Shield Auth",
-        "_postman_id": "ee18c9eb-9f3f-4a15-a60c-297fcd9d7d8d",
+        "_postman_id": "28c3f6b0-255f-4714-af64-8118e06298d1",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -286,7 +286,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"client_id\":\"occaecati\",\"redirect_uri\":\"http:\\\/\\\/bergnaum.com\\\/et-assumenda-cumque-aut\",\"response_type\":\"code\",\"scope\":\"eum\",\"state\":\"nisi\"}"
+                            "raw": "{\"client_id\":\"consectetur\",\"redirect_uri\":\"http:\\\/\\\/www.rutherford.com\\\/voluptatem-voluptatem-reprehenderit-autem-amet\",\"response_type\":\"code\",\"scope\":\"deserunt\",\"state\":\"quia\"}"
                         },
                         "description": "First step of Authorization Code flow. Shows authorization form to the user.",
                         "auth": {
@@ -466,7 +466,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "magni",
+                                    "value": "officiis",
                                     "description": "The ID of the session."
                                 }
                             ]
@@ -493,7 +493,7 @@
             ]
         },
         {
-            "name": "Two Factor Authentication",
+            "name": "Two-Factor Authentication",
             "description": "\nAPIs for managing 2FA",
             "item": [
                 {
@@ -517,12 +517,19 @@
                             }
                         ],
                         "body": null,
-                        "description": "Start the 2FA setup process.",
+                        "description": "Start the 2FA setup process. Returns a QR code and backup codes.",
                         "auth": {
                             "type": "noauth"
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"status\": \"success\",\n  \"message\": null,\n  \"data\": {\n    \"secret\": \"4MTR3GAUEBK2MHDN\",\n    \"qr_code\": \"data:image\/svg+xml;base64,...\",\n    \"recovery_codes\": [\n      \"8c32180b485b674cd980\",\n      \"8cdb2b3d6912b995db41\",\n      ...\n    ]\n  }\n}",
+                            "name": ""
+                        }
+                    ]
                 },
                 {
                     "name": "Verify 2FA.",
@@ -546,14 +553,21 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"code\":\"mfbnup\"}"
+                            "raw": "{\"code\":\"123456\"}"
                         },
-                        "description": "Verify and complete the 2FA setup.",
+                        "description": "Verify and complete the 2FA setup by confirming the verification code.",
                         "auth": {
                             "type": "noauth"
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"status\": \"success\",\n  \"message\": \"2FA enabled successfully\",\n  \"data\": null\n}",
+                            "name": ""
+                        }
+                    ]
                 },
                 {
                     "name": "Disable 2FA.",
@@ -577,14 +591,21 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"current_password\":\"voluptatem\",\"code\":\"gaqseu\"}"
+                            "raw": "{\"password\":\"Test123!@#$%^&*\",\"code\":\"123456\"}"
                         },
-                        "description": "Disable two-factor authentication for the user.",
+                        "description": "Disable two-factor authentication for the authenticated user.",
                         "auth": {
                             "type": "noauth"
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"status\": \"success\",\n  \"message\": \"2FA disabled successfully\",\n  \"data\": null\n}",
+                            "name": ""
+                        }
+                    ]
                 },
                 {
                     "name": "Get Backup Codes.",
@@ -607,65 +628,16 @@
                             }
                         ],
                         "body": null,
-                        "description": "Get the list of backup codes.",
+                        "description": "Get the list of backup codes for the authenticated user.",
                         "auth": {
                             "type": "noauth"
                         }
                     },
                     "response": [
                         {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "x-ratelimit-limit",
-                                    "value": "60"
-                                },
-                                {
-                                    "key": "x-ratelimit-remaining",
-                                    "value": "58"
-                                },
-                                {
-                                    "key": "access-control-allow-origin",
-                                    "value": "*"
-                                },
-                                {
-                                    "key": "x-content-type-options",
-                                    "value": "nosniff"
-                                },
-                                {
-                                    "key": "x-frame-options",
-                                    "value": "DENY"
-                                },
-                                {
-                                    "key": "x-xss-protection",
-                                    "value": "1; mode=block"
-                                },
-                                {
-                                    "key": "strict-transport-security",
-                                    "value": "max-age=31536000; includeSubDomains; preload"
-                                },
-                                {
-                                    "key": "content-security-policy",
-                                    "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self';"
-                                },
-                                {
-                                    "key": "referrer-policy",
-                                    "value": "strict-origin-when-cross-origin"
-                                },
-                                {
-                                    "key": "permissions-policy",
-                                    "value": "camera=(), microphone=(), geolocation=(), payment=()"
-                                }
-                            ],
-                            "code": 401,
-                            "body": "{\"message\":\"Unauthenticated\"}",
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"status\": \"success\",\n  \"message\": null,\n  \"data\": {\n    \"codes\": [\n      \"8c32180b485b674cd980\",\n      \"8cdb2b3d6912b995db41\",\n      ...\n    ]\n  }\n}",
                             "name": ""
                         }
                     ]
@@ -691,12 +663,19 @@
                             }
                         ],
                         "body": null,
-                        "description": "Generate new backup codes.",
+                        "description": "Generate new backup codes for the authenticated user. Previous backup codes will be invalidated.",
                         "auth": {
                             "type": "noauth"
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"status\": \"success\",\n  \"message\": null,\n  \"data\": {\n    \"codes\": [\n      \"8c32180b485b674cd980\",\n      \"8cdb2b3d6912b995db41\",\n      ...\n    ]\n  }\n}",
+                            "name": ""
+                        }
+                    ]
                 }
             ]
         },

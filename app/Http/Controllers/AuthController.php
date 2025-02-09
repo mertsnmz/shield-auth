@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
-use App\Services\Auth\AuthService;
+use App\Interfaces\Auth\IAuthService;
 use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Exception;
@@ -19,7 +19,7 @@ class AuthController extends Controller
     use ApiResponse;
 
     public function __construct(
-        private readonly AuthService $authService
+        private readonly IAuthService $authService
     ) {
     }
 
