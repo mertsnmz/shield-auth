@@ -13,7 +13,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             background-color: #0f172a;
             font-family: 'Poppins', sans-serif;
             color: #ffffff;
@@ -21,6 +21,8 @@
         .container {
             text-align: center;
             padding: 2rem;
+            max-width: 1200px;
+            width: 100%;
         }
         .title {
             font-size: 50px;
@@ -45,12 +47,17 @@
             margin-top: 2rem;
             opacity: 0;
             animation: fadeIn 1s ease-in-out 1s forwards;
+            flex-wrap: wrap;
         }
         .feature {
             background: rgba(255, 255, 255, 0.05);
             padding: 1rem;
             border-radius: 8px;
             width: 180px;
+            transition: transform 0.3s ease;
+        }
+        .feature:hover {
+            transform: translateY(-5px);
         }
         .feature-icon {
             font-size: 24px;
@@ -59,6 +66,38 @@
         .feature-text {
             font-size: 14px;
             color: #94a3b8;
+        }
+        .docs-section {
+            margin-top: 3rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out 1.5s forwards;
+        }
+        .docs-title {
+            font-size: 24px;
+            color: #60a5fa;
+            margin-bottom: 1rem;
+        }
+        .docs-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .docs-link {
+            background: rgba(59, 130, 246, 0.1);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            color: #60a5fa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        .docs-link:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateY(-2px);
+        }
+        .docs-link-icon {
+            margin-right: 0.5rem;
         }
         @keyframes fadeIn {
             from {
@@ -109,6 +148,28 @@
         <div class="feature">
             <div class="feature-icon">🔑</div>
             <div class="feature-text">OAuth2 Integration</div>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🛡️</div>
+            <div class="feature-text">Advanced Security Features</div>
+        </div>
+    </div>
+
+    <div class="docs-section">
+        <div class="docs-title">API Documentation</div>
+        <div class="docs-links">
+            <a href="/docs/" class="docs-link">
+                <span class="docs-link-icon">📚</span>
+                Interactive Docs
+            </a>
+            <a href="/docs/collection.json" class="docs-link">
+                <span class="docs-link-icon">🔄</span>
+                Postman Collection
+            </a>
+            <a href="/docs/openapi.yaml" class="docs-link">
+                <span class="docs-link-icon">📋</span>
+                OpenAPI Spec
+            </a>
         </div>
     </div>
 
