@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'auth.session' => App\Http\Middleware\AuthenticateSession::class,
             'throttle' => App\Http\Middleware\RateLimiter::class,
+            'oauth.jwt' => App\Http\Middleware\ValidateJWTToken::class,
         ]);
 
         $middleware->use([

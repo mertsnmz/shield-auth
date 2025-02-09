@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use App\Services\JWT\JWTService;
 
 /**
  * @group OAuth2 Authentication
@@ -27,6 +28,11 @@ class OAuthController extends Controller
     private const ACCESS_TOKEN_LIFETIME = 3600; // 1 hour
     private const REFRESH_TOKEN_LIFETIME = 1209600; // 14 days
     private const AUTH_CODE_LIFETIME = 600; // 10 minutes
+
+    public function __construct(
+        private readonly JWTService $jwtService
+    ) {
+    }
 
     /**
      * Issue Token.
@@ -264,12 +270,20 @@ class OAuthController extends Controller
         // Revoke used authorization code
         $authCode->update(['revoked' => true]);
 
+        // Get JWT token
+        $token = $this->jwtService->createToken([
+            'jti' => $accessToken->access_token,
+            'sub' => $accessToken->user_id,
+            'aud' => $accessToken->client_id,
+            'scope' => $accessToken->scopes,
+        ], self::ACCESS_TOKEN_LIFETIME);
+
         return response()->json([
             'token_type' => 'Bearer',
             'expires_in' => self::ACCESS_TOKEN_LIFETIME,
-            'access_token' => $accessToken->access_token,
+            'access_token' => $token,
             'refresh_token' => $refreshToken->id,
-            'scope' => $accessToken->scope,
+            'scope' => $accessToken->scopes,
         ]);
     }
 
@@ -299,8 +313,8 @@ class OAuthController extends Controller
         return response()->json([
             'token_type' => 'Bearer',
             'expires_in' => self::ACCESS_TOKEN_LIFETIME,
-            'access_token' => $accessToken->access_token,
-            'scope' => $accessToken->scope,
+            'access_token' => $accessToken['access_token'],
+            'scope' => $accessToken['scope'],
         ]);
     }
 
@@ -362,20 +376,29 @@ class OAuthController extends Controller
         return response()->json([
             'token_type' => 'Bearer',
             'expires_in' => self::ACCESS_TOKEN_LIFETIME,
-            'access_token' => $accessToken->access_token,
+            'access_token' => $accessToken['access_token'],
             'refresh_token' => $newRefreshToken->id,
-            'scope' => $accessToken->scope,
+            'scope' => $accessToken['scope'],
         ]);
     }
 
-    private function createAccessToken(OAuthClient $client, ?int $userId, ?string $scope): OAuthAccessToken
+    private function createAccessToken(OAuthClient $client, ?int $userId = null, ?string $scope = null): OAuthAccessToken
     {
+        $jti = Str::random(40);
+        $token = $this->jwtService->createToken([
+            'jti' => $jti,
+            'sub' => $userId,
+            'aud' => $client->client_id,
+            'scope' => $scope,
+        ], self::ACCESS_TOKEN_LIFETIME);
+
         return OAuthAccessToken::create([
-            'access_token' => Str::random(40),
+            'access_token' => $jti,
             'client_id' => $client->client_id,
             'user_id' => $userId,
-            'expires' => now()->addSeconds(self::ACCESS_TOKEN_LIFETIME),
-            'scope' => $scope,
+            'scopes' => $scope,
+            'revoked' => false,
+            'expires_at' => now()->addSeconds(self::ACCESS_TOKEN_LIFETIME),
         ]);
     }
 
@@ -442,8 +465,12 @@ class OAuthController extends Controller
             ], 401);
         }
 
+        // Try to parse as JWT token first
+        $jwtToken = $this->jwtService->validateToken($request->token);
+        $accessTokenId = $jwtToken ? $this->jwtService->getJtiFromToken($jwtToken) : $request->token;
+
         // Find access token
-        $accessToken = OAuthAccessToken::where('access_token', $request->token)
+        $accessToken = OAuthAccessToken::where('access_token', $accessTokenId)
             ->where('client_id', $client->client_id)
             ->first();
 

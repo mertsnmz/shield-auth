@@ -14,12 +14,10 @@ class CleanOAuthTokens extends Command
     {
         $this->info('Cleaning expired OAuth tokens...');
 
-        // Clean expired access tokens
         $expiredTokens = DB::table('oauth_access_tokens')
-            ->where('expires', '<', now())
+            ->where('expires_at', '<', now())
             ->update(['revoked' => true]);
 
-        // Clean expired refresh tokens
         $expiredRefreshTokens = DB::table('oauth_refresh_tokens')
             ->where('expires_at', '<', now())
             ->update(['revoked' => true]);

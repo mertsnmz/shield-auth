@@ -14,13 +14,13 @@ class OAuthAccessToken extends Model
         'access_token',
         'client_id',
         'user_id',
-        'expires',
+        'expires_at',
         'scope',
         'revoked',
     ];
 
     protected $casts = [
-        'expires' => 'datetime',
+        'expires_at' => 'datetime',
         'revoked' => 'boolean',
     ];
 
