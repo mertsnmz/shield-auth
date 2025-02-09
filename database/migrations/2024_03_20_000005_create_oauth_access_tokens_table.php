@@ -12,7 +12,7 @@ return new class () extends Migration {
             $table->string('access_token', 40)->unique();
             $table->string('client_id', 80);
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
-            $table->timestamp('expires');
+            $table->timestamp('expires_at');
             $table->string('scope', 4000)->nullable();
             $table->boolean('revoked')->default(false);
             $table->timestamps();
