@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Shield Auth",
-        "_postman_id": "9c46aa38-1c56-4020-88f7-55d8fcba3de9",
+        "_postman_id": "ee18c9eb-9f3f-4a15-a60c-297fcd9d7d8d",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -286,7 +286,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"client_id\":\"non\",\"redirect_uri\":\"http:\\\/\\\/kautzer.com\\\/\",\"response_type\":\"code\",\"scope\":\"adipisci\",\"state\":\"aliquam\"}"
+                            "raw": "{\"client_id\":\"occaecati\",\"redirect_uri\":\"http:\\\/\\\/bergnaum.com\\\/et-assumenda-cumque-aut\",\"response_type\":\"code\",\"scope\":\"eum\",\"state\":\"nisi\"}"
                         },
                         "description": "First step of Authorization Code flow. Shows authorization form to the user.",
                         "auth": {
@@ -466,7 +466,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "harum",
+                                    "value": "magni",
                                     "description": "The ID of the session."
                                 }
                             ]
@@ -546,7 +546,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"code\":\"yfitvk\"}"
+                            "raw": "{\"code\":\"mfbnup\"}"
                         },
                         "description": "Verify and complete the 2FA setup.",
                         "auth": {
@@ -577,7 +577,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"current_password\":\"dolorem\",\"code\":\"eirsps\"}"
+                            "raw": "{\"current_password\":\"voluptatem\",\"code\":\"gaqseu\"}"
                         },
                         "description": "Disable two-factor authentication for the user.",
                         "auth": {

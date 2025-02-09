@@ -14,11 +14,13 @@ class UpdateProfileRequest extends FormRequest
 
     public function rules(): array
     {
+        $userId = $this->user() ? $this->user()->id : null;
+        
         return [
             'email' => [
                 'sometimes',
                 'email',
-                Rule::unique('users')->ignore($this->user()->id),
+                Rule::unique('users')->ignore($userId),
             ],
         ];
     }
@@ -28,6 +30,16 @@ class UpdateProfileRequest extends FormRequest
         return [
             'email.email' => 'Please enter a valid email address',
             'email.unique' => 'This email address is already in use',
+        ];
+    }
+
+    public function bodyParameters(): array
+    {
+        return [
+            'email' => [
+                'description' => 'The new email address for the user',
+                'example' => 'newuser@example.com'
+            ]
         ];
     }
 } 

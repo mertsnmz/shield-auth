@@ -64,14 +64,14 @@ endpoints:
         name: code
         description: 'Must be 6 characters.'
         required: true
-        example: yfitvk
+        example: mfbnup
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         custom: []
     cleanBodyParameters:
-      code: yfitvk
+      code: mfbnup
     fileParameters: []
     responses: []
     responseFields: []
@@ -107,7 +107,7 @@ endpoints:
         name: current_password
         description: ''
         required: true
-        example: dolorem
+        example: voluptatem
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -117,15 +117,15 @@ endpoints:
         name: code
         description: 'Must be 6 characters.'
         required: true
-        example: eirsps
+        example: gaqseu
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         custom: []
     cleanBodyParameters:
-      current_password: dolorem
-      code: eirsps
+      current_password: voluptatem
+      code: gaqseu
     fileParameters: []
     responses: []
     responseFields: []
