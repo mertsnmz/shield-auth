@@ -1,4 +1,4 @@
-name: 'Two Factor Authentication'
+name: 'Two-Factor Authentication'
 description: |-
 
   APIs for managing 2FA
@@ -8,143 +8,14 @@ endpoints:
       - POST
     uri: api/auth/2fa/enable
     metadata:
-      groupName: 'Two Factor Authentication'
+      groupName: 'Two-Factor Authentication'
       groupDescription: |-
 
         APIs for managing 2FA
       subgroup: ''
       subgroupDescription: ''
       title: 'Enable 2FA.'
-      description: 'Start the 2FA setup process.'
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - POST
-    uri: api/auth/2fa/verify
-    metadata:
-      groupName: 'Two Factor Authentication'
-      groupDescription: |-
-
-        APIs for managing 2FA
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Verify 2FA.'
-      description: 'Verify and complete the 2FA setup.'
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      code:
-        name: code
-        description: 'Must be 6 characters.'
-        required: true
-        example: mfbnup
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        custom: []
-    cleanBodyParameters:
-      code: mfbnup
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - POST
-    uri: api/auth/2fa/disable
-    metadata:
-      groupName: 'Two Factor Authentication'
-      groupDescription: |-
-
-        APIs for managing 2FA
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Disable 2FA.'
-      description: 'Disable two-factor authentication for the user.'
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      current_password:
-        name: current_password
-        description: ''
-        required: true
-        example: voluptatem
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        custom: []
-      code:
-        name: code
-        description: 'Must be 6 characters.'
-        required: true
-        example: gaqseu
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        custom: []
-    cleanBodyParameters:
-      current_password: voluptatem
-      code: gaqseu
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - GET
-    uri: api/auth/2fa/backup-codes
-    metadata:
-      groupName: 'Two Factor Authentication'
-      groupDescription: |-
-
-        APIs for managing 2FA
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Get Backup Codes.'
-      description: 'Get the list of backup codes.'
+      description: 'Start the 2FA setup process. Returns a QR code and backup codes.'
       authenticated: false
       custom: []
     headers:
@@ -159,22 +30,23 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 401
-        content: '{"message":"Unauthenticated"}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '58'
-          access-control-allow-origin: '*'
-          x-content-type-options: nosniff
-          x-frame-options: DENY
-          x-xss-protection: '1; mode=block'
-          strict-transport-security: 'max-age=31536000; includeSubDomains; preload'
-          content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self';"
-          referrer-policy: strict-origin-when-cross-origin
-          permissions-policy: 'camera=(), microphone=(), geolocation=(), payment=()'
-        description: null
+        status: 200
+        content: |-
+          {
+            "status": "success",
+            "message": null,
+            "data": {
+              "secret": "4MTR3GAUEBK2MHDN",
+              "qr_code": "data:image/svg+xml;base64,...",
+              "recovery_codes": [
+                "8c32180b485b674cd980",
+                "8cdb2b3d6912b995db41",
+                ...
+              ]
+            }
+          }
+        headers: []
+        description: ''
         custom: []
     responseFields: []
     auth: []
@@ -185,16 +57,135 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/auth/2fa/regenerate-backup-codes
+    uri: api/auth/2fa/verify
     metadata:
-      groupName: 'Two Factor Authentication'
+      groupName: 'Two-Factor Authentication'
       groupDescription: |-
 
         APIs for managing 2FA
       subgroup: ''
       subgroupDescription: ''
-      title: 'Regenerate Backup Codes.'
-      description: 'Generate new backup codes.'
+      title: 'Verify 2FA.'
+      description: 'Verify and complete the 2FA setup by confirming the verification code.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      code:
+        name: code
+        description: 'The 6-digit verification code from your authenticator app.'
+        required: true
+        example: '123456'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      code: '123456'
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "status": "success",
+            "message": "2FA enabled successfully",
+            "data": null
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/auth/2fa/disable
+    metadata:
+      groupName: 'Two-Factor Authentication'
+      groupDescription: |-
+
+        APIs for managing 2FA
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Disable 2FA.'
+      description: 'Disable two-factor authentication for the authenticated user.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      password:
+        name: password
+        description: 'The current password of the user.'
+        required: true
+        example: 'Test123!@#$%^&*'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+      code:
+        name: code
+        description: 'The 6-digit verification code from your authenticator app.'
+        required: true
+        example: '123456'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      password: 'Test123!@#$%^&*'
+      code: '123456'
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "status": "success",
+            "message": "2FA disabled successfully",
+            "data": null
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/auth/2fa/backup-codes
+    metadata:
+      groupName: 'Two-Factor Authentication'
+      groupDescription: |-
+
+        APIs for managing 2FA
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get Backup Codes.'
+      description: 'Get the list of backup codes for the authenticated user.'
       authenticated: false
       custom: []
     headers:
@@ -207,7 +198,73 @@ endpoints:
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
-    responses: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "status": "success",
+            "message": null,
+            "data": {
+              "codes": [
+                "8c32180b485b674cd980",
+                "8cdb2b3d6912b995db41",
+                ...
+              ]
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/auth/2fa/regenerate-backup-codes
+    metadata:
+      groupName: 'Two-Factor Authentication'
+      groupDescription: |-
+
+        APIs for managing 2FA
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Regenerate Backup Codes.'
+      description: 'Generate new backup codes for the authenticated user. Previous backup codes will be invalidated.'
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "status": "success",
+            "message": null,
+            "data": {
+              "codes": [
+                "8c32180b485b674cd980",
+                "8cdb2b3d6912b995db41",
+                ...
+              ]
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
     responseFields: []
     auth: []
     controller: null

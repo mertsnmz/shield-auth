@@ -3,7 +3,8 @@
 namespace App\Services\TwoFactorAuth;
 
 use App\Models\User;
-use App\Repositories\TwoFactorAuth\TwoFactorAuthRepository;
+use App\Interfaces\TwoFactorAuth\ITwoFactorAuthService;
+use App\Interfaces\TwoFactorAuth\ITwoFactorAuthRepository;
 use Illuminate\Support\Facades\Hash;
 use PragmaRX\Google2FA\Google2FA;
 use BaconQrCode\Renderer\ImageRenderer;
@@ -12,7 +13,7 @@ use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
 use Exception;
 
-class TwoFactorAuthService
+class TwoFactorAuthService implements ITwoFactorAuthService
 {
     private const RECOVERY_CODES_COUNT = 8;
     private const QR_SIZE = 300;
@@ -20,7 +21,7 @@ class TwoFactorAuthService
     private Google2FA $google2fa;
 
     public function __construct(
-        private readonly TwoFactorAuthRepository $repository
+        private readonly ITwoFactorAuthRepository $repository
     ) {
         $this->google2fa = new Google2FA();
     }
@@ -51,7 +52,6 @@ class TwoFactorAuthService
             throw new Exception('2FA is not enabled', 400);
         }
 
-        // Check admin bypass
         if ($user->isAdmin()) {
             $this->repository->updateTwoFactorConfirmation($user);
             return;
@@ -74,7 +74,6 @@ class TwoFactorAuthService
             throw new Exception('Invalid password', 401);
         }
 
-        // Check admin bypass for 2FA code verification
         if (!$user->isAdmin() && !$this->verifyCode($user->two_factor_secret, $code)) {
             throw new Exception('Invalid 2FA code', 401);
         }

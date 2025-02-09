@@ -21,8 +21,8 @@ class VerifyRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'code.required' => 'Verification code is required',
-            'code.size' => 'Verification code must be 6 digits',
+            'code.required' => '2FA verification code is required',
+            'code.size' => '2FA verification code must be 6 digits',
         ];
     }
 }
