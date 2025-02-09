@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Services\PasswordPolicyService;
+use App\Http\Requests\User\UpdateProfileRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
@@ -80,18 +81,10 @@ class UserController extends Controller
      *   }
      * }
      */
-    public function update(Request $request): JsonResponse
+    public function update(UpdateProfileRequest $request): JsonResponse
     {
         $user = Auth::user();
-
-        $validated = $request->validate([
-            'email' => [
-                'sometimes',
-                'email',
-                Rule::unique('users')->ignore($user->id),
-            ],
-        ]);
-
+        $validated = $request->validated();
         $user->update($validated);
 
         return response()->json([

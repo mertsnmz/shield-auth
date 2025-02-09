@@ -7,6 +7,9 @@ use App\Models\OAuthClient;
 use App\Models\OAuthAccessToken;
 use App\Models\OAuthAuthCode;
 use App\Models\OAuthRefreshToken;
+use App\Http\Requests\OAuth\IssueTokenRequest;
+use App\Http\Requests\OAuth\AuthorizeRequest;
+use App\Http\Requests\OAuth\ApproveAuthorizationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -70,25 +73,13 @@ class OAuthController extends Controller
      *   "error_description": "The authorization code is invalid"
      * }
      */
-    public function issueToken(Request $request): JsonResponse
+    public function issueToken(IssueTokenRequest $request): JsonResponse
     {
-        // Validate basic requirements
-        $validator = Validator::make($request->all(), [
-            'grant_type' => ['required', 'string', 'in:authorization_code,client_credentials,refresh_token'],
-            'client_id' => ['required', 'string'],
-            'client_secret' => ['required', 'string'],
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'error' => 'invalid_request',
-                'error_description' => 'The request is missing a required parameter',
-            ], 400);
-        }
+        $validated = $request->validated();
 
         // Validate client credentials
-        $client = OAuthClient::where('client_id', $request->client_id)
-            ->where('client_secret', hash('sha256', $request->client_secret))
+        $client = OAuthClient::where('client_id', $validated['client_id'])
+            ->where('client_secret', hash('sha256', $validated['client_secret']))
             ->first();
 
         if (!$client) {
@@ -99,7 +90,7 @@ class OAuthController extends Controller
         }
 
         // Handle different grant types
-        return match($request->grant_type) {
+        return match($validated['grant_type']) {
             'authorization_code' => $this->handleAuthorizationCode($request, $client),
             'client_credentials' => $this->handleClientCredentials($request, $client),
             'refresh_token' => $this->handleRefreshToken($request, $client),
@@ -155,26 +146,13 @@ class OAuthController extends Controller
      *   "state": "xyz123"
      * }
      */
-    public function authorize(Request $request): JsonResponse
+    public function authorize(AuthorizeRequest $request): JsonResponse
     {
-        $validator = Validator::make($request->all(), [
-            'client_id' => ['required', 'string'],
-            'redirect_uri' => ['required', 'string', 'url'],
-            'response_type' => ['required', 'string', 'in:code'],
-            'scope' => ['sometimes', 'string'],
-            'state' => ['sometimes', 'string'],
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'error' => 'invalid_request',
-                'error_description' => 'The request is missing a required parameter',
-            ], 400);
-        }
+        $validated = $request->validated();
 
         // Get client
-        $client = OAuthClient::where('client_id', $request->client_id)
-            ->where('redirect_uri', $request->redirect_uri)
+        $client = OAuthClient::where('client_id', $validated['client_id'])
+            ->where('redirect_uri', $validated['redirect_uri'])
             ->first();
 
         if (!$client) {
@@ -214,29 +192,17 @@ class OAuthController extends Controller
      *
      * @response 302 Redirects to client's redirect_uri with authorization code
      */
-    public function approveAuthorization(Request $request): RedirectResponse
+    public function approveAuthorization(ApproveAuthorizationRequest $request): RedirectResponse
     {
-        $validator = Validator::make($request->all(), [
-            'client_id' => ['required', 'string'],
-            'redirect_uri' => ['required', 'string', 'url'],
-            'scope' => ['sometimes', 'string'],
-            'state' => ['sometimes', 'string'],
-        ]);
-
-        if ($validator->fails()) {
-            return redirect($request->redirect_uri . '?' . http_build_query([
-                'error' => 'invalid_request',
-                'error_description' => 'The request is missing a required parameter',
-            ]));
-        }
+        $validated = $request->validated();
 
         // Get client
-        $client = OAuthClient::where('client_id', $request->client_id)
-            ->where('redirect_uri', $request->redirect_uri)
+        $client = OAuthClient::where('client_id', $validated['client_id'])
+            ->where('redirect_uri', $validated['redirect_uri'])
             ->first();
 
         if (!$client) {
-            return redirect($request->redirect_uri . '?' . http_build_query([
+            return redirect($validated['redirect_uri'] . '?' . http_build_query([
                 'error' => 'invalid_client',
                 'error_description' => 'Client not found or redirect URI mismatch',
             ]));
@@ -247,15 +213,15 @@ class OAuthController extends Controller
             'id' => Str::random(40),
             'client_id' => $client->client_id,
             'user_id' => Auth::id(),
-            'scopes' => $request->scope,
+            'scopes' => $validated['scope'] ?? null,
             'revoked' => false,
             'expires_at' => now()->addSeconds(self::AUTH_CODE_LIFETIME),
-            'redirect_uri' => $request->redirect_uri,
+            'redirect_uri' => $validated['redirect_uri'],
         ]);
 
-        return redirect($request->redirect_uri . '?' . http_build_query([
+        return redirect($validated['redirect_uri'] . '?' . http_build_query([
             'code' => $authCode->id,
-            'state' => $request->state,
+            'state' => $validated['state'] ?? null,
         ]));
     }
 

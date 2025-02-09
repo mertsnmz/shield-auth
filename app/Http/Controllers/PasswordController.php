@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Services\PasswordPolicyService;
-use Illuminate\Http\Request;
+use App\Http\Requests\Password\ForgotPasswordRequest;
+use App\Http\Requests\Password\ResetPasswordRequest;
+use App\Http\Requests\Password\UpdatePasswordRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\JsonResponse;
 
@@ -44,7 +46,7 @@ class PasswordController extends Controller
      *   "message": "Password has expired"
      * }
      */
-    public function update(Request $request): JsonResponse
+    public function update(UpdatePasswordRequest $request): JsonResponse
     {
         $user = auth()->user();
 
@@ -56,13 +58,7 @@ class PasswordController extends Controller
             ], 400);
         }
 
-        $validated = $request->validate([
-            'current_password' => ['required'],
-            'password' => array_merge(
-                ['required', 'confirmed'],
-                [$this->passwordPolicy->getValidationRules()]
-            ),
-        ]);
+        $validated = $request->validated();
 
         if (!Hash::check($validated['current_password'], $user->password_hash)) {
             return response()->json([
@@ -102,12 +98,8 @@ class PasswordController extends Controller
      *   "message": "If the email exists in our system, a password reset link will be sent"
      * }
      */
-    public function forgot(Request $request): JsonResponse
+    public function forgot(ForgotPasswordRequest $request): JsonResponse
     {
-        $request->validate([
-            'email' => ['required', 'email'],
-        ]);
-
         // For security reasons, we always return the same response
         // regardless of whether the email exists or not
         return response()->json([
@@ -141,17 +133,10 @@ class PasswordController extends Controller
      *   "message": "Password was used before"
      * }
      */
-    public function reset(Request $request): JsonResponse
+    public function reset(ResetPasswordRequest $request): JsonResponse
     {
         $user = auth()->user();
-
-        $validated = $request->validate([
-            'current_password' => ['required'],
-            'password' => array_merge(
-                ['required', 'confirmed'],
-                [$this->passwordPolicy->getValidationRules()]
-            ),
-        ]);
+        $validated = $request->validated();
 
         if (!Hash::check($validated['current_password'], $user->password_hash)) {
             return response()->json([
