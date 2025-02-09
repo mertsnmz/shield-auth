@@ -83,7 +83,7 @@ class OAuthFlowTest extends TestCase
         $response->assertFound();
         $redirectUrl = $response->headers->get('Location');
         parse_str(parse_url($redirectUrl, PHP_URL_QUERY), $query);
-        
+
         return $query['code'];
     }
 

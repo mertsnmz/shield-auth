@@ -6,6 +6,7 @@ use App\Http\Requests\User\UpdateProfileRequest;
 use App\Interfaces\User\IUserService;
 use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
+use Exception;
 
 /**
  * @group User Management
@@ -49,7 +50,7 @@ class UserController extends Controller
     public function me(): JsonResponse
     {
         return $this->successResponse([
-            'user' => $this->userService->getProfileWithStatus(request()->user())
+            'user' => $this->userService->getProfileWithStatus(request()->user()),
         ]);
     }
 
@@ -93,11 +94,11 @@ class UserController extends Controller
                     'user' => [
                         'id' => $request->user()->id,
                         'email' => $request->user()->email,
-                    ]
+                    ],
                 ],
                 'Profile updated successfully'
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->errorResponse($e->getMessage(), $e->getCode());
         }
     }

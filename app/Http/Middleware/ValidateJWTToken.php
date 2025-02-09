@@ -20,7 +20,8 @@ class ValidateJWTToken
      *
      * @param Request $request
      * @param Closure $next
-     * @param string ...$scopes
+     * @param string  ...$scopes
+     *
      * @return Response
      */
     public function handle(Request $request, Closure $next, ...$scopes): Response
@@ -30,7 +31,7 @@ class ValidateJWTToken
         if (!$bearerToken) {
             return response()->json([
                 'error' => 'invalid_token',
-                'error_description' => 'The access token is missing'
+                'error_description' => 'The access token is missing',
             ], 401);
         }
 
@@ -40,7 +41,7 @@ class ValidateJWTToken
         if (!$token) {
             return response()->json([
                 'error' => 'invalid_token',
-                'error_description' => 'The access token is invalid'
+                'error_description' => 'The access token is invalid',
             ], 401);
         }
 
@@ -54,7 +55,7 @@ class ValidateJWTToken
         if (!$accessToken) {
             return response()->json([
                 'error' => 'invalid_token',
-                'error_description' => 'The access token has been revoked or expired'
+                'error_description' => 'The access token has been revoked or expired',
             ], 401);
         }
 
@@ -66,7 +67,7 @@ class ValidateJWTToken
             if (!$hasValidScope) {
                 return response()->json([
                     'error' => 'insufficient_scope',
-                    'error_description' => 'The access token does not have the required scope'
+                    'error_description' => 'The access token does not have the required scope',
                 ], 403);
             }
         }
@@ -81,4 +82,4 @@ class ValidateJWTToken
 
         return $next($request);
     }
-} 
+}

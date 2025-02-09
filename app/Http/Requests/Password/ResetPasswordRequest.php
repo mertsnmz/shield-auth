@@ -47,16 +47,16 @@ class ResetPasswordRequest extends FormRequest
         return [
             'current_password' => [
                 'description' => 'Current password of the user',
-                'example' => 'current-secret-password'
+                'example' => 'current-secret-password',
             ],
             'password' => [
                 'description' => 'New password that meets the password policy requirements',
-                'example' => 'new-secret-password'
+                'example' => 'new-secret-password',
             ],
             'password_confirmation' => [
                 'description' => 'Confirmation of the new password',
-                'example' => 'new-secret-password'
-            ]
+                'example' => 'new-secret-password',
+            ],
         ];
     }
 }

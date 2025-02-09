@@ -29,4 +29,4 @@ class ApproveAuthorizationRequest extends FormRequest
             'redirect_uri.url' => 'Invalid redirect URI format',
         ];
     }
-} 
+}

@@ -29,7 +29,7 @@ class AuthController extends Controller
      * Authenticate a user and create a new session.
      *
      * @param LoginRequest $request
-     * 
+     *
      * @bodyParam email string required The email address. Example: test@example.com
      * @bodyParam password string required The password (must be at least 8 characters and contain uppercase, lowercase, numbers and special characters). Example: Test123!@#$%^&*
      * @bodyParam remember_me boolean Remember the session for 30 days. Example: false

@@ -15,7 +15,7 @@ class UpdateProfileRequest extends FormRequest
     public function rules(): array
     {
         $userId = $this->user() ? $this->user()->id : null;
-        
+
         return [
             'email' => [
                 'sometimes',
@@ -38,8 +38,8 @@ class UpdateProfileRequest extends FormRequest
         return [
             'email' => [
                 'description' => 'The new email address for the user',
-                'example' => 'newuser@example.com'
-            ]
+                'example' => 'newuser@example.com',
+            ],
         ];
     }
-} 
+}

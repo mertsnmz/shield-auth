@@ -7,6 +7,7 @@ use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Token;
 use DateTimeImmutable;
+use Exception;
 
 class JWTService
 {
@@ -15,7 +16,7 @@ class JWTService
     public function __construct()
     {
         $key = base64_encode(hash_hmac('sha256', config('app.key'), 'oauth-jwt', true));
-        
+
         $this->config = Configuration::forSymmetricSigner(
             new Sha256(),
             InMemory::base64Encoded($key)
@@ -23,10 +24,11 @@ class JWTService
     }
 
     /**
-     * JWT token oluştur
+     * JWT token oluştur.
      *
-     * @param array $claims Token içinde yer alacak bilgiler
-     * @param int $expiresIn Token geçerlilik süresi (saniye)
+     * @param array $claims    Token içinde yer alacak bilgiler
+     * @param int   $expiresIn Token geçerlilik süresi (saniye)
+     *
      * @return string JWT token
      */
     public function createToken(array $claims, int $expiresIn): string
@@ -55,9 +57,10 @@ class JWTService
     }
 
     /**
-     * JWT token'ı doğrula
+     * JWT token'ı doğrula.
      *
      * @param string $token
+     *
      * @return Token|null Geçerli token veya null
      */
     public function validateToken(string $token): ?Token
@@ -72,7 +75,7 @@ class JWTService
             ))) {
                 return $token;
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Token parse edilemezse veya doğrulanamazsa
             report($e);
         }
@@ -81,13 +84,14 @@ class JWTService
     }
 
     /**
-     * Token'dan JTI (JWT ID) değerini al
+     * Token'dan JTI (JWT ID) değerini al.
      *
      * @param Token $token
+     *
      * @return string
      */
     public function getJtiFromToken(Token $token): string
     {
         return $token->claims()->get('jti');
     }
-} 
+}

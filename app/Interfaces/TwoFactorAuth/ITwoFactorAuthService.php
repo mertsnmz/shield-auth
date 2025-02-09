@@ -14,4 +14,4 @@ interface ITwoFactorAuthService
     public function verifyCode(string $secret, string $code): bool;
     public function verifyRecoveryCode(User $user, string $code): bool;
     public function isEnabled(User $user): bool;
-} 
+}

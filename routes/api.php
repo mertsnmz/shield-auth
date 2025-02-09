@@ -59,10 +59,10 @@ Route::prefix('users/me')->middleware(['auth.session', 'throttle:api'])->group(f
     // Profile Management
     Route::get('/', [UserController::class, 'me']);
     Route::put('/', [UserController::class, 'update']);
-    
+
     // Password Management
     Route::put('/password', [PasswordController::class, 'update']);
-    
+
     // Session Management
     Route::get('/sessions', [SessionController::class, 'index']);
     Route::delete('/sessions/{id}', [SessionController::class, 'destroy']);

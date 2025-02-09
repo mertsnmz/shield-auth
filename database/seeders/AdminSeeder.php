@@ -24,4 +24,4 @@ class AdminSeeder extends Seeder
             'password_changed_at' => now(),
         ]);
     }
-} 
+}

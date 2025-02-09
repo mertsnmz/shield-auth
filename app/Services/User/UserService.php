@@ -30,4 +30,4 @@ class UserService implements IUserService
     {
         $this->repository->updateEmail($user, $email);
     }
-} 
+}

@@ -42,4 +42,4 @@ class IssueTokenRequest extends FormRequest
             'refresh_token.required' => 'Refresh token is required',
         ];
     }
-} 
+}

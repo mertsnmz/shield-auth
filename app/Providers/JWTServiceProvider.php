@@ -13,4 +13,4 @@ class JWTServiceProvider extends ServiceProvider
             return new JWTService();
         });
     }
-} 
+}

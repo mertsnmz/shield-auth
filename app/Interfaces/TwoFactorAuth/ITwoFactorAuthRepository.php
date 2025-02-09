@@ -11,4 +11,4 @@ interface ITwoFactorAuthRepository
     public function updateTwoFactorConfirmation(User $user): void;
     public function disableTwoFactor(User $user): void;
     public function getRecoveryCodes(User $user): ?array;
-} 
+}

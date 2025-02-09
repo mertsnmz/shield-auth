@@ -46,7 +46,7 @@ class TwoFactorAuthController extends Controller
      *     ]
      *   }
      * }
-     * 
+     *
      * @return JsonResponse
      */
     public function enable(EnableRequest $request): JsonResponse
@@ -66,7 +66,7 @@ class TwoFactorAuthController extends Controller
      * Verify and complete the 2FA setup by confirming the verification code.
      *
      * @param VerifyRequest $request
-     * 
+     *
      * @bodyParam code string required The 6-digit verification code from your authenticator app. Example: 123456
      *
      * @response {
@@ -74,7 +74,7 @@ class TwoFactorAuthController extends Controller
      *   "message": "2FA enabled successfully",
      *   "data": null
      * }
-     * 
+     *
      * @return JsonResponse
      */
     public function verify(VerifyRequest $request): JsonResponse
@@ -107,7 +107,7 @@ class TwoFactorAuthController extends Controller
      *     ]
      *   }
      * }
-     * 
+     *
      * @return JsonResponse
      */
     public function getBackupCodes(): JsonResponse
@@ -137,7 +137,7 @@ class TwoFactorAuthController extends Controller
      *     ]
      *   }
      * }
-     * 
+     *
      * @return JsonResponse
      */
     public function regenerateBackupCodes(): JsonResponse
@@ -157,7 +157,7 @@ class TwoFactorAuthController extends Controller
      * Disable two-factor authentication for the authenticated user.
      *
      * @param DisableRequest $request
-     * 
+     *
      * @bodyParam current_password string required The current password of the user. Example: Test123!@#$%^&*
      * @bodyParam code string required The 6-digit verification code from your authenticator app. Example: 123456
      *
@@ -166,7 +166,7 @@ class TwoFactorAuthController extends Controller
      *   "message": "2FA disabled successfully",
      *   "data": null
      * }
-     * 
+     *
      * @return JsonResponse
      */
     public function disable(DisableRequest $request): JsonResponse

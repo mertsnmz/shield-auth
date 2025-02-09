@@ -15,4 +15,4 @@ interface IAuthRepository
     public function findSessionByDeviceInfo(int $userId, string $ipAddress, string $userAgent): ?Session;
     public function getOldestSession(int $userId): ?Session;
     public function createSession(array $data): Session;
-} 
+}

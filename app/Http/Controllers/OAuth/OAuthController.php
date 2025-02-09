@@ -56,24 +56,20 @@ class OAuthController extends Controller
      *   "refresh_token": "def50200841d3e9ad...",
      *   "scope": "profile email"
      * }
-     * 
      * @response 200 scenario="Client Credentials Grant" {
      *   "token_type": "Bearer",
      *   "expires_in": 3600,
      *   "access_token": "eyJ0eXAiOiJKV1QiLCJhbG...",
      *   "scope": "api.read"
      * }
-     * 
      * @response 400 scenario="Invalid Request" {
      *   "error": "invalid_request",
      *   "error_description": "The request is missing a required parameter"
      * }
-     * 
      * @response 401 scenario="Invalid Client" {
      *   "error": "invalid_client",
      *   "error_description": "Client authentication failed"
      * }
-     * 
      * @response 400 scenario="Invalid Grant" {
      *   "error": "invalid_grant",
      *   "error_description": "The authorization code is invalid"
@@ -130,21 +126,17 @@ class OAuthController extends Controller
      *     }
      *   ]
      * }
-     * 
      * @response 400 scenario="Invalid Request" {
      *   "error": "invalid_request",
      *   "error_description": "The request is missing a required parameter"
      * }
-     * 
      * @response 400 scenario="Invalid Client" {
      *   "error": "invalid_client",
      *   "error_description": "Client not found or redirect URI mismatch"
      * }
-     * 
      * @response 401 scenario="Unauthenticated" {
      *   "message": "Unauthenticated"
      * }
-     * 
      * @response 200 scenario="Example Request" {
      *   "client_id": "test-client",
      *   "redirect_uri": "http://localhost:3000/callback",

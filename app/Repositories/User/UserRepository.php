@@ -11,4 +11,4 @@ class UserRepository implements IUserRepository
     {
         $user->update(['email' => $email]);
     }
-} 
+}

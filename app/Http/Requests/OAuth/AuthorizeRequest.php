@@ -32,4 +32,4 @@ class AuthorizeRequest extends FormRequest
             'response_type.in' => 'Invalid response type',
         ];
     }
-} 
+}
