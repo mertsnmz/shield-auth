@@ -64,13 +64,13 @@ class TwoFactorAuthService implements ITwoFactorAuthService
         $this->repository->updateTwoFactorConfirmation($user);
     }
 
-    public function disable(User $user, string $password, string $code): void
+    public function disable(User $user, string $currentPassword, string $code): void
     {
         if (!$this->isEnabled($user)) {
             throw new Exception('2FA is not enabled', 400);
         }
 
-        if (!Hash::check($password, $user->password_hash)) {
+        if (!Hash::check($currentPassword, $user->password_hash)) {
             throw new Exception('Invalid password', 401);
         }
 

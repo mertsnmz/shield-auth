@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Services\PasswordPolicyService;
 use App\Http\Requests\User\UpdateProfileRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Interfaces\User\IUserService;
+use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Validation\Rule;
 
 /**
  * @group User Management
@@ -17,8 +14,10 @@ use Illuminate\Validation\Rule;
  */
 class UserController extends Controller
 {
+    use ApiResponse;
+
     public function __construct(
-        private readonly PasswordPolicyService $passwordPolicy
+        private readonly IUserService $userService
     ) {
     }
 
@@ -29,32 +28,28 @@ class UserController extends Controller
      *
      * @authenticated
      *
-     * @response 200 {
-     *   "user": {
-     *     "id": 1,
-     *     "email": "user@example.com",
-     *     "last_login_at": "2024-03-20T10:00:00Z",
-     *     "two_factor_enabled": false,
-     *     "password_status": {
-     *       "expired": false,
-     *       "days_left": 45,
-     *       "status": "valid"
+     * @response {
+     *   "status": "success",
+     *   "message": null,
+     *   "data": {
+     *     "user": {
+     *       "id": 1,
+     *       "email": "user@example.com",
+     *       "last_login_at": "2024-03-20T10:00:00Z",
+     *       "two_factor_enabled": false,
+     *       "password_status": {
+     *         "expired": false,
+     *         "days_left": 45,
+     *         "status": "valid"
+     *       }
      *     }
      *   }
      * }
      */
     public function me(): JsonResponse
     {
-        $user = Auth::user();
-
-        return response()->json([
-            'user' => [
-                'id' => $user->id,
-                'email' => $user->email,
-                'last_login_at' => $user->last_login_at,
-                'two_factor_enabled' => $user->two_factor_enabled,
-                'password_status' => $this->passwordPolicy->checkPasswordStatus($user),
-            ],
+        return $this->successResponse([
+            'user' => $this->userService->getProfileWithStatus(request()->user())
         ]);
     }
 
@@ -67,14 +62,18 @@ class UserController extends Controller
      *
      * @bodyParam email string The new email address. Example: newuser@example.com
      *
-     * @response 200 {
+     * @response {
+     *   "status": "success",
      *   "message": "Profile updated successfully",
-     *   "user": {
-     *     "id": 1,
-     *     "email": "newuser@example.com"
+     *   "data": {
+     *     "user": {
+     *       "id": 1,
+     *       "email": "newuser@example.com"
+     *     }
      *   }
      * }
      * @response 422 {
+     *   "status": "error",
      *   "message": "The given data was invalid.",
      *   "errors": {
      *     "email": ["The email has already been taken."]
@@ -83,16 +82,23 @@ class UserController extends Controller
      */
     public function update(UpdateProfileRequest $request): JsonResponse
     {
-        $user = Auth::user();
-        $validated = $request->validated();
-        $user->update($validated);
+        try {
+            $this->userService->updateEmail(
+                $request->user(),
+                $request->input('email')
+            );
 
-        return response()->json([
-            'message' => 'Profile updated successfully',
-            'user' => [
-                'id' => $user->id,
-                'email' => $user->email,
-            ],
-        ]);
+            return $this->successResponse(
+                [
+                    'user' => [
+                        'id' => $request->user()->id,
+                        'email' => $request->user()->email,
+                    ]
+                ],
+                'Profile updated successfully'
+            );
+        } catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage(), $e->getCode());
+        }
     }
 }

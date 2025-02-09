@@ -100,7 +100,7 @@ class TwoFactorAuthController extends Controller
      *   "status": "success",
      *   "message": null,
      *   "data": {
-     *     "codes": [
+     *     "recovery_codes": [
      *       "8c32180b485b674cd980",
      *       "8cdb2b3d6912b995db41",
      *       ...
@@ -115,7 +115,7 @@ class TwoFactorAuthController extends Controller
         try {
             $codes = $this->twoFactorAuth->getBackupCodes(request()->user());
 
-            return $this->successResponse(['codes' => $codes]);
+            return $this->successResponse(['recovery_codes' => $codes]);
         } catch (Exception $e) {
             return $this->errorResponse($e->getMessage(), $e->getCode());
         }
@@ -130,7 +130,7 @@ class TwoFactorAuthController extends Controller
      *   "status": "success",
      *   "message": null,
      *   "data": {
-     *     "codes": [
+     *     "recovery_codes": [
      *       "8c32180b485b674cd980",
      *       "8cdb2b3d6912b995db41",
      *       ...
@@ -145,7 +145,7 @@ class TwoFactorAuthController extends Controller
         try {
             $codes = $this->twoFactorAuth->regenerateBackupCodes(request()->user());
 
-            return $this->successResponse(['codes' => $codes]);
+            return $this->successResponse(['recovery_codes' => $codes]);
         } catch (Exception $e) {
             return $this->errorResponse($e->getMessage(), $e->getCode());
         }
@@ -158,7 +158,7 @@ class TwoFactorAuthController extends Controller
      *
      * @param DisableRequest $request
      * 
-     * @bodyParam password string required The current password of the user. Example: Test123!@#$%^&*
+     * @bodyParam current_password string required The current password of the user. Example: Test123!@#$%^&*
      * @bodyParam code string required The 6-digit verification code from your authenticator app. Example: 123456
      *
      * @response {
@@ -174,7 +174,7 @@ class TwoFactorAuthController extends Controller
         try {
             $this->twoFactorAuth->disable(
                 $request->user(),
-                $request->input('password'),
+                $request->input('current_password'),
                 $request->input('code')
             );
 

@@ -14,7 +14,7 @@ class DisableRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => ['required', 'string'],
+            'current_password' => ['required', 'string'],
             'code' => ['required', 'string', 'size:6'],
         ];
     }
@@ -22,7 +22,7 @@ class DisableRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'password.required' => 'Current password is required',
+            'current_password.required' => 'Current password is required',
             'code.required' => '2FA code is required',
             'code.size' => '2FA code must be 6 digits',
         ];
